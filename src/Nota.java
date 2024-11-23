@@ -1,6 +1,5 @@
 import Id.IdNota;
 import valuable.IValuable;
-
 import java.util.ArrayList;
 
 public class Nota {

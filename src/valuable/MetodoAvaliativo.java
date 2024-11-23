@@ -46,10 +46,12 @@ public class MetodoAvaliativo implements IValuable {
         this.tipoAvaliacao = tipoAvaliacao;
     }
 
+    @Override
     public void setValor(double valor) {
         this.valor = valor;
     }
 
+    @Override
     public double getValor() {
         return valor;
     }
