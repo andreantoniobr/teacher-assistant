@@ -1,26 +1,24 @@
+import Id.IdAluno;
 import java.util.ArrayList;
 
 public class Aluno extends Pessoa {
+    private int id;
     private Turma turma;
-    private ArrayList<Periodo> periodos;
+    private ArrayList<Periodo> periodos = new ArrayList<>();
 
     public Aluno(String nome) {
-        super(nome, Perfil.ALUNO);
+        super(IdAluno.getId(), nome, Perfil.ALUNO);
     }
 
-
     public ArrayList<Periodo> getPeriodos() {
-
         return periodos;
     }
 
-    public void adicionarPeriodo(Periodo periodos) {
-
-        System.out.println("Periodo adicionado.");
+    public void adicionarPeriodo(Periodo periodo) {
+        periodos.add(periodo);
     }
 
-    public void removerPeriodo(Periodo periodos) {
-
-        System.out.println("Periodo removido");
+    public void removerPeriodo(Periodo periodo) {
+        periodos.remove(periodo);
     }
 }

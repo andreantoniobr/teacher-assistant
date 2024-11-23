@@ -1,21 +1,17 @@
-public class Pessoa {
-    private String id;
+public abstract class Pessoa {
+    private int id;
     private String nome;
     private String email;
     private Perfil perfil;
 
-    public Pessoa(String nome, Perfil perfil) {
-        //this.id = id;
+    public Pessoa(int id, String nome, Perfil perfil) {
+        this.id = id;
         this.nome = nome;
         this.perfil = perfil;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
+    public int getId() {
+        return this.id;
     }
 
     public String getNome() {
