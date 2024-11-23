@@ -9,9 +9,10 @@ public class Main {
         Aluno aluno3 = new Aluno("Paulo Kaike");
 
         //Avalicoes Aluno 1
-        Prova prova1 = new Prova(10);
+        Prova prova1 = new Prova(3.5);
         Apresentacao apresentacao1 = new Apresentacao(5);
         Trabalho trabalho1 = new Trabalho(7.5);
+        MetodoAvaliativoOutros outro1 = new MetodoAvaliativoOutros(5.5);
 
         //Avalicoes Aluno 2
         Prova prova2 = new Prova(7.2);
@@ -23,6 +24,7 @@ public class Main {
         avaliaveis1.add(prova1);
         avaliaveis1.add(apresentacao1);
         avaliaveis1.add(trabalho1);
+        avaliaveis1.add(outro1);
 
         ArrayList<IValuable> avaliaveis2 = new ArrayList<>();
         avaliaveis2.add(prova2);
