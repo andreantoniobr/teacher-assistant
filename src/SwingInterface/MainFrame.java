@@ -1,7 +1,5 @@
 package SwingInterface;
 
-import App.Aplicantion;
-
 import javax.swing.*;
 import java.awt.*;
 
@@ -20,8 +18,8 @@ public class MainFrame extends JFrame {
         cardLayoutOptions.setCardLayout(cardLayout);
         cardLayoutOptions.setContainer(cards);
 
-        cards.add(new MainPanel(new AlunoPanel(), cardLayoutOptions), CardConstants.ALUNOPANEL);
-        cards.add(new MainPanel(new TurmaPanel(), cardLayoutOptions), CardConstants.TURMAPANEL);
+        cards.add(new MainPainel(new AlunoPainel(), cardLayoutOptions), CardConstants.ALUNOPANEL);
+        cards.add(new MainPainel(new TurmaPainel(), cardLayoutOptions), CardConstants.TURMAPANEL);
 
         add(cards);
 

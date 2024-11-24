@@ -16,6 +16,10 @@ public class CardLayoutOptions {
         this.cardLayout = cardLayout;
     }
 
+    public void showCard(String cardName){
+        cardLayout.show(container, cardName);
+    }
+
     public Container getContainer() {
         return container;
     }

@@ -9,7 +9,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
-public class AlunoPanel extends JPanel {
+public class AlunoPainel extends JPanel {
     private JTextField nome;
     private JTextField email;
 
@@ -20,14 +20,14 @@ public class AlunoPanel extends JPanel {
     private JTable tabela;
     private DefaultTableModel modelo = new DefaultTableModel();
 
-    public AlunoPanel() {
+    public AlunoPainel() {
         criarInterfaceAluno();
         adicionarListenersBotoes();
     }
 
     private void criarInterfaceAluno() {
         setLayout(new BorderLayout());
-        setBorder(new CompoundBorder(new TitledBorder("Aluno"), new EmptyBorder(10, 10, 10, 10)));
+        setBorder(new CompoundBorder(new TitledBorder(InterfaceConstants.ALUNO), new EmptyBorder(10, 10, 10, 10)));
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
@@ -35,9 +35,9 @@ public class AlunoPanel extends JPanel {
         gbc.anchor = GridBagConstraints.WEST;
 
         JPanel painelAluno = new JPanel(new GridBagLayout());
-        painelAluno.add(new JLabel("Nome do Aluno: "), gbc);
+        painelAluno.add(new JLabel(InterfaceConstants.CAMPONOMEDOALUNO), gbc);
         gbc.gridy++;
-        painelAluno.add(new JLabel("E-mail: "), gbc);
+        painelAluno.add(new JLabel(InterfaceConstants.CAMPOEMAIL), gbc);
 
         gbc.gridx++;
         gbc.gridy = 0;
@@ -52,7 +52,7 @@ public class AlunoPanel extends JPanel {
         gbc.gridwidth = GridBagConstraints.REMAINDER;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(10, 0, 20, 0);
-        painelAluno.add(adicionar = new JButton("Adicionar Aluno"), gbc);
+        painelAluno.add(adicionar = new JButton(InterfaceConstants.ADICIONAR), gbc);
         add(painelAluno, BorderLayout.PAGE_START);
 
         criaTabela();
@@ -65,8 +65,8 @@ public class AlunoPanel extends JPanel {
         painelFundo.add(new JScrollPane(tabela), BorderLayout.CENTER);
 
         JPanel painelBotoes = new JPanel();
-        painelBotoes.add(editar = new JButton("Editar"));
-        painelBotoes.add(excluir = new JButton("Excluir"));
+        painelBotoes.add(editar = new JButton(InterfaceConstants.EDITAR));
+        painelBotoes.add(excluir = new JButton(InterfaceConstants.EXCLUIR));
         painelFundo.add(painelBotoes, BorderLayout.PAGE_END);
         add(painelFundo, BorderLayout.CENTER);
     }
@@ -98,7 +98,7 @@ public class AlunoPanel extends JPanel {
                 Mensagem.showMensagem("Aluno: " + nome + " com Id: " + id + " foi excluido com sucesso!");
             }
         } else {
-            Mensagem.showMensagem("É necesário selecionar uma linha.");
+            Mensagem.showMensagem(InterfaceConstants.NECESSARIOSELECIONARLINHA);
         }
     }
 
@@ -114,12 +114,12 @@ public class AlunoPanel extends JPanel {
                 Mensagem.showMensagem("Aluno: " + nome + " com Id: " + id + " foi alterado com sucesso!");
             }
         } else {
-            Mensagem.showMensagem("É necesário selecionar uma linha.");
+            Mensagem.showMensagem(InterfaceConstants.NECESSARIOSELECIONARLINHA);
         }
     }
 
     private void criaTabela() {
-        String [] colunas = {"Id", "Nome", "Email"};
+        String [] colunas = {InterfaceConstants.ID, InterfaceConstants.NOME, InterfaceConstants.EMAIL};
         modelo.setColumnIdentifiers(colunas);
         tabela = new JTable(modelo);
 

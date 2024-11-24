@@ -3,7 +3,7 @@ package App;
 import java.util.ArrayList;
 
 public class ControladorAluno {
-    ArrayList<Aluno> alunos = new ArrayList<>();
+    private ArrayList<Aluno> alunos = new ArrayList<>();
 
     public ControladorAluno() {
         addStartContent();
@@ -37,13 +37,19 @@ public class ControladorAluno {
         boolean editouAluno = false;
         for(Aluno aluno: alunos){
             if(aluno.getId() == id){
-                aluno.setNome(nome);
-                aluno.setEmail(email);
-                editouAluno = true;
-                break;
+                if(nomeValido(nome, aluno)){
+                    aluno.setNome(nome);
+                    aluno.setEmail(email);
+                    editouAluno = true;
+                    break;
+                }
             }
         }
         return editouAluno;
+    }
+
+    private boolean nomeValido(String nome, Aluno aluno) {
+        return nome != null && !nome.isEmpty() && !aluno.getNome().equals(nome);
     }
 
     public void addStartContent(){

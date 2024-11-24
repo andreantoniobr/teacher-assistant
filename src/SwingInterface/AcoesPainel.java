@@ -1,12 +1,11 @@
 package SwingInterface;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
 
-public class AcoesPanel extends JPanel {
+public class AcoesPainel extends JPanel {
     private JButton aluno, turma, periodo, metodoAvaliativo, opcoes;
 
-    public AcoesPanel(CardLayoutOptions cardLayoutOptions) {
+    public AcoesPainel(CardLayoutOptions cardLayoutOptions) {
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
@@ -29,10 +28,10 @@ public class AcoesPanel extends JPanel {
         add((opcoes = new JButton("Opcões")), gbc);
 
         aluno.addActionListener(e -> {
-            cardLayoutOptions.getCardLayout().show(cardLayoutOptions.getContainer(), CardConstants.ALUNOPANEL);
+            cardLayoutOptions.showCard(CardConstants.ALUNOPANEL);
         });
         turma.addActionListener(e -> {
-            cardLayoutOptions.getCardLayout().show(cardLayoutOptions.getContainer(), CardConstants.TURMAPANEL);
+            cardLayoutOptions.showCard(CardConstants.TURMAPANEL);
         });
     }
 }

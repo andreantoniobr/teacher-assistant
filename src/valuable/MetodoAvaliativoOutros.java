@@ -6,6 +6,10 @@ public class MetodoAvaliativoOutros implements IValuable {
     private final TipoAvaliacao tipoAvaliacao = TipoAvaliacao.OUTROS;
     private double valor;
 
+    public MetodoAvaliativoOutros() {
+        this.id = IdMetodoAvaliativo.getId();
+    }
+
     public MetodoAvaliativoOutros(double valor) {
         this.id = IdMetodoAvaliativo.getId();
         this.valor = valor;

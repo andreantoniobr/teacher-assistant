@@ -1,8 +1,15 @@
 package App;
 
+import Id.IdTurma;
+
 public class Turma {
     private final int id;
     private String nome;
+
+    public Turma(String nome) {
+        this.id = IdTurma.getId();
+        this.nome = nome;
+    }
 
     public Turma(int id, String nome) {
         this.id = id;

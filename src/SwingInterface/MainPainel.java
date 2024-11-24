@@ -3,11 +3,11 @@ package SwingInterface;
 import javax.swing.*;
 import java.awt.*;
 
-public class MainPanel extends JPanel {
+public class MainPainel extends JPanel {
     private JPanel currentPanel;
-    private AcoesPanel acoesPanel;
+    private AcoesPainel acoesPanel;
 
-    public MainPanel(JPanel panel, CardLayoutOptions cardLayoutOptions) {
+    public MainPainel(JPanel panel, CardLayoutOptions cardLayoutOptions) {
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         currentPanel = panel;
@@ -24,7 +24,7 @@ public class MainPanel extends JPanel {
         //gbc.anchor = GridBagConstraints.WEST;
         gbc.weighty = 1;
         gbc.weightx = 0;
-        add((acoesPanel = new AcoesPanel(cardLayoutOptions)), gbc);
+        add((acoesPanel = new AcoesPainel(cardLayoutOptions)), gbc);
 
 
         gbc.gridx++;

@@ -7,7 +7,12 @@ import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
-        Aplicantion aplicantion = new Aplicantion();
+        Prova prova = new Prova();
+        Trabalho trabalho = new Trabalho();
+        Simulado simulado = new Simulado();
+        MetodoAvaliativoOutros metodoAvaliativoOutros = new MetodoAvaliativoOutros();
+
+
         RunAppInterface();
     }
 
