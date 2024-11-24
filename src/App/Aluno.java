@@ -1,3 +1,5 @@
+package App;
+
 import Id.IdAluno;
 import java.util.ArrayList;
 
@@ -8,6 +10,10 @@ public class Aluno extends Pessoa {
 
     public Aluno(String nome) {
         super(IdAluno.getId(), nome, Perfil.ALUNO);
+    }
+
+    public Aluno(String nome, String email) {
+        super(IdAluno.getId(), nome, email, Perfil.ALUNO);
     }
 
     public ArrayList<Periodo> getPeriodos() {

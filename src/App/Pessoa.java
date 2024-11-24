@@ -1,3 +1,5 @@
+package App;
+
 public abstract class Pessoa {
     private int id;
     private String nome;
@@ -7,6 +9,13 @@ public abstract class Pessoa {
     public Pessoa(int id, String nome, Perfil perfil) {
         this.id = id;
         this.nome = nome;
+        this.perfil = perfil;
+    }
+
+    public Pessoa(int id, String nome, String email,Perfil perfil) {
+        this.id = id;
+        this.nome = nome;
+        this.email = email;
         this.perfil = perfil;
     }
 
