@@ -8,9 +8,10 @@ import java.awt.*;
 public class MainFrame extends JFrame {
     JPanel cards;
 
-    public MainFrame(Aplicantion aplication) {
+    public MainFrame() {
         setTitle("Teacher Assistant");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(800, 500);
 
         CardLayout cardLayout = new CardLayout();
         cards = new JPanel(cardLayout);
@@ -19,12 +20,13 @@ public class MainFrame extends JFrame {
         cardLayoutOptions.setCardLayout(cardLayout);
         cardLayoutOptions.setContainer(cards);
 
-        cards.add(new MainPanel(new AlunoPanel(aplication), cardLayoutOptions), CardConstants.ALUNOPANEL);
+        cards.add(new MainPanel(new AlunoPanel(), cardLayoutOptions), CardConstants.ALUNOPANEL);
         cards.add(new MainPanel(new TurmaPanel(), cardLayoutOptions), CardConstants.TURMAPANEL);
 
         add(cards);
 
-        pack();
+        //pack();
+        setLocationRelativeTo(null);
         setVisible(true);
     }
 }

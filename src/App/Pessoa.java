@@ -32,7 +32,11 @@ public abstract class Pessoa {
     }
 
     public String getEmail() {
-        return email;
+        String emailText = email;
+        if(email == null || email.isEmpty()){
+            emailText = "Sem e-mail Cadastrado.";
+        }
+        return emailText;
     }
 
     public boolean setEmail(String email) {
