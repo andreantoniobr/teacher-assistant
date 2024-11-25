@@ -11,10 +11,10 @@ public class Main {
         MetodoAvaliativoOutros metodoAvaliativoOutros = new MetodoAvaliativoOutros();
 
 
-        RunAppInterface();
+        runApp();
     }
 
-    public static void RunAppInterface(){
+    public static void runApp(){
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {

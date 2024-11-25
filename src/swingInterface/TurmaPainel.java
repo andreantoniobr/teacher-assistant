@@ -1,5 +1,5 @@
 package swingInterface;
-import app.Aplicantion;
+import app.Applicantion;
 import app.Turma;
 
 import javax.swing.*;
@@ -77,7 +77,7 @@ public class TurmaPainel extends JPanel {
             Mensagem.showMensagem("Campo \"Nome da Turma\" é obrigatorio o preenchimento!");
         } else {
             Turma turma = new Turma(getNome());
-            Aplicantion.ControladorTurma.inserirTurma(turma);
+            Applicantion.ControladorTurma.inserirTurma(turma);
             inserirDadosTurmaTabela(turma);
         }
     }
@@ -88,7 +88,7 @@ public class TurmaPainel extends JPanel {
         if (linha >= 0) {
             int id = Integer.parseInt(tabela.getValueAt(linha, 0).toString());
             String nome = tabela.getValueAt(linha, 1).toString();
-            if(Aplicantion.ControladorTurma.excluirTurma(id)){
+            if(Applicantion.ControladorTurma.excluirTurma(id)){
                 updateTabela();
                 Mensagem.showMensagem("Turma: " + nome + " com Id: " + id + " foi excluida com sucesso!");
             }
@@ -103,7 +103,7 @@ public class TurmaPainel extends JPanel {
         if (linha >= 0) {
             int id = Integer.parseInt(tabela.getValueAt(linha, 0).toString());
             String nome = tabela.getValueAt(linha, 1).toString();
-            if(Aplicantion.ControladorTurma.editarTurma(id, nome)){
+            if(Applicantion.ControladorTurma.editarTurma(id, nome)){
                 updateTabela();
                 Mensagem.showMensagem("Turma: " + nome + " com Id: " + id + " foi alterada com sucesso!");
             }
@@ -122,7 +122,7 @@ public class TurmaPainel extends JPanel {
     }
 
     private void preencheTabela(){
-        for (Turma turma: Aplicantion.ControladorTurma.getTurmas()){
+        for (Turma turma: Applicantion.ControladorTurma.getTurmas()){
             inserirDadosTurmaTabela(turma);
         }
     }

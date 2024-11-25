@@ -19,6 +19,7 @@ public class ControladorAluno {
 
     public void inserirAluno(Aluno aluno){
         alunos.add(aluno);
+        Applicantion.fileIO.salvarAluno(aluno);
     }
 
     public boolean excluirAluno(int id){
@@ -26,6 +27,7 @@ public class ControladorAluno {
         for(Aluno aluno: alunos){
             if(aluno.getId() == id){
                 alunos.remove(aluno);
+                Applicantion.fileIO.excluiAluno(aluno);
                 excluiuAluno = true;
                 break;
             }
@@ -40,6 +42,7 @@ public class ControladorAluno {
                 if(nomeValido(nome, aluno)){
                     aluno.setNome(nome);
                     aluno.setEmail(email);
+                    Applicantion.fileIO.editaAluno(aluno);
                     editouAluno = true;
                     break;
                 }
@@ -56,5 +59,6 @@ public class ControladorAluno {
         inserirAluno(new Aluno("Andre Antonio Bezerra"));
         inserirAluno(new Aluno("Paulo Kaike"));
         inserirAluno(new Aluno("Junior Silva"));
+        this.alunos.addAll(Applicantion.fileIO.getAlunosSalvos());
     }
 }

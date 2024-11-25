@@ -1,6 +1,6 @@
 package swingInterface;
 import app.Aluno;
-import app.Aplicantion;
+import app.Applicantion;
 
 import javax.swing.*;
 import javax.swing.border.CompoundBorder;
@@ -82,7 +82,7 @@ public class AlunoPainel extends JPanel {
             Mensagem.showMensagem("Campo \"Nome do Aluno\" é obrigatorio o preenchimento!");
         } else {
             Aluno aluno = new Aluno(getNome(), getEmail());
-            Aplicantion.ControladorAluno.inserirAluno(aluno);
+            Applicantion.ControladorAluno.inserirAluno(aluno);
             inserirDadosAlunoTabela(aluno);
         }
     }
@@ -93,7 +93,7 @@ public class AlunoPainel extends JPanel {
         if (linha >= 0) {
             int id = Integer.parseInt(tabela.getValueAt(linha, 0).toString());
             String nome = tabela.getValueAt(linha, 1).toString();
-            if(Aplicantion.ControladorAluno.excluirAluno(id)){
+            if(Applicantion.ControladorAluno.excluirAluno(id)){
                 updateTabela();
                 Mensagem.showMensagem("Aluno: " + nome + " com Id: " + id + " foi excluido com sucesso!");
             }
@@ -109,7 +109,7 @@ public class AlunoPainel extends JPanel {
             int id = Integer.parseInt(tabela.getValueAt(linha, 0).toString());
             String nome = tabela.getValueAt(linha, 1).toString();
             String email = tabela.getValueAt(linha, 2).toString();
-            if(Aplicantion.ControladorAluno.editarAluno(id, nome, email)){
+            if(Applicantion.ControladorAluno.editarAluno(id, nome, email)){
                 updateTabela();
                 Mensagem.showMensagem("Aluno: " + nome + " com Id: " + id + " foi alterado com sucesso!");
             }
@@ -129,7 +129,7 @@ public class AlunoPainel extends JPanel {
     }
 
     private void preencheTabela(){
-        for (Aluno aluno: Aplicantion.ControladorAluno.getAlunos()){
+        for (Aluno aluno: Applicantion.ControladorAluno.getAlunos()){
             inserirDadosAlunoTabela(aluno);
         }
     }
