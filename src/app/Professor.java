@@ -1,6 +1,6 @@
-package App;
+package app;
 
-import Id.IdProfessor;
+import id.IdProfessor;
 
 public class Professor extends Pessoa {
     public Professor(String nome) {

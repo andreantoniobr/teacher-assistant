@@ -1,5 +1,5 @@
 package valuable;
-import Id.IdMetodoAvaliativo;
+import id.IdMetodoAvaliativo;
 
 public class MetodoAvaliativoOutros implements IValuable {
     private int id;

@@ -1,6 +1,6 @@
-package App;
+package app;
 
-import Id.IdAluno;
+import id.IdAluno;
 import java.util.ArrayList;
 
 public class Aluno extends Pessoa {

@@ -1,4 +1,4 @@
-package App;
+package app;
 
 public class Aplicantion {
     public static ControladorAluno ControladorAluno = new ControladorAluno();

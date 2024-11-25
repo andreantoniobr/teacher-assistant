@@ -1,6 +1,6 @@
-package App;
+package app;
 
-import Id.IdTurma;
+import id.IdTurma;
 
 public class Turma {
     private final int id;

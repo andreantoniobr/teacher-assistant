@@ -1,4 +1,4 @@
-package Id;
+package id;
 
 public class IdNota {
     private static int id;

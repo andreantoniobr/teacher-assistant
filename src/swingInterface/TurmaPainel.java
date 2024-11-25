@@ -1,6 +1,6 @@
-package SwingInterface;
-import App.Aplicantion;
-import App.Turma;
+package swingInterface;
+import app.Aplicantion;
+import app.Turma;
 
 import javax.swing.*;
 import javax.swing.border.CompoundBorder;

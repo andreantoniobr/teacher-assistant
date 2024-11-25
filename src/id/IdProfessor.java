@@ -1,4 +1,4 @@
-package Id;
+package id;
 
 public class IdProfessor {
     private static int id;

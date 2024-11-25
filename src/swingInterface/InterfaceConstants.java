@@ -1,7 +1,7 @@
-package SwingInterface;
+package swingInterface;
 
 public class InterfaceConstants {
-    final static String ID = "Id";
+    final static String ID = "id";
     final static String NOME = "Nome";
     final static String EMAIL = "E-mail";
 

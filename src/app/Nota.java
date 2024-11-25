@@ -1,6 +1,6 @@
-package App;
+package app;
 
-import Id.IdNota;
+import id.IdNota;
 import valuable.IValuable;
 import java.util.ArrayList;
 

@@ -1,6 +1,6 @@
-package SwingInterface;
-import App.Aluno;
-import App.Aplicantion;
+package swingInterface;
+import app.Aluno;
+import app.Aplicantion;
 
 import javax.swing.*;
 import javax.swing.border.CompoundBorder;

@@ -1,4 +1,4 @@
-package Id;
+package id;
 
 public class IdMetodoAvaliativo {
     private static int id;

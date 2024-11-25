@@ -1,4 +1,4 @@
-package Id;
+package id;
 
 public class IdAluno {
     private static int id;

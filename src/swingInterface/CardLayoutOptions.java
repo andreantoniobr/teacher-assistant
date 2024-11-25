@@ -1,8 +1,6 @@
-package SwingInterface;
+package swingInterface;
 
-import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
 
 public class CardLayoutOptions {
     private CardLayout cardLayout;

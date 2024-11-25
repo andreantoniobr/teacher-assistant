@@ -1,4 +1,4 @@
-package App;
+package app;
 
 public abstract class Pessoa {
     private int id;

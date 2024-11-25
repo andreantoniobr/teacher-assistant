@@ -1,4 +1,4 @@
-package SwingInterface;
+package swingInterface;
 import javax.swing.*;
 import java.awt.*;
 
