@@ -1,16 +1,8 @@
-import swingInterface.MainFrame;
-import valuable.*;
-
+import view.frame.MainFrame;
 import javax.swing.*;
 
 public class Main {
     public static void main(String[] args) {
-        Prova prova = new Prova();
-        Trabalho trabalho = new Trabalho();
-        Simulado simulado = new Simulado();
-        MetodoAvaliativoOutros metodoAvaliativoOutros = new MetodoAvaliativoOutros();
-
-
         runApp();
     }
 
