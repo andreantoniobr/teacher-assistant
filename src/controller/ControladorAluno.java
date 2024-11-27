@@ -12,56 +12,76 @@ public class ControladorAluno {
         addStartContent();
     }
 
-    public ArrayList<Aluno> getAlunos() {
-        return alunos;
+    public ArrayList<Object[]> getDadosAlunos() {
+        ArrayList<Object[]> dadosAlunos = new ArrayList<>();
+        for (Aluno aluno: alunos){
+            Object[] dadoAluno = {aluno.getId(), aluno.getNome(), aluno.getEmail()};
+            dadosAlunos.add(dadoAluno);
+        }
+        return dadosAlunos;
     }
 
-    public void setAlunos(ArrayList<Aluno> alunos) {
-        this.alunos = alunos;
-    }
-
-    public void inserirAluno(Aluno aluno){
+    public void inserirAluno(String nome, String email) throws Exception {
+        if(nome == null || nome.isEmpty()){
+            throw new Exception("Nome não pode ser vazio!");
+        }
+        Aluno aluno = new Aluno(nome, email);
         alunos.add(aluno);
         Applicantion.fileIO.salvarAluno(aluno);
     }
 
-    public boolean excluirAluno(int id){
-        boolean excluiuAluno = false;
-        for(Aluno aluno: alunos){
-            if(aluno.getId() == id){
-                alunos.remove(aluno);
-                Applicantion.fileIO.excluiAluno(aluno);
-                excluiuAluno = true;
+    public void excluirAluno(int id) throws Exception {
+        Aluno aluno = getAlunoPorId(id);
+        if(aluno != null){
+            alunos.remove(aluno);
+            Applicantion.fileIO.excluiAluno(aluno);
+        } else {
+            throw new Exception("Aluno não encontrado!");
+        }
+    }
+
+    public void editarAluno(int id, String nome, String email) throws Exception {
+        if(nome == null || nome.isEmpty()){
+            throw new Exception("Nome de aluno não pode ser vazio!");
+        }
+        Aluno aluno = getAlunoPorId(id);
+        if(aluno != null){
+            if(nome.equals(aluno.getNome())){
+                throw new Exception("Nome de aluno não foi alterado, pois é iqual ao anterior!");
+            }
+            aluno.setNome(nome);
+            aluno.setEmail(email);
+            Applicantion.fileIO.editaAluno(aluno);
+        } else {
+            throw new Exception("Aluno não encontrado!");
+        }
+    }
+
+    private Aluno getAlunoPorId(int id) throws Exception {
+        if(id <= 0){
+            throw new Exception("Id de aluno inválido!");
+        }
+        Aluno aluno = null;
+        for(Aluno a: alunos){
+            if(a.getId() == id){
+                aluno = a;
                 break;
             }
         }
-        return excluiuAluno;
-    }
-
-    public boolean editarAluno(int id, String nome, String email){
-        boolean editouAluno = false;
-        for(Aluno aluno: alunos){
-            if(aluno.getId() == id){
-                if(nomeValido(nome, aluno)){
-                    aluno.setNome(nome);
-                    aluno.setEmail(email);
-                    Applicantion.fileIO.editaAluno(aluno);
-                    editouAluno = true;
-                    break;
-                }
-            }
-        }
-        return editouAluno;
-    }
-
-    private boolean nomeValido(String nome, Aluno aluno) {
-        return nome != null && !nome.isEmpty() && !aluno.getNome().equals(nome);
+        return aluno;
     }
 
     public void addStartContent(){
-        inserirAluno(new Aluno("Andre Antonio Bezerra"));
-        inserirAluno(new Aluno("Paulo Kaike"));
-        inserirAluno(new Aluno("Junior Silva"));
-        this.alunos.addAll(Applicantion.fileIO.getAlunosSalvos());
+        try {
+            Aluno a1 = new Aluno("Andre Antonio Bezerra");
+            Aluno a2 = new Aluno("Paulo Kaike");
+            Aluno a3 = new Aluno("Junior Silva");
+            inserirAluno(a1.getNome(), a1.getEmail());
+            inserirAluno(a2.getNome(), a2.getEmail());
+            inserirAluno(a3.getNome(), a3.getEmail());
+            this.alunos.addAll(Applicantion.fileIO.getAlunosSalvos());
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+        }
     }
 }

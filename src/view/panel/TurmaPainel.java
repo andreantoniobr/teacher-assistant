@@ -3,6 +3,7 @@ import controller.Applicantion;
 import model.Turma;
 import view.Mensagem;
 import view.constant.ViewConstants;
+import view.frame.EditarTurmaFrame;
 
 import javax.swing.*;
 import javax.swing.border.CompoundBorder;
@@ -24,6 +25,14 @@ public class TurmaPainel extends JPanel {
     public TurmaPainel() {
         criarInterfaceTurma();
         adicionarListenersBotoes();
+    }
+
+    public String getNome() {
+        return nome.getText();
+    }
+
+    public void setNome(String nome) {
+        this.nome.setText(nome);
     }
 
     private void criarInterfaceTurma() {
@@ -100,18 +109,34 @@ public class TurmaPainel extends JPanel {
     }
 
     private void editarTurma() {
-        int linha = -1;
-        linha = tabela.getSelectedRow();
-        if (linha >= 0) {
-            int id = Integer.parseInt(tabela.getValueAt(linha, 0).toString());
-            String nome = tabela.getValueAt(linha, 1).toString();
-            if(Applicantion.ControladorTurma.editarTurma(id, nome)){
-                updateTabela();
-                Mensagem.showMensagem("Turma: " + nome + " com Id: " + id + " foi alterada com sucesso!");
+        try
+        {
+            int linha = tabela.getSelectedRow();
+            if (linha >= 0) {
+                int id = Integer.parseInt(tabela.getValueAt(linha, 0).toString());
+                String nome = tabela.getValueAt(linha, 1).toString();
+                editaTurmaNovoFrame(nome, id);
+            } else {
+                Mensagem.showMensagem(ViewConstants.NECESSARIOSELECIONARLINHA);
             }
-        } else {
-            Mensagem.showMensagem(ViewConstants.NECESSARIOSELECIONARLINHA);
+        } catch (Exception e) {
+            Mensagem.showMensagem(e.getMessage());
         }
+    }
+
+    private void editaTurmaNovoFrame(String nome, int id) {
+        EditarTurmaFrame editarTurmaFrame = new EditarTurmaFrame(nome);
+        editarTurmaFrame.getSalvar().addActionListener(e -> {
+            try {
+                String novoNome = editarTurmaFrame.getNome();
+                Applicantion.ControladorTurma.editarTurma(id, novoNome);
+                editarTurmaFrame.dispose();
+                updateTabela();
+                Mensagem.showMensagem("Turma: " + novoNome + " com Id: " + id + " foi alterada com sucesso!");
+            } catch (Exception ex) {
+                Mensagem.showMensagem(ex.getMessage());
+            }
+        });
     }
 
     private void criaTabela() {
@@ -140,13 +165,5 @@ public class TurmaPainel extends JPanel {
 
     private void inserirDadosTurmaTabela(Turma turma){
         inserirLinhaTabela(Integer.toString(turma.getId()), turma.getNome());
-    }
-
-    public String getNome() {
-        return nome.getText();
-    }
-
-    public void setNome(String nome) {
-        this.nome.setText(nome);
     }
 }

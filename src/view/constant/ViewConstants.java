@@ -5,6 +5,9 @@ public class ViewConstants {
     public final static String NOME = "Nome";
     public final static String EMAIL = "E-mail";
 
+    public final static int dependentFrameWidth = 400;
+    public final static int dependentFrameHeight = 250;
+
     //Botoes
     public final static String EXCLUIR = "Excluir";
     public final static String EDITAR = "Editar";

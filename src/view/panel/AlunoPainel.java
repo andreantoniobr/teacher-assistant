@@ -1,5 +1,4 @@
 package view.panel;
-import model.Aluno;
 import controller.Applicantion;
 import view.Mensagem;
 import view.constant.ViewConstants;
@@ -25,6 +24,14 @@ public class AlunoPainel extends JPanel {
     public AlunoPainel() {
         criarInterfaceAluno();
         adicionarListenersBotoes();
+    }
+
+    public String getNome() {
+        return nome.getText();
+    }
+
+    public String getEmail() {
+        return email.getText();
     }
 
     private void criarInterfaceAluno() {
@@ -80,45 +87,48 @@ public class AlunoPainel extends JPanel {
     }
 
     private void adicionarAluno() {
-
-        if(getNome() == null || getNome().isEmpty() ){
-            Mensagem.showMensagem("Campo \"Nome do Aluno\" é obrigatorio o preenchimento!");
-        } else {
-            //Todo: remover model da interface
-            Aluno aluno = new Aluno(getNome(), getEmail());
-            Applicantion.ControladorAluno.inserirAluno(aluno);
-            inserirDadosAlunoTabela(aluno);
+        try {
+            Applicantion.ControladorAluno.inserirAluno(getNome(), getEmail());
+            atualizaTabela();
+        } catch (Exception e){
+            Mensagem.showMensagem(e.getMessage());
         }
     }
 
     private void excluirAluno() {
-        int linha = -1;
-        linha = tabela.getSelectedRow();
-        if (linha >= 0) {
-            int id = Integer.parseInt(tabela.getValueAt(linha, 0).toString());
-            String nome = tabela.getValueAt(linha, 1).toString();
-            if(Applicantion.ControladorAluno.excluirAluno(id)){
-                updateTabela();
+        try
+        {
+            int linha = tabela.getSelectedRow();
+            if (linha >= 0) {
+                int id = Integer.parseInt(tabela.getValueAt(linha, 0).toString());
+                String nome = tabela.getValueAt(linha, 1).toString();
+                Applicantion.ControladorAluno.excluirAluno(id);
+                atualizaTabela();
                 Mensagem.showMensagem("Aluno: " + nome + " com Id: " + id + " foi excluido com sucesso!");
+            } else {
+                Mensagem.showMensagem(ViewConstants.NECESSARIOSELECIONARLINHA);
             }
-        } else {
-            Mensagem.showMensagem(ViewConstants.NECESSARIOSELECIONARLINHA);
+        } catch (Exception e) {
+            Mensagem.showMensagem(e.getMessage());
         }
     }
 
     private void editarAluno() {
-        int linha = -1;
-        linha = tabela.getSelectedRow();
-        if (linha >= 0) {
-            int id = Integer.parseInt(tabela.getValueAt(linha, 0).toString());
-            String nome = tabela.getValueAt(linha, 1).toString();
-            String email = tabela.getValueAt(linha, 2).toString();
-            if(Applicantion.ControladorAluno.editarAluno(id, nome, email)){
-                updateTabela();
+        try
+        {
+            int linha = tabela.getSelectedRow();
+            if (linha >= 0) {
+                int id = Integer.parseInt(tabela.getValueAt(linha, 0).toString());
+                String nome = tabela.getValueAt(linha, 1).toString();
+                String email = tabela.getValueAt(linha, 2).toString();
+                Applicantion.ControladorAluno.editarAluno(id, nome, email);
+                atualizaTabela();
                 Mensagem.showMensagem("Aluno: " + nome + " com Id: " + id + " foi alterado com sucesso!");
+            } else {
+                Mensagem.showMensagem(ViewConstants.NECESSARIOSELECIONARLINHA);
             }
-        } else {
-            Mensagem.showMensagem(ViewConstants.NECESSARIOSELECIONARLINHA);
+        } catch (Exception e) {
+            Mensagem.showMensagem(e.getMessage());
         }
     }
 
@@ -133,38 +143,13 @@ public class AlunoPainel extends JPanel {
     }
 
     private void preencheTabela(){
-        //Todo:remover Model da view
-        for (Aluno aluno: Applicantion.ControladorAluno.getAlunos()){
-            inserirDadosAlunoTabela(aluno);
+        for (Object[] dadoAluno: Applicantion.ControladorAluno.getDadosAlunos()){
+            modelo.addRow(dadoAluno);
         }
     }
 
-    private void updateTabela(){
+    private void atualizaTabela(){
         modelo.setRowCount(0);
         preencheTabela();
-    }
-
-    private void inserirLinhaTabela(String id, String nome, String email){
-        modelo.addRow(new Object[] {id, nome, email});
-    }
-
-    private void inserirDadosAlunoTabela(Aluno aluno){
-        inserirLinhaTabela(Integer.toString(aluno.getId()), aluno.getNome(), aluno.getEmail());
-    }
-
-    public String getNome() {
-        return nome.getText();
-    }
-
-    public void setNome(String nome) {
-        this.nome.setText(nome);
-    }
-
-    public String getEmail() {
-        return email.getText();
-    }
-
-    public void setEmail(String email) {
-        this.nome.setText(email);
     }
 }
