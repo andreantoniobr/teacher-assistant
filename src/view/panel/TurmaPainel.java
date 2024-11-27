@@ -84,27 +84,29 @@ public class TurmaPainel extends JPanel {
     }
 
     private void adicionarTurma() {
-        if(getNome() == null || getNome().isEmpty() ){
-            Mensagem.showMensagem("Campo \"Nome da Turma\" é obrigatorio o preenchimento!");
-        } else {
-            Turma turma = new Turma(getNome());
-            Applicantion.ControladorTurma.inserirTurma(turma);
-            inserirDadosTurmaTabela(turma);
+        try {
+            Applicantion.ControladorTurma.inserirTurma(getNome());
+            atualizaTabela();
+        } catch (Exception e){
+            Mensagem.showMensagem(e.getMessage());
         }
     }
 
     private void excluirTurma() {
-        int linha = -1;
-        linha = tabela.getSelectedRow();
-        if (linha >= 0) {
-            int id = Integer.parseInt(tabela.getValueAt(linha, 0).toString());
-            String nome = tabela.getValueAt(linha, 1).toString();
-            if(Applicantion.ControladorTurma.excluirTurma(id)){
-                updateTabela();
+        try
+        {
+            int linha = tabela.getSelectedRow();
+            if (linha >= 0) {
+                int id = Integer.parseInt(tabela.getValueAt(linha, 0).toString());
+                String nome = tabela.getValueAt(linha, 1).toString();
+                Applicantion.ControladorTurma.excluirTurma(id);
+                atualizaTabela();
                 Mensagem.showMensagem("Turma: " + nome + " com Id: " + id + " foi excluida com sucesso!");
+            } else {
+                Mensagem.showMensagem(ViewConstants.NECESSARIOSELECIONARLINHA);
             }
-        } else {
-            Mensagem.showMensagem(ViewConstants.NECESSARIOSELECIONARLINHA);
+        } catch (Exception e) {
+            Mensagem.showMensagem(e.getMessage());
         }
     }
 
@@ -131,7 +133,7 @@ public class TurmaPainel extends JPanel {
                 String novoNome = editarTurmaFrame.getNome();
                 Applicantion.ControladorTurma.editarTurma(id, novoNome);
                 editarTurmaFrame.dispose();
-                updateTabela();
+                atualizaTabela();
                 Mensagem.showMensagem("Turma: " + novoNome + " com Id: " + id + " foi alterada com sucesso!");
             } catch (Exception ex) {
                 Mensagem.showMensagem(ex.getMessage());
@@ -149,21 +151,13 @@ public class TurmaPainel extends JPanel {
     }
 
     private void preencheTabela(){
-        for (Turma turma: Applicantion.ControladorTurma.getTurmas()){
-            inserirDadosTurmaTabela(turma);
+        for (Object[] dadoTurma: Applicantion.ControladorTurma.getDadosTurmas()){
+            modelo.addRow(dadoTurma);
         }
     }
 
-    private void updateTabela(){
+    private void atualizaTabela(){
         modelo.setRowCount(0);
         preencheTabela();
-    }
-
-    private void inserirLinhaTabela(String id, String nome){
-        modelo.addRow(new Object[] {id, nome});
-    }
-
-    private void inserirDadosTurmaTabela(Turma turma){
-        inserirLinhaTabela(Integer.toString(turma.getId()), turma.getNome());
     }
 }

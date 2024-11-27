@@ -1,8 +1,6 @@
 package controller;
 
-import model.Aluno;
 import model.Turma;
-
 import java.util.ArrayList;
 
 public class ControladorTurma {
@@ -12,8 +10,13 @@ public class ControladorTurma {
         addStartContent();
     }
 
-    public ArrayList<Turma> getTurmas() {
-        return turmas;
+    public ArrayList<Object[]>  getDadosTurmas() {
+        ArrayList<Object[]> dadosTurmas = new ArrayList<>();
+        for (Turma turma: turmas){
+            Object[] dadoTurma = {turma.getId(), turma.getNome()};
+            dadosTurmas.add(dadoTurma);
+        }
+        return dadosTurmas;
     }
 
     public void setTurmas(ArrayList<Turma> turmas) {
@@ -22,7 +25,7 @@ public class ControladorTurma {
 
     public void inserirTurma(String nome) throws Exception {
         if(nome == null || nome.isEmpty()){
-            throw new Exception("Nome não pode ser vazio!");
+            throw new Exception("Nome da turma não pode ser vazio!");
         }
         Turma turma = new Turma(nome);
         turmas.add(turma);

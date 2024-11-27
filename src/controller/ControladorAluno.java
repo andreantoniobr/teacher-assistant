@@ -1,8 +1,6 @@
 package controller;
 
 import model.Aluno;
-
-
 import java.util.ArrayList;
 
 public class ControladorAluno {
@@ -23,7 +21,7 @@ public class ControladorAluno {
 
     public void inserirAluno(String nome, String email) throws Exception {
         if(nome == null || nome.isEmpty()){
-            throw new Exception("Nome não pode ser vazio!");
+            throw new Exception("Nome do aluno não pode ser vazio!");
         }
         Aluno aluno = new Aluno(nome, email);
         alunos.add(aluno);
