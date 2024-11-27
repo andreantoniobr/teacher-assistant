@@ -1,6 +1,8 @@
 package controller;
 
 import model.MetodologiaNota;
+import model.Turma;
+
 import java.util.ArrayList;
 
 public class ControlladorMetodologiaNota {
@@ -73,5 +75,17 @@ public class ControlladorMetodologiaNota {
     }
 
     public void addStartContent(){
+        try {
+            MetodologiaNota m1 = new MetodologiaNota("Metodologia A");
+            MetodologiaNota m2 = new MetodologiaNota("Metodologia B");
+            MetodologiaNota m3 = new MetodologiaNota("Metodologia C");
+
+            inserirMetodologia(m1.getNome());
+            inserirMetodologia(m2.getNome());
+            inserirMetodologia(m3.getNome());
+            //this.metodologias.addAll(Applicantion.fileIO.getMetodologiasSalvas());
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+        }
     }
 }
