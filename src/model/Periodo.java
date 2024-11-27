@@ -5,21 +5,21 @@ import java.util.ArrayList;
 public class Periodo {
     private int id;
     private String nome;
-    private ArrayList<Nota> notas = new ArrayList<>();
+    private ArrayList<MetodologiaNota> metodologiaNotas = new ArrayList<>();
 
     public Periodo(String nome) {
         this.nome = nome;
     }
 
-    public Periodo(String nome, ArrayList<Nota> notas) {
+    public Periodo(String nome, ArrayList<MetodologiaNota> metodologiaNotas) {
         this.nome = nome;
-        this.notas = notas;
+        this.metodologiaNotas = metodologiaNotas;
     }
 
-    public Periodo(int id, String nome, ArrayList<Nota> notas) {
+    public Periodo(int id, String nome, ArrayList<MetodologiaNota> metodologiaNotas) {
         this.id = id;
         this.nome = nome;
-        this.notas = notas;
+        this.metodologiaNotas = metodologiaNotas;
     }
 
     public String getNome() {
@@ -30,19 +30,19 @@ public class Periodo {
         this.nome = nome;
     }
 
-    public void setNotas(ArrayList<Nota> notas) {
-        this.notas = notas;
+    public void setMetodologiaNotasNotas(ArrayList<MetodologiaNota> metodologiaNotas) {
+        this.metodologiaNotas = metodologiaNotas;
     }
 
-    public ArrayList<Nota> getNotas() {
-        return notas;
+    public ArrayList<MetodologiaNota> getNotas() {
+        return metodologiaNotas;
     }
 
-    public void adicionarNota(Nota nota) {
-        notas.add(nota);
+    public void adicionarMetodologiaNota(MetodologiaNota metodologiaNota) {
+        metodologiaNotas.add(metodologiaNota);
     }
 
-    public void removerNota(Nota nota) {
-        notas.remove(nota);
+    public void removerMetodologiaNota(MetodologiaNota metodologiaNota) {
+        metodologiaNotas.remove(metodologiaNota);
     }
 }

@@ -6,9 +6,14 @@ import javax.swing.*;
 import java.awt.*;
 
 public class AcoesPainel extends JPanel {
-    private JButton aluno, turma, periodo, metodoAvaliativo, opcoes;
+    private JButton aluno, turma, periodo, metodologiaNota, opcoes;
 
     public AcoesPainel(CardLayoutOptions cardLayoutOptions) {
+        criarInterfacelAcoesPainel();
+        adicionarListenersBotoes(cardLayoutOptions);
+    }
+
+    private void criarInterfacelAcoesPainel() {
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
@@ -24,17 +29,25 @@ public class AcoesPainel extends JPanel {
         gbc.gridy++;
         add((periodo = new JButton("Período")), gbc);
         gbc.gridy++;
-        add((metodoAvaliativo = new JButton("Método Avaliativo")), gbc);
+        add((metodologiaNota = new JButton("Metodologia de Nota")), gbc);
         gbc.gridy++;
         gbc.weighty = 1;
         gbc.anchor = GridBagConstraints.SOUTH;
         add((opcoes = new JButton("Opcões")), gbc);
+    }
 
+    private void adicionarListenersBotoes(CardLayoutOptions cardLayoutOptions) {
         aluno.addActionListener(e -> {
-            cardLayoutOptions.showCard(CardConstants.ALUNOPANEL);
+            cardLayoutOptions.showCard(CardConstants.ALUNOPAINEL);
         });
         turma.addActionListener(e -> {
-            cardLayoutOptions.showCard(CardConstants.TURMAPANEL);
+            cardLayoutOptions.showCard(CardConstants.TURMAPAINEL);
+        });
+        periodo.addActionListener(e -> {
+            cardLayoutOptions.showCard(CardConstants.PERIODOPAINEL);
+        });
+        metodologiaNota.addActionListener(e -> {
+            cardLayoutOptions.showCard(CardConstants.METODOLOGIANOTAPAINEL);
         });
     }
 }

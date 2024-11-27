@@ -1,30 +1,41 @@
 package model;
 
-import id.IdNota;
+import id.IdMetodologiaNota;
 import model.valuable.IValuable;
 import java.util.ArrayList;
 
-public class Nota {
+public class MetodologiaNota {
     private int id;
+    private String nome;
     private ArrayList<IValuable> avaliaveis = new ArrayList<>();
 
-    public Nota(IValuable metodoAvaliativo) {
-        this.id = IdNota.getId();
-        adicionarMedotoAvaliativo(metodoAvaliativo);
+    public MetodologiaNota(String nome){
+        this.id = IdMetodologiaNota.getId();
+        this.nome = nome;
     }
 
-    public Nota(ArrayList<IValuable> avaliaveis) {
-        this.id = IdNota.getId();
+    public MetodologiaNota(String nome, ArrayList<IValuable> avaliaveis) {
+        this.id = IdMetodologiaNota.getId();
+        this.nome = nome;
         this.avaliaveis = avaliaveis;
     }
 
-    public Nota(int id, ArrayList<IValuable> avaliaveis) {
+    public MetodologiaNota(int id, String nome, ArrayList<IValuable> avaliaveis) {
         this.id = id;
+        this.nome = nome;
         this.avaliaveis = avaliaveis;
     }
 
     public int getId() {
         return id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public ArrayList<IValuable> getAvaliaveis() {

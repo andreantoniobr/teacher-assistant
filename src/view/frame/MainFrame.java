@@ -3,6 +3,7 @@ package view.frame;
 import view.panel.AlunoPainel;
 import view.CardLayoutOptions;
 import view.panel.MainPainel;
+import view.panel.MetodologiaNotaPainel;
 import view.panel.TurmaPainel;
 import view.constant.CardConstants;
 
@@ -32,7 +33,8 @@ public class MainFrame extends JFrame {
     }
 
     private void addCardsInCardsPanel(CardLayoutOptions cardLayoutOptions) {
-        cardsPanel.add(new MainPainel(new AlunoPainel(), cardLayoutOptions), CardConstants.ALUNOPANEL);
-        cardsPanel.add(new MainPainel(new TurmaPainel(), cardLayoutOptions), CardConstants.TURMAPANEL);
+        cardsPanel.add(new MainPainel(new AlunoPainel(), cardLayoutOptions), CardConstants.ALUNOPAINEL);
+        cardsPanel.add(new MainPainel(new TurmaPainel(), cardLayoutOptions), CardConstants.TURMAPAINEL);
+        cardsPanel.add(new MainPainel(new MetodologiaNotaPainel(), cardLayoutOptions), CardConstants.METODOLOGIANOTAPAINEL);
     }
 }
