@@ -1,6 +1,7 @@
 package view.panel;
 
 import controller.Applicantion;
+import view.ComboItem;
 import view.Mensagem;
 import view.constant.ViewConstants;
 import view.frame.EditarMetodologiaNotaFrame;
@@ -117,7 +118,7 @@ public class MetodologiaNotaPainel extends JPanel {
             if (linha >= 0) {
                 int id = Integer.parseInt(tabela.getValueAt(linha, 0).toString());
                 String nome = tabela.getValueAt(linha, 1).toString();
-                editaMetodologiaNovoFrame(nome, id);
+                editaMetodologiaNovoFrame(id, nome);
             } else {
                 Mensagem.showMensagem(ViewConstants.NECESSARIOSELECIONARLINHA);
             }
@@ -126,9 +127,26 @@ public class MetodologiaNotaPainel extends JPanel {
         }
     }
 
-    private void editaMetodologiaNovoFrame(String nome, int id) {
+    private void editaMetodologiaNovoFrame(int id, String nome) {
         EditarMetodologiaNotaFrame editarMetodologiaNotaFrame = new EditarMetodologiaNotaFrame(nome);
-        editarMetodologiaNotaFrame.getSalvar().addActionListener(e -> {
+        AdicionarListenerBotaoAdicionar(id,editarMetodologiaNotaFrame);
+        adicionarListenerBotaoSalvar(id, editarMetodologiaNotaFrame);
+    }
+
+    private void AdicionarListenerBotaoAdicionar(int id, EditarMetodologiaNotaFrame editarMetodologiaNotaFrame) {
+        editarMetodologiaNotaFrame.getBotaoAdicionar().addActionListener(e -> {
+            try {
+                Object item = editarMetodologiaNotaFrame.getMetodosAvaliativos().getSelectedItem();
+                int idMetodoAvaliativo = ((ComboItem)item).getId();
+                Applicantion.controlladorMetodologiaNota.inserirMetodoAvaliativoPorID(id, idMetodoAvaliativo);
+            } catch (Exception ex) {
+                Mensagem.showMensagem(ex.getMessage());
+            }
+        });
+    }
+
+    private void adicionarListenerBotaoSalvar(int id, EditarMetodologiaNotaFrame editarMetodologiaNotaFrame) {
+        editarMetodologiaNotaFrame.getBotaoSalvar().addActionListener(e -> {
             try {
                 String novoNome = editarMetodologiaNotaFrame.getNome();
                 Applicantion.controlladorMetodologiaNota.editarMetodologia(id, novoNome);

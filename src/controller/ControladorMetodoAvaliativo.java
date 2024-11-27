@@ -20,7 +20,7 @@ public class ControladorMetodoAvaliativo {
         return dadosMetodosAvaliativos;
     }
 
-    private MetodoAvaliativo getMetodoAvaliativoPorId(int id) throws Exception {
+    public MetodoAvaliativo getMetodoAvaliativoPorId(int id) throws Exception {
         if(id <= 0){
             throw new Exception("Id de metodo Avaliativo inválido!");
         }

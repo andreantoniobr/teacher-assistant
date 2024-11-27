@@ -1,5 +1,8 @@
 package view.frame;
 
+import controller.Applicantion;
+import view.ComboItem;
+import view.Mensagem;
 import view.constant.ViewConstants;
 import javax.swing.*;
 import javax.swing.border.CompoundBorder;
@@ -27,8 +30,16 @@ public class EditarMetodologiaNotaFrame extends DependentFrame {
         this.nome.setText(nome);
     }
 
-    public JButton getSalvar() {
+    public JButton getBotaoAdicionar() {
+        return adicionar;
+    }
+
+    public JButton getBotaoSalvar() {
         return salvar;
+    }
+
+    public JComboBox getMetodosAvaliativos() {
+        return metodosAvaliativos;
     }
 
     private void view() {
@@ -62,12 +73,28 @@ public class EditarMetodologiaNotaFrame extends DependentFrame {
 
     private void addComboBoxPanel() {
         JPanel painelComboBox = new JPanel(new BorderLayout(10, 10));
-        String[] petStrings = { "Bird", "Cat", "Dog", "Rabbit", "Pig" };
-        metodosAvaliativos = new JComboBox<>(petStrings);
+        //String[] petStrings = { "Bird", "Cat", "Dog", "Rabbit", "Pig" };
+        metodosAvaliativos = new JComboBox<>();
+
+        popularComboBox();
 
         painelComboBox.add(metodosAvaliativos, BorderLayout.LINE_START);
         painelComboBox.add(adicionar = new JButton("Adicionar Metodo Avaliativo"), BorderLayout.LINE_END);
 
         painelMetodologia.add(painelComboBox, BorderLayout.CENTER);
+    }
+
+    private void popularComboBox() {
+        try
+        {
+            for(Object[] object : Applicantion.controladorMetodoAvaliativo.getDadosMetodosAvaliativos()){
+                int id = (int) object[0];
+                String tipoAvaliacao = object[1].toString();
+                metodosAvaliativos.addItem(new ComboItem(id, tipoAvaliacao));
+            }
+
+        } catch (Exception e) {
+            Mensagem.showMensagem(e.getMessage());
+        }
     }
 }

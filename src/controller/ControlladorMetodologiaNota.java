@@ -60,6 +60,17 @@ public class ControlladorMetodologiaNota {
         }
     }
 
+    public void inserirMetodoAvaliativoPorID(int id, int idMetodoAvaliativo) throws Exception {
+        MetodologiaNota metodologiaNota = getMetodologiaPorId(id);
+        if(metodologiaNota != null){
+            metodologiaNota.adicionarMedotoAvaliativo(Applicantion.controladorMetodoAvaliativo.getMetodoAvaliativoPorId(idMetodoAvaliativo));
+            //Applicantion.fileIO.excluiMetodologia(metodologiaNota);
+        } else {
+            throw new Exception("Metodologia não encontrada!");
+        }
+
+    }
+
     private MetodologiaNota getMetodologiaPorId(int id) throws Exception {
         if(id <= 0){
             throw new Exception("Id de metodologia inválido!");
