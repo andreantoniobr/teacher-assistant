@@ -49,7 +49,7 @@ public class ControladorTurma {
         Turma turma = getTurmaPorId(id);
         if(turma != null){
             if(nome.equals(turma.getNome())){
-                throw new Exception("Nome de turma não foi alterado, pois é iqual ao anterior!");
+                throw new Exception("Nome de turma não foi alterado, pois é igual ao anterior!");
             }
             turma.setNome(nome);
             //Applicantion.fileIO.editarTurma(turma);

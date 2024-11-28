@@ -13,7 +13,7 @@ public class EditarTurmaFrame extends DependentFrame {
 
     public EditarTurmaFrame(String nome) {
         super("Editar Turma", ViewConstants.dependentFrameWidth, 200);
-        view();
+        criarInterface();
         setNome(nome);
     }
 
@@ -29,7 +29,7 @@ public class EditarTurmaFrame extends DependentFrame {
         return salvar;
     }
 
-    private void view() {
+    private void criarInterface() {
         setLayout(new BorderLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;

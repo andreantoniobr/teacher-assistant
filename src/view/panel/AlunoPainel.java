@@ -2,6 +2,8 @@ package view.panel;
 import controller.Applicantion;
 import view.Mensagem;
 import view.constant.ViewConstants;
+import view.frame.EditarAlunoFrame;
+import view.frame.EditarTurmaFrame;
 
 import javax.swing.*;
 import javax.swing.border.CompoundBorder;
@@ -119,16 +121,33 @@ public class AlunoPainel extends JPanel {
             int linha = tabela.getSelectedRow();
             if (linha >= 0) {
                 int id = Integer.parseInt(tabela.getValueAt(linha, 0).toString());
-                String nome = tabela.getValueAt(linha, 1).toString();
-                String email = tabela.getValueAt(linha, 2).toString();
-                Applicantion.ControladorAluno.editarAluno(id, nome, email);
-                atualizaTabela();
-                Mensagem.showMensagem("Aluno: " + nome + " com Id: " + id + " foi alterado com sucesso!");
+                editarAlunoNovoFrame(id);
             } else {
                 Mensagem.showMensagem(ViewConstants.NECESSARIOSELECIONARLINHA);
             }
         } catch (Exception e) {
             Mensagem.showMensagem(e.getMessage());
+        }
+    }
+
+    private void editarAlunoNovoFrame(int id) {
+        try {
+            Object[] dadoAluno = Applicantion.ControladorAluno.getDadosAlunoPorId(id);
+            EditarAlunoFrame editarAlunoFrame = new EditarAlunoFrame(dadoAluno);
+            editarAlunoFrame.getSalvar().addActionListener(e -> {
+                try {
+                    String novoNome = editarAlunoFrame.getNome();
+                    String novoEmail = editarAlunoFrame.getEmail();
+                    Applicantion.ControladorAluno.editarAluno(id, novoNome, novoEmail);
+                    editarAlunoFrame.dispose();
+                    atualizaTabela();
+                    Mensagem.showMensagem("Aluno: " + novoNome + " com Id: " + id + " foi alterado com sucesso!");
+                } catch (Exception ex) {
+                    Mensagem.showMensagem(ex.getMessage());
+                }
+            });
+        } catch (Exception ex) {
+            Mensagem.showMensagem(ex.getMessage());
         }
     }
 

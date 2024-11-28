@@ -18,7 +18,7 @@ public class EditarMetodologiaNotaFrame extends DependentFrame {
 
     public EditarMetodologiaNotaFrame(String nome) {
         super("Editar Metodologia de Nota", ViewConstants.dependentFrameWidth, 400);
-        view();
+        criarInterface();
         setNome(nome);
     }
 
@@ -42,7 +42,7 @@ public class EditarMetodologiaNotaFrame extends DependentFrame {
         return metodosAvaliativos;
     }
 
-    private void view() {
+    private void criarInterface() {
         setLayout(new BorderLayout());
         painelMetodologia = new JPanel(new BorderLayout());
         painelMetodologia.setBorder(new CompoundBorder(new TitledBorder("Metodologia de Nota"), new EmptyBorder(10, 10, 10, 10)));

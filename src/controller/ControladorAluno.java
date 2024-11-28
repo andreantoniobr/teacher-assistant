@@ -19,6 +19,16 @@ public class ControladorAluno {
         return dadosAlunos;
     }
 
+    public Object[] getDadosAlunoPorId(int id) throws Exception {
+        Aluno aluno = getAlunoPorId(id);
+        if(aluno != null){
+            Object[] dadoAluno = {aluno.getNome(), aluno.getEmail()};
+            return dadoAluno;
+        } else {
+            throw new Exception("Aluno não encontrado!");
+        }
+    }
+
     public void inserirAluno(String nome, String email) throws Exception {
         if(nome == null || nome.isEmpty()){
             throw new Exception("Nome do aluno não pode ser vazio!");
@@ -44,8 +54,8 @@ public class ControladorAluno {
         }
         Aluno aluno = getAlunoPorId(id);
         if(aluno != null){
-            if(nome.equals(aluno.getNome())){
-                throw new Exception("Nome de aluno não foi alterado, pois é iqual ao anterior!");
+            if(nome.equals(aluno.getNome()) && email.equals(aluno.getEmail())){
+                throw new Exception("Nenhum dado foi alterado!");
             }
             aluno.setNome(nome);
             aluno.setEmail(email);

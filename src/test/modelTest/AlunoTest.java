@@ -2,10 +2,11 @@ package test.modelTest;
 
 import model.Aluno;
 import org.junit.Assert;
+import org.junit.jupiter.api.Test;
 
 class AlunoTest {
 
-    @org.junit.jupiter.api.Test
+    @Test
     void getNomeTest() {
         Aluno aluno = new Aluno("AlunoTest");
         String nomeEsperado = "AlunoTest";

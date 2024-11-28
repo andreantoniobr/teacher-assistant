@@ -117,7 +117,7 @@ public class TurmaPainel extends JPanel {
             if (linha >= 0) {
                 int id = Integer.parseInt(tabela.getValueAt(linha, 0).toString());
                 String nome = tabela.getValueAt(linha, 1).toString();
-                editaTurmaNovoFrame(nome, id);
+                editarTurmaNovoFrame(id, nome);
             } else {
                 Mensagem.showMensagem(ViewConstants.NECESSARIOSELECIONARLINHA);
             }
@@ -126,7 +126,7 @@ public class TurmaPainel extends JPanel {
         }
     }
 
-    private void editaTurmaNovoFrame(String nome, int id) {
+    private void editarTurmaNovoFrame(int id, String nome) {
         EditarTurmaFrame editarTurmaFrame = new EditarTurmaFrame(nome);
         editarTurmaFrame.getSalvar().addActionListener(e -> {
             try {

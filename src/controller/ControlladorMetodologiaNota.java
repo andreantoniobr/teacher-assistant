@@ -51,7 +51,7 @@ public class ControlladorMetodologiaNota {
         MetodologiaNota metodologiaNota = getMetodologiaPorId(id);
         if(metodologiaNota != null){
             if(nome.equals(metodologiaNota.getNome())){
-                throw new Exception("Nome de metodologia não foi alterado, pois é iqual ao anterior!");
+                throw new Exception("Nome de metodologia não foi alterado, pois é igual ao anterior!");
             }
             metodologiaNota.setNome(nome);
             //Applicantion.fileIO.editarMetodologia(metodologiaNota);
