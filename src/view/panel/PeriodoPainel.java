@@ -3,7 +3,7 @@ package view.panel;
 import controller.Applicantion;
 import view.Mensagem;
 import view.constant.ViewConstants;
-import view.frame.EditarTurmaFrame;
+import view.frame.EditorPeriodoFrame;
 
 import javax.swing.*;
 import javax.swing.border.CompoundBorder;
@@ -127,12 +127,12 @@ public class PeriodoPainel extends JPanel {
     }
 
     private void editarPeriodoNovoFrame(int id, String nome) {
-        EditarTurmaFrame editarTurmaFrame = new EditarTurmaFrame(nome);
-        editarTurmaFrame.getSalvar().addActionListener(e -> {
+        EditorPeriodoFrame editorPeriodoFrame = new EditorPeriodoFrame(nome);
+        editorPeriodoFrame.getSalvar().addActionListener(e -> {
             try {
-                String novoNome = editarTurmaFrame.getNome();
+                String novoNome = editorPeriodoFrame.getNome();
                 Applicantion.controladorPeriodo.editarPeriodo(id, novoNome);
-                editarTurmaFrame.dispose();
+                editorPeriodoFrame.dispose();
                 atualizaTabela();
                 Mensagem.showMensagem("Período: " + novoNome + " com Id: " + id + " foi alterado com sucesso!");
             } catch (Exception ex) {
