@@ -34,8 +34,15 @@ public class ControladorAluno {
             throw new Exception("Nome do aluno não pode ser vazio!");
         }
         Aluno aluno = new Aluno(nome, email);
-        alunos.add(aluno);
+        inserirAluno(aluno);
         Applicantion.fileIO.salvarAluno(aluno);
+    }
+
+    public void inserirAluno(Aluno aluno) throws Exception {
+        if(aluno == null){
+            throw new Exception("Objeto aluno não existe!");
+        }
+        alunos.add(aluno);
     }
 
     public void excluirAluno(int id) throws Exception {
@@ -84,9 +91,9 @@ public class ControladorAluno {
             Aluno a1 = new Aluno("Andre Antonio Bezerra");
             Aluno a2 = new Aluno("Paulo Kaike");
             Aluno a3 = new Aluno("Junior Silva");
-            inserirAluno(a1.getNome(), a1.getEmail());
-            inserirAluno(a2.getNome(), a2.getEmail());
-            inserirAluno(a3.getNome(), a3.getEmail());
+            inserirAluno(a1);
+            inserirAluno(a2);
+            inserirAluno(a3);
             this.alunos.addAll(Applicantion.fileIO.getAlunosSalvos());
         } catch (Exception e){
             System.out.println(e.getMessage());

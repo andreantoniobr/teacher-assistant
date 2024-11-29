@@ -1,5 +1,6 @@
 package model;
 
+import id.IdPeriodo;
 import java.util.ArrayList;
 
 public class Periodo {
@@ -8,10 +9,17 @@ public class Periodo {
     private ArrayList<MetodologiaNota> metodologiaNotas = new ArrayList<>();
 
     public Periodo(String nome) {
+        this.id = IdPeriodo.getId();
+        this.nome = nome;
+    }
+
+    public Periodo(int id, String nome) {
+        this.id = id;
         this.nome = nome;
     }
 
     public Periodo(String nome, ArrayList<MetodologiaNota> metodologiaNotas) {
+        this.id = IdPeriodo.getId();
         this.nome = nome;
         this.metodologiaNotas = metodologiaNotas;
     }
@@ -20,6 +28,10 @@ public class Periodo {
         this.id = id;
         this.nome = nome;
         this.metodologiaNotas = metodologiaNotas;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getNome() {

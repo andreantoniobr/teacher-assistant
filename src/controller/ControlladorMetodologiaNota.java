@@ -91,9 +91,9 @@ public class ControlladorMetodologiaNota {
             MetodologiaNota m2 = new MetodologiaNota("Metodologia B");
             MetodologiaNota m3 = new MetodologiaNota("Metodologia C");
 
-            inserirMetodologia(m1.getNome());
-            inserirMetodologia(m2.getNome());
-            inserirMetodologia(m3.getNome());
+            metodologias.add(m1);
+            metodologias.add(m2);
+            metodologias.add(m3);
             //this.metodologias.addAll(Applicantion.fileIO.getMetodologiasSalvas());
         } catch (Exception e){
             System.out.println(e.getMessage());

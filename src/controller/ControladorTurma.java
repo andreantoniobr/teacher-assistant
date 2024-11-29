@@ -74,10 +74,8 @@ public class ControladorTurma {
 
     public void addStartContent(){
         try {
-            Turma t1 = new Turma("Turma A");
-            Turma t2 = new Turma("Turma B");
-            inserirTurma(t1.getNome());
-            inserirTurma(t2.getNome());
+            inserirTurma("Turma A");
+            inserirTurma("Turma B");
             //this.turmas.addAll(Applicantion.fileIO.getTurmasSalvas());
         } catch (Exception e){
             System.out.println(e.getMessage());
