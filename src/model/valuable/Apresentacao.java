@@ -2,14 +2,14 @@ package model.valuable;
 
 public class Apresentacao extends MetodoAvaliativo {
     public Apresentacao() {
-        super(TipoAvaliacao.APRESENTACAO);
+        super("Apresentação", TipoAvaliacao.APRESENTACAO);
     }
 
     public Apresentacao(double valor) {
-        super(TipoAvaliacao.APRESENTACAO, valor);
+        super("Apresentação", TipoAvaliacao.APRESENTACAO, valor);
     }
 
     public Apresentacao(int id, String descricao, double valor) {
-        super(id, descricao, TipoAvaliacao.APRESENTACAO, valor);
+        super(id, "Apresentação", descricao, TipoAvaliacao.APRESENTACAO, valor);
     }
 }

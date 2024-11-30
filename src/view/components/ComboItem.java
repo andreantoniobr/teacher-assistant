@@ -1,4 +1,4 @@
-package view;
+package view.components;
 
 public class ComboItem {
     private int id;

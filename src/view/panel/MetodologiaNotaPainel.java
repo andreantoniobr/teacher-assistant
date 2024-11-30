@@ -1,8 +1,8 @@
 package view.panel;
 
 import controller.Applicantion;
-import view.ComboItem;
-import view.Mensagem;
+import view.components.ComboItem;
+import view.components.Mensagem;
 import view.constant.ViewConstants;
 import view.frame.EditarMetodologiaNotaFrame;
 
@@ -12,6 +12,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class MetodologiaNotaPainel extends JPanel {
     private JTextField nome;
@@ -67,8 +68,6 @@ public class MetodologiaNotaPainel extends JPanel {
 
         JPanel painelFundo = new JPanel();
         painelFundo.setLayout(new BorderLayout());
-        JScrollPane scrollPane = new JScrollPane(tabela);
-        scrollPane.setSize(GridBagConstraints.HORIZONTAL, 500);
         painelFundo.add(new JScrollPane(tabela), BorderLayout.CENTER);
 
         JPanel painelBotoes = new JPanel();
@@ -128,9 +127,15 @@ public class MetodologiaNotaPainel extends JPanel {
     }
 
     private void editaMetodologiaNovoFrame(int id, String nome) {
-        EditarMetodologiaNotaFrame editarMetodologiaNotaFrame = new EditarMetodologiaNotaFrame(nome);
-        AdicionarListenerBotaoAdicionar(id,editarMetodologiaNotaFrame);
-        adicionarListenerBotaoSalvar(id, editarMetodologiaNotaFrame);
+        try {
+            EditarMetodologiaNotaFrame editarMetodologiaNotaFrame = new EditarMetodologiaNotaFrame(nome);
+            AdicionarListenerBotaoAdicionar(id,editarMetodologiaNotaFrame);
+            atualizarMetodosAvaliativos(id, editarMetodologiaNotaFrame);
+            //adicionarListenerBotaoExcluir(id, editarMetodologiaNotaFrame);
+            adicionarListenerBotaoSalvar(id, editarMetodologiaNotaFrame);
+        } catch (Exception ex) {
+            Mensagem.showMensagem(ex.getMessage());
+        }
     }
 
     private void AdicionarListenerBotaoAdicionar(int id, EditarMetodologiaNotaFrame editarMetodologiaNotaFrame) {
@@ -139,10 +144,16 @@ public class MetodologiaNotaPainel extends JPanel {
                 Object item = editarMetodologiaNotaFrame.getMetodosAvaliativos().getSelectedItem();
                 int idMetodoAvaliativo = ((ComboItem)item).getId();
                 Applicantion.controlladorMetodologiaNota.inserirMetodoAvaliativoPorID(id, idMetodoAvaliativo);
+                atualizarMetodosAvaliativos(id, editarMetodologiaNotaFrame);
             } catch (Exception ex) {
                 Mensagem.showMensagem(ex.getMessage());
             }
         });
+    }
+
+    private void atualizarMetodosAvaliativos(int id, EditarMetodologiaNotaFrame editarMetodologiaNotaFrame) throws Exception {
+        ArrayList<Object[]> dadosMetodosAvaliativos = Applicantion.controlladorMetodologiaNota.getMetodosAvaliativosPorId(id);
+        editarMetodologiaNotaFrame.atualizaTabela(dadosMetodosAvaliativos);
     }
 
     private void adicionarListenerBotaoSalvar(int id, EditarMetodologiaNotaFrame editarMetodologiaNotaFrame) {

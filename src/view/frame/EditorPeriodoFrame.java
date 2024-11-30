@@ -1,5 +1,6 @@
 package view.frame;
 
+import view.components.SaveButtom;
 import view.constant.ViewConstants;
 
 import javax.swing.*;
@@ -52,7 +53,7 @@ public class EditorPeriodoFrame extends DependentFrame {
         gbc.gridwidth = GridBagConstraints.REMAINDER;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(10, 0, 20, 0);
-        painelPeriodo.add(salvar = new JButton("Salvar"), gbc);
+        painelPeriodo.add(salvar = new SaveButtom("Salvar"), gbc);
         add(painelPeriodo, BorderLayout.CENTER);
     }
 }

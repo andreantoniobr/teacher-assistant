@@ -4,23 +4,27 @@ import id.IdMetodoAvaliativo;
 
 public class MetodoAvaliativo implements IValuable {
     private int id;
+    private String nome;
     private String descricao;
     private TipoAvaliacao tipoAvaliacao;
     private double valor;
 
-    public MetodoAvaliativo(TipoAvaliacao tipoAvaliacao) {
+    public MetodoAvaliativo(String nome, TipoAvaliacao tipoAvaliacao) {
         this.id = IdMetodoAvaliativo.getId();
+        this.nome = nome;
         this.tipoAvaliacao = tipoAvaliacao;
     }
 
-    public MetodoAvaliativo(TipoAvaliacao tipoAvaliacao, double valor) {
+    public MetodoAvaliativo(String nome, TipoAvaliacao tipoAvaliacao, double valor) {
         this.id = IdMetodoAvaliativo.getId();
+        this.nome = nome;
         this.tipoAvaliacao = tipoAvaliacao;
         this.valor = valor;
     }
 
-    public MetodoAvaliativo(int id, String descricao, TipoAvaliacao tipoAvaliacao, double valor) {
+    public MetodoAvaliativo(int id, String nome, String descricao, TipoAvaliacao tipoAvaliacao, double valor) {
         this.id = id;
+        this.nome = nome;
         this.descricao = descricao;
         this.tipoAvaliacao = tipoAvaliacao;
         this.valor = valor;
@@ -40,6 +44,10 @@ public class MetodoAvaliativo implements IValuable {
 
     public TipoAvaliacao getTipoAvaliacao() {
         return tipoAvaliacao;
+    }
+
+    public String getNome() {
+        return nome;
     }
 
     public void setTipoAvaliacao(TipoAvaliacao tipoAvaliacao) {

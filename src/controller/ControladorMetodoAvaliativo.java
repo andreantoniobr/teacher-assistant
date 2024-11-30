@@ -20,6 +20,12 @@ public class ControladorMetodoAvaliativo {
         return dadosMetodosAvaliativos;
     }
 
+    public Object[]  getDadosMetodoAvaliativoPorId(int id) throws Exception {
+        MetodoAvaliativo metodoAvaliativo = getMetodoAvaliativoPorId(id);
+        Object[] dadosMetodoAvaliativo = {metodoAvaliativo.getId(), metodoAvaliativo.getTipoAvaliacao().toString()};
+        return dadosMetodoAvaliativo;
+    }
+
     public MetodoAvaliativo getMetodoAvaliativoPorId(int id) throws Exception {
         if(id <= 0){
             throw new Exception("Id de metodo Avaliativo inválido!");

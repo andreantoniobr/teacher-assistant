@@ -2,6 +2,8 @@ package controller;
 
 import model.MetodologiaNota;
 import model.Turma;
+import model.valuable.IValuable;
+import model.valuable.MetodoAvaliativo;
 
 import java.util.ArrayList;
 
@@ -19,6 +21,19 @@ public class ControlladorMetodologiaNota {
             dadosMetodologias.add(dadoMetodologias);
         }
         return dadosMetodologias;
+    }
+
+    public ArrayList<Object[]>  getMetodosAvaliativosPorId(int id) throws Exception {
+        MetodologiaNota metodologiaNota = getMetodologiaPorId(id);
+        if(metodologiaNota == null){
+            throw new Exception("Objeto metodologia não existe!");
+        }
+        ArrayList<Object[]> dadosMetodosAvaliativos = new ArrayList<>();
+        for (IValuable avaliavel: metodologiaNota.getAvaliaveis()){
+            Object[] dadoMetodoAvaliativo = {avaliavel.getId(), avaliavel.getNome()};
+            dadosMetodosAvaliativos.add(dadoMetodoAvaliativo);
+        }
+        return dadosMetodosAvaliativos;
     }
 
     public void setMetodologias(ArrayList<MetodologiaNota> metodologias) {
@@ -50,9 +65,6 @@ public class ControlladorMetodologiaNota {
         }
         MetodologiaNota metodologiaNota = getMetodologiaPorId(id);
         if(metodologiaNota != null){
-            if(nome.equals(metodologiaNota.getNome())){
-                throw new Exception("Nome de metodologia não foi alterado, pois é igual ao anterior!");
-            }
             metodologiaNota.setNome(nome);
             //Applicantion.fileIO.editarMetodologia(metodologiaNota);
         } else {

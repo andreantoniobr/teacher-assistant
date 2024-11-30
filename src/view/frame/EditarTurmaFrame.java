@@ -1,5 +1,6 @@
 package view.frame;
 
+import view.components.SaveButtom;
 import view.constant.ViewConstants;
 import javax.swing.*;
 import javax.swing.border.CompoundBorder;
@@ -51,7 +52,7 @@ public class EditarTurmaFrame extends DependentFrame {
         gbc.gridwidth = GridBagConstraints.REMAINDER;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(10, 0, 20, 0);
-        painelTurma.add(salvar = new JButton("Salvar"), gbc);
+        painelTurma.add(salvar = new SaveButtom("Salvar"), gbc);
         add(painelTurma, BorderLayout.CENTER);
     }
 }

@@ -1,9 +1,9 @@
 package view.panel;
 import controller.Applicantion;
-import view.Mensagem;
+import view.components.*;
+import view.components.TextField;
 import view.constant.ViewConstants;
 import view.frame.EditarAlunoFrame;
-import view.frame.EditarTurmaFrame;
 
 import javax.swing.*;
 import javax.swing.border.CompoundBorder;
@@ -44,6 +44,7 @@ public class AlunoPainel extends JPanel {
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.anchor = GridBagConstraints.WEST;
+        gbc.insets = new Insets(5, 5, 5, 5);
 
         JPanel painelAluno = new JPanel(new GridBagLayout());
         painelAluno.add(new JLabel(ViewConstants.CAMPONOMEDOALUNO), gbc);
@@ -54,16 +55,16 @@ public class AlunoPainel extends JPanel {
         gbc.gridy = 0;
         gbc.weightx = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        painelAluno.add((nome = new JTextField(10)), gbc);
+        painelAluno.add((nome = new TextField()), gbc);
         gbc.gridy++;
-        painelAluno.add((email = new JTextField(10)), gbc);
+        painelAluno.add((email = new TextField()), gbc);
 
         gbc.gridx = 0;
         gbc.gridy++;
         gbc.gridwidth = GridBagConstraints.REMAINDER;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(10, 0, 20, 0);
-        painelAluno.add(adicionar = new JButton(ViewConstants.ADICIONAR), gbc);
+        painelAluno.add(adicionar = new AddButton("Adicionar Aluno"), gbc);
         add(painelAluno, BorderLayout.PAGE_START);
 
         criaTabela();
@@ -76,8 +77,8 @@ public class AlunoPainel extends JPanel {
         painelFundo.add(new JScrollPane(tabela), BorderLayout.CENTER);
 
         JPanel painelBotoes = new JPanel();
-        painelBotoes.add(editar = new JButton(ViewConstants.EDITAR));
-        painelBotoes.add(excluir = new JButton(ViewConstants.EXCLUIR));
+        painelBotoes.add(editar = new SaveButtom("Editar Aluno"));
+        painelBotoes.add(excluir = new DeleteButtom("Excluir Aluno"));
         painelFundo.add(painelBotoes, BorderLayout.PAGE_END);
         add(painelFundo, BorderLayout.CENTER);
     }

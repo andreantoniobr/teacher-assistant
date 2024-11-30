@@ -1,7 +1,7 @@
 package view.panel;
 
 import controller.Applicantion;
-import view.Mensagem;
+import view.components.Mensagem;
 import view.constant.ViewConstants;
 import view.frame.EditorPeriodoFrame;
 

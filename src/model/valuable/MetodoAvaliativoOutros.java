@@ -3,20 +3,24 @@ import id.IdMetodoAvaliativo;
 
 public class MetodoAvaliativoOutros implements IValuable {
     private int id;
+    private String nome;
     private final TipoAvaliacao tipoAvaliacao = TipoAvaliacao.OUTROS;
     private double valor;
 
-    public MetodoAvaliativoOutros() {
+    public MetodoAvaliativoOutros(String nome) {
         this.id = IdMetodoAvaliativo.getId();
+        this.nome = nome;
     }
 
-    public MetodoAvaliativoOutros(double valor) {
+    public MetodoAvaliativoOutros(String nome, double valor) {
         this.id = IdMetodoAvaliativo.getId();
+        this.nome = nome;
         this.valor = valor;
     }
 
-    public MetodoAvaliativoOutros(int id, double valor) {
+    public MetodoAvaliativoOutros(int id, String nome, double valor) {
         this.id = id;
+        this.nome = nome;
         this.valor = valor;
     }
 
@@ -26,6 +30,10 @@ public class MetodoAvaliativoOutros implements IValuable {
 
     public TipoAvaliacao getTipoAvaliacao() {
         return tipoAvaliacao;
+    }
+
+    public String getNome() {
+        return nome;
     }
 
     @Override

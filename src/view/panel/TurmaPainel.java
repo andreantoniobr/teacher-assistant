@@ -1,7 +1,7 @@
 package view.panel;
 import controller.Applicantion;
-import model.Turma;
-import view.Mensagem;
+import view.components.*;
+import view.components.TextField;
 import view.constant.ViewConstants;
 import view.frame.EditarTurmaFrame;
 
@@ -43,6 +43,7 @@ public class TurmaPainel extends JPanel {
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.anchor = GridBagConstraints.WEST;
+        gbc.insets = new Insets(5, 5, 5, 5);
 
         JPanel painelTurma = new JPanel(new GridBagLayout());
         painelTurma.add(new JLabel(ViewConstants.CAMPONOMEDATURMA), gbc);
@@ -51,14 +52,14 @@ public class TurmaPainel extends JPanel {
         gbc.gridy = 0;
         gbc.weightx = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        painelTurma.add((nome = new JTextField(10)), gbc);
+        painelTurma.add((nome = new TextField()), gbc);
 
         gbc.gridx = 0;
         gbc.gridy++;
         gbc.gridwidth = GridBagConstraints.REMAINDER;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(10, 0, 20, 0);
-        painelTurma.add(adicionar = new JButton(ViewConstants.ADICIONAR), gbc);
+        painelTurma.add(adicionar = new AddButton("Adicionar Turma"), gbc);
         add(painelTurma, BorderLayout.PAGE_START);
 
         criaTabela();
@@ -71,8 +72,8 @@ public class TurmaPainel extends JPanel {
         painelFundo.add(new JScrollPane(tabela), BorderLayout.CENTER);
 
         JPanel painelBotoes = new JPanel();
-        painelBotoes.add(editar = new JButton(ViewConstants.EDITAR));
-        painelBotoes.add(excluir = new JButton(ViewConstants.EXCLUIR));
+        painelBotoes.add(editar = new SaveButtom("Editar Turma"));
+        painelBotoes.add(excluir = new DeleteButtom("Excluir Turma"));
         painelFundo.add(painelBotoes, BorderLayout.PAGE_END);
         add(painelFundo, BorderLayout.CENTER);
     }
