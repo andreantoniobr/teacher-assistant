@@ -2,7 +2,7 @@ package view.frame;
 
 import view.components.SaveButtom;
 import view.components.TextField;
-import view.constant.ViewConstants;
+import view.constants.ViewConstants;
 
 import javax.swing.*;
 import javax.swing.border.CompoundBorder;

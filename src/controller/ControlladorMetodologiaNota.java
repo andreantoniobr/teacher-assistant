@@ -30,7 +30,7 @@ public class ControlladorMetodologiaNota {
         }
         ArrayList<Object[]> dadosMetodosAvaliativos = new ArrayList<>();
         for (IValuable avaliavel: metodologiaNota.getAvaliaveis()){
-            Object[] dadoMetodoAvaliativo = {avaliavel.getId(), avaliavel.getNome()};
+            Object[] dadoMetodoAvaliativo = {avaliavel.getId(), avaliavel.getNome(), avaliavel.getHashCode()};
             dadosMetodosAvaliativos.add(dadoMetodoAvaliativo);
         }
         return dadosMetodosAvaliativos;
@@ -80,7 +80,16 @@ public class ControlladorMetodologiaNota {
         } else {
             throw new Exception("Metodologia não encontrada!");
         }
+    }
 
+    public void removerMetodoAvaliativoPorHashCode(int id, String metodoAvaliativoHashCode) throws Exception {
+        MetodologiaNota metodologiaNota = getMetodologiaPorId(id);
+        if(metodologiaNota != null){
+            metodologiaNota.removerMetodoAvaliativoPorHashCode(metodoAvaliativoHashCode);
+            //Applicantion.fileIO.excluiMetodoAvalitativo(metodologiaNota);
+        } else {
+            throw new Exception("Metodologia não encontrada!");
+        }
     }
 
     private MetodologiaNota getMetodologiaPorId(int id) throws Exception {

@@ -3,7 +3,7 @@ package view.frame;
 import controller.Applicantion;
 import view.components.*;
 import view.components.TextField;
-import view.constant.ViewConstants;
+import view.constants.ViewConstants;
 import javax.swing.*;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
@@ -23,7 +23,7 @@ public class EditarMetodologiaNotaFrame extends DependentFrame {
     private DefaultTableModel modelo = new DefaultTableModel();
 
     public EditarMetodologiaNotaFrame(String nome) {
-        super("Editar Metodologia de Nota", ViewConstants.dependentFrameWidth, 400);
+        super("Editar Metodologia de Nota", 500, 450);
         criarInterface();
         setNome(nome);
     }
@@ -42,6 +42,14 @@ public class EditarMetodologiaNotaFrame extends DependentFrame {
 
     public JButton getBotaoSalvar() {
         return salvar;
+    }
+
+    public JButton getBotaoExcluir() {
+        return this.excluir;
+    }
+
+    public JTable getTabela() {
+        return this.tabela;
     }
 
     public JComboBox getMetodosAvaliativos() {
@@ -93,6 +101,7 @@ public class EditarMetodologiaNotaFrame extends DependentFrame {
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.anchor = GridBagConstraints.WEST;
+        gbc.insets = new Insets(5, 5, 5, 0);
         painelText.add(new JLabel("Nome da Metodologia: "), gbc);
 
         gbc.gridx++;
@@ -141,7 +150,7 @@ public class EditarMetodologiaNotaFrame extends DependentFrame {
         gbcPainelMetodologia.anchor = GridBagConstraints.PAGE_START;
         gbcPainelMetodologia.fill = GridBagConstraints.HORIZONTAL;
         gbcPainelMetodologia.insets = new Insets(0, 0, 0, 0);
-        painelMetodologia.add(new DeleteButtom("Excluir Método Avaliativo"), gbcPainelMetodologia);
+        painelMetodologia.add(excluir = new DeleteButtom("Excluir Método Avaliativo"), gbcPainelMetodologia);
 
 
     }
@@ -160,12 +169,13 @@ public class EditarMetodologiaNotaFrame extends DependentFrame {
     }
 
     private void criaTabela() {
-        String [] colunas = {ViewConstants.ID, "Nome"};
+        String [] colunas = {"Id do Método Avaliativo", "Nome", "Hash Code"};
         modelo.setColumnIdentifiers(colunas);
-        tabela = new JTable(modelo);
+        tabela = new CustomJTable(modelo);
 
-        tabela.getColumnModel().getColumn(0).setPreferredWidth(10);
+        tabela.getColumnModel().getColumn(0).setPreferredWidth(170);
         tabela.getColumnModel().getColumn(1).setPreferredWidth(120);
+        tabela.getColumnModel().getColumn(2).setPreferredWidth(120);
     }
 
     private void preencheTabela(ArrayList<Object[]> dadosMetodosAvaliativos){

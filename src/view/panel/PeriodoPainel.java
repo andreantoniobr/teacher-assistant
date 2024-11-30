@@ -2,7 +2,7 @@ package view.panel;
 
 import controller.Applicantion;
 import view.components.Mensagem;
-import view.constant.ViewConstants;
+import view.constants.ViewConstants;
 import view.frame.EditorPeriodoFrame;
 
 import javax.swing.*;

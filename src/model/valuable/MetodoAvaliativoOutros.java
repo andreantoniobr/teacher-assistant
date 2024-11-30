@@ -45,4 +45,9 @@ public class MetodoAvaliativoOutros implements IValuable {
     public double getValor() {
         return this.valor;
     }
+
+    @Override
+    public String getHashCode(){
+        return Integer.toHexString(this.hashCode());
+    }
 }

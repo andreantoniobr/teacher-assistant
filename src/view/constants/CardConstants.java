@@ -1,4 +1,4 @@
-package view.constant;
+package view.constants;
 
 public class CardConstants {
     public final static String ALUNOPAINEL = "ALUNOPAINEL";

@@ -2,7 +2,7 @@ package view.panel;
 import controller.Applicantion;
 import view.components.*;
 import view.components.TextField;
-import view.constant.ViewConstants;
+import view.constants.ViewConstants;
 import view.frame.EditarTurmaFrame;
 
 import javax.swing.*;

@@ -5,4 +5,5 @@ public interface IValuable {
     public String getNome();
     public void setValor(double valor);
     public double getValor();
+    public String getHashCode();
 }

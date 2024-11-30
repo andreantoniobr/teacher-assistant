@@ -14,7 +14,7 @@ public class CustomTextFild extends JTextField {
         //setBorder(javax.swing.BorderFactory.createEmptyBorder());
         //setBorder(BorderFactory.createCompoundBorder(getBorder(), BorderFactory.createEmptyBorder(5, 5, 5, 5)));
         //setFont(new Font("Tahoma", 1, 13));
-        setFont(new Font("SansSerif", 1, 12));
+        setFont(new Font("SansSerif", Font.BOLD, 12));
         setMargin(new Insets(5,5,5,5));
         setOpaque(true);
     }

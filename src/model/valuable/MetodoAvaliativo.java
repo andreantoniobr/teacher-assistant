@@ -2,7 +2,7 @@ package model.valuable;
 
 import id.IdMetodoAvaliativo;
 
-public class MetodoAvaliativo implements IValuable {
+public class MetodoAvaliativo implements IValuable, Cloneable {
     private int id;
     private String nome;
     private String descricao;
@@ -62,5 +62,15 @@ public class MetodoAvaliativo implements IValuable {
     @Override
     public double getValor() {
         return valor;
+    }
+
+    @Override
+    public String getHashCode(){
+        return Integer.toHexString(this.hashCode());
+    }
+
+    public Object clone() throws CloneNotSupportedException
+    {
+        return super.clone();
     }
 }

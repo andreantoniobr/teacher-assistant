@@ -2,7 +2,7 @@ package view.panel;
 import controller.Applicantion;
 import view.components.*;
 import view.components.TextField;
-import view.constant.ViewConstants;
+import view.constants.ViewConstants;
 import view.frame.EditarAlunoFrame;
 
 import javax.swing.*;
@@ -155,7 +155,7 @@ public class AlunoPainel extends JPanel {
     private void criaTabela() {
         String [] colunas = {ViewConstants.ID, ViewConstants.NOME, ViewConstants.EMAIL};
         modelo.setColumnIdentifiers(colunas);
-        tabela = new JTable(modelo);
+        tabela = new CustomJTable(modelo);
 
         tabela.getColumnModel().getColumn(0).setPreferredWidth(10);
         tabela.getColumnModel().getColumn(1).setPreferredWidth(120);

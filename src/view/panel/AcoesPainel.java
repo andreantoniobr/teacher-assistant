@@ -1,6 +1,6 @@
 package view.panel;
 import view.CardLayoutOptions;
-import view.constant.CardConstants;
+import view.constants.CardConstants;
 
 import javax.swing.*;
 import java.awt.*;

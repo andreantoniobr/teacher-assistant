@@ -50,6 +50,15 @@ public class MetodologiaNota {
         this.avaliaveis.remove(avaliavel);
     }
 
+    public void removerMetodoAvaliativoPorHashCode(String hashCode) {
+        for (IValuable avaliavel: avaliaveis){
+            if(hashCode.equals(avaliavel.getHashCode())){
+                this.avaliaveis.remove(avaliavel);
+                break;
+            }
+        }
+    }
+
     public double valorTotal() {
         double total = 0;
         for (IValuable avaliavel : avaliaveis){

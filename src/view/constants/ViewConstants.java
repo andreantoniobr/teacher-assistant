@@ -1,4 +1,4 @@
-package view.constant;
+package view.constants;
 
 public class ViewConstants {
     public final static String ID = "id";

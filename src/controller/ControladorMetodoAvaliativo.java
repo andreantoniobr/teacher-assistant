@@ -14,7 +14,7 @@ public class ControladorMetodoAvaliativo {
     public ArrayList<Object[]>  getDadosMetodosAvaliativos() {
         ArrayList<Object[]> dadosMetodosAvaliativos = new ArrayList<>();
         for (MetodoAvaliativo metodoAvaliativo: metodosAvaliativos){
-            Object[] dadoMetodoAvaliativo = {metodoAvaliativo.getId(), metodoAvaliativo.getTipoAvaliacao()};
+            Object[] dadoMetodoAvaliativo = {metodoAvaliativo.getId(), metodoAvaliativo.getTipoAvaliacao(), metodoAvaliativo.getHashCode()};
             dadosMetodosAvaliativos.add(dadoMetodoAvaliativo);
         }
         return dadosMetodosAvaliativos;
@@ -37,7 +37,7 @@ public class ControladorMetodoAvaliativo {
                 break;
             }
         }
-        return metodoAvaliativo;
+        return (MetodoAvaliativo) metodoAvaliativo.clone();
     }
 
     public void addStartContent(){
