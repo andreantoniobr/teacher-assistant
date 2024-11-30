@@ -1,6 +1,9 @@
 package controller;
 
 import model.Aluno;
+import model.MetodologiaNota;
+import model.Periodo;
+import model.Turma;
 
 import java.util.ArrayList;
 
@@ -14,7 +17,12 @@ public class ControladorAluno {
     public ArrayList<Object[]> getDadosAlunos() {
         ArrayList<Object[]> dadosAlunos = new ArrayList<>();
         for (Aluno aluno: alunos){
-            Object[] dadoAluno = {aluno.getId(), aluno.getNome(), aluno.getEmail()};
+            String turmaNome = "";
+            Turma turma = aluno.getTurma();
+            if (turma != null){
+                turmaNome = turma.getNome();
+            }
+            Object[] dadoAluno = {aluno.getId(), aluno.getNome(), aluno.getEmail(), turmaNome};
             dadosAlunos.add(dadoAluno);
         }
         return dadosAlunos;
@@ -29,6 +37,22 @@ public class ControladorAluno {
             }
             Object[] dadoAluno = {aluno.getNome(), aluno.getEmail(), idTurma};
             return dadoAluno;
+        } else {
+            throw new Exception("Aluno não encontrado!");
+        }
+    }
+
+    public ArrayList<Object[]> getNotasAlunoPorId(int id) throws Exception {
+        Aluno aluno = getAlunoPorId(id);
+        if(aluno != null){
+            ArrayList<Object[]> notas = new ArrayList<>();
+            for (Periodo periodo: aluno.getPeriodos()) {
+                for(MetodologiaNota metodologiaNota: periodo.getNotas()){
+                    Object[] nota = {periodo.getNome(), metodologiaNota.getNome(), metodologiaNota.valorTotal()};
+                    notas.add(nota);
+                }
+            }
+            return notas;
         } else {
             throw new Exception("Aluno não encontrado!");
         }

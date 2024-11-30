@@ -4,6 +4,7 @@ import view.components.*;
 import view.components.TextField;
 import view.constants.ViewConstants;
 import view.frame.EditarAlunoFrame;
+import view.frame.VisualizarNotasPeriodoFrame;
 
 import javax.swing.*;
 import javax.swing.border.CompoundBorder;
@@ -11,14 +12,13 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class AlunoPainel extends JPanel {
     private JTextField nome;
     private JTextField email;
 
-    private JButton adicionar;
-    private JButton excluir;
-    private JButton editar;
+    private JButton adicionar, excluir, editar, editarNotas, verNotas;
 
     private JTable tabela;
     private DefaultTableModel modelo = new DefaultTableModel();
@@ -78,6 +78,8 @@ public class AlunoPainel extends JPanel {
 
         JPanel painelBotoes = new JPanel();
         painelBotoes.add(editar = new SaveButtom("Editar Aluno"));
+        painelBotoes.add(editarNotas = new SaveButtom("Acompanhar Notas"));
+        painelBotoes.add(verNotas = new SaveButtom("Visualizar Notas por Período"));
         painelBotoes.add(excluir = new DeleteButtom("Excluir Aluno"));
         painelFundo.add(painelBotoes, BorderLayout.PAGE_END);
         add(painelFundo, BorderLayout.CENTER);
@@ -87,6 +89,7 @@ public class AlunoPainel extends JPanel {
         adicionar.addActionListener(e -> adicionarAluno());
         excluir.addActionListener(e -> excluirAluno());
         editar.addActionListener(e -> editarAluno());
+        verNotas.addActionListener(e -> verNotasAluno());
     }
 
     private void adicionarAluno() {
@@ -154,14 +157,36 @@ public class AlunoPainel extends JPanel {
         }
     }
 
+    private void verNotasAluno() {
+        try
+        {
+            int linha = tabela.getSelectedRow();
+            if (linha >= 0) {
+                int id = Integer.parseInt(tabela.getValueAt(linha, 0).toString());
+                try {
+                    VisualizarNotasPeriodoFrame visualizarNotasPeriodoFrame = new VisualizarNotasPeriodoFrame();
+                    ArrayList<Object[]> dadosNotas = Applicantion.controladorAluno.getNotasAlunoPorId(id);
+                    visualizarNotasPeriodoFrame.atualizaTabela(dadosNotas);
+                } catch (Exception ex) {
+                    Mensagem.showMensagem(ex.getMessage());
+                }
+            } else {
+                Mensagem.showMensagem(ViewConstants.NECESSARIOSELECIONARLINHA);
+            }
+        } catch (Exception e) {
+            Mensagem.showMensagem(e.getMessage());
+        }
+    }
+
     private void criaTabela() {
-        String [] colunas = {ViewConstants.ID, ViewConstants.NOME, ViewConstants.EMAIL};
+        String [] colunas = {ViewConstants.ID, ViewConstants.NOME, ViewConstants.EMAIL, "Turma"};
         modelo.setColumnIdentifiers(colunas);
         tabela = new CustomJTable(modelo);
 
         tabela.getColumnModel().getColumn(0).setPreferredWidth(10);
         tabela.getColumnModel().getColumn(1).setPreferredWidth(120);
         tabela.getColumnModel().getColumn(2).setPreferredWidth(120);
+        tabela.getColumnModel().getColumn(3).setPreferredWidth(120);
     }
 
     private void preencheTabela(){
