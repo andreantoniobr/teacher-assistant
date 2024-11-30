@@ -1,6 +1,8 @@
 package controller;
 
 import model.Aluno;
+import model.valuable.MetodoAvaliativo;
+
 import java.util.ArrayList;
 
 public class ControladorAluno {
@@ -22,7 +24,11 @@ public class ControladorAluno {
     public Object[] getDadosAlunoPorId(int id) throws Exception {
         Aluno aluno = getAlunoPorId(id);
         if(aluno != null){
-            Object[] dadoAluno = {aluno.getNome(), aluno.getEmail()};
+            int idTurma = -1;
+            if(aluno.getTurma() != null){
+                idTurma = aluno.getTurma().getId();
+            }
+            Object[] dadoAluno = {aluno.getNome(), aluno.getEmail(), idTurma};
             return dadoAluno;
         } else {
             throw new Exception("Aluno não encontrado!");
@@ -55,17 +61,15 @@ public class ControladorAluno {
         }
     }
 
-    public void editarAluno(int id, String nome, String email) throws Exception {
+    public void editarAluno(int id, String nome, String email, int idTurma) throws Exception {
         if(nome == null || nome.isEmpty()){
             throw new Exception("Nome de aluno não pode ser vazio!");
         }
         Aluno aluno = getAlunoPorId(id);
         if(aluno != null){
-            if(nome.equals(aluno.getNome()) && email.equals(aluno.getEmail())){
-                throw new Exception("Nenhum dado foi alterado!");
-            }
             aluno.setNome(nome);
             aluno.setEmail(email);
+            aluno.setTurma(Applicantion.ControladorTurma.getTurmaPorId(idTurma));
             Applicantion.fileIO.editaAluno(aluno);
         } else {
             throw new Exception("Aluno não encontrado!");

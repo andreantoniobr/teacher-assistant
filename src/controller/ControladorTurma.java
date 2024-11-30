@@ -58,7 +58,7 @@ public class ControladorTurma {
         }
     }
 
-    private Turma getTurmaPorId(int id) throws Exception {
+    public Turma getTurmaPorId(int id) throws Exception {
         if(id <= 0){
             throw new Exception("Id de Turma inválido!");
         }

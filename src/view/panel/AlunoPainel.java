@@ -139,7 +139,9 @@ public class AlunoPainel extends JPanel {
                 try {
                     String novoNome = editarAlunoFrame.getNome();
                     String novoEmail = editarAlunoFrame.getEmail();
-                    Applicantion.ControladorAluno.editarAluno(id, novoNome, novoEmail);
+                    Object item = editarAlunoFrame.getComboBox().getSelectedItem();
+                    int idTurma = ((ComboItem)item).getId();
+                    Applicantion.ControladorAluno.editarAluno(id, novoNome, novoEmail, idTurma);
                     editarAlunoFrame.dispose();
                     atualizaTabela();
                     Mensagem.showMensagem("Aluno: " + novoNome + " com Id: " + id + " foi alterado com sucesso!");

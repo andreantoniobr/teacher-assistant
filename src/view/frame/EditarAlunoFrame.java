@@ -1,6 +1,7 @@
 package view.frame;
 
-import view.components.SaveButtom;
+import controller.Applicantion;
+import view.components.*;
 import view.components.TextField;
 import view.constants.ViewConstants;
 
@@ -14,11 +15,14 @@ public class EditarAlunoFrame extends DependentFrame {
     private JTextField nome;
     private JButton salvar;
     private JTextField email;
+    private JComboBox turmaComboBox;
+    private int turmaComboBoxSelectedItemId;
 
     public EditarAlunoFrame(Object[] dadoAluno) {
-        super("Editar Aluno", ViewConstants.dependentFrameWidth, 200);
+        super("Editar Aluno", ViewConstants.dependentFrameWidth, 300);
         criarInterface();
         setDadosAluno(dadoAluno);
+        popularComboBox();
     }
     public String getNome() {
         return nome.getText();
@@ -38,6 +42,10 @@ public class EditarAlunoFrame extends DependentFrame {
 
     public JButton getSalvar() {
         return salvar;
+    }
+
+    public JComboBox getComboBox(){
+        return this.turmaComboBox;
     }
 
     private void criarInterface() {
@@ -64,6 +72,18 @@ public class EditarAlunoFrame extends DependentFrame {
         gbc.gridy++;
         painelAluno.add((email = new TextField()), gbc);
 
+
+        gbc.gridx = 0;
+        gbc.gridy++;
+        painelAluno.add(new JLabel("Turma: "), gbc);
+
+        gbc.gridx++;
+        gbc.weightx = 1;
+        gbc.gridwidth = GridBagConstraints.HORIZONTAL;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(10, 0, 10, 0);
+        painelAluno.add(turmaComboBox = new JComboBox<>(), gbc);
+
         gbc.gridx = 0;
         gbc.gridy++;
         gbc.gridwidth = GridBagConstraints.REMAINDER;
@@ -71,6 +91,25 @@ public class EditarAlunoFrame extends DependentFrame {
         gbc.insets = new Insets(10, 0, 20, 0);
         painelAluno.add(salvar = new SaveButtom("Salvar"), gbc);
         add(painelAluno, BorderLayout.CENTER);
+    }
+
+
+
+    private void popularComboBox() {
+        try
+        {
+            for(Object[] object : Applicantion.ControladorTurma.getDadosTurmas()){
+                int id = (int) object[0];
+                String nomeTurma = object[1].toString();
+                ComboItem item = new ComboItem(id, nomeTurma);
+                turmaComboBox.addItem(item);
+                if(id == turmaComboBoxSelectedItemId){
+                    turmaComboBox.setSelectedItem(item);
+                }
+            }
+        } catch (Exception e) {
+            Mensagem.showMensagem(e.getMessage());
+        }
     }
 
     private void setDadosAluno(Object[] dadoAluno) {
@@ -82,6 +121,11 @@ public class EditarAlunoFrame extends DependentFrame {
         if(dadoAluno[1] != null){
             String email = dadoAluno[1].toString();
             setEmail(email);
+        }
+
+        if(dadoAluno[2] != null){
+            turmaComboBoxSelectedItemId = Integer.parseInt(dadoAluno[2].toString());
+            System.out.println(turmaComboBoxSelectedItemId);
         }
     }
 }

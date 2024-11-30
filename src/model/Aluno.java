@@ -20,6 +20,14 @@ public class Aluno extends Pessoa {
         return periodos;
     }
 
+    public Turma getTurma(){
+        return this.turma;
+    }
+
+    public void setTurma(Turma turma){
+        this.turma = turma;
+    }
+
     public void adicionarPeriodo(Periodo periodo) {
         periodos.add(periodo);
     }
