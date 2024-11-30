@@ -1,7 +1,6 @@
 package controller;
 
 import model.Aluno;
-import model.valuable.MetodoAvaliativo;
 
 import java.util.ArrayList;
 
@@ -69,7 +68,7 @@ public class ControladorAluno {
         if(aluno != null){
             aluno.setNome(nome);
             aluno.setEmail(email);
-            aluno.setTurma(Applicantion.ControladorTurma.getTurmaPorId(idTurma));
+            aluno.setTurma(Applicantion.controladorTurma.getTurmaPorId(idTurma));
             Applicantion.fileIO.editaAluno(aluno);
         } else {
             throw new Exception("Aluno não encontrado!");

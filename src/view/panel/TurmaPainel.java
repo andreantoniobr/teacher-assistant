@@ -86,7 +86,7 @@ public class TurmaPainel extends JPanel {
 
     private void adicionarTurma() {
         try {
-            Applicantion.ControladorTurma.inserirTurma(getNome());
+            Applicantion.controladorTurma.inserirTurma(getNome());
             atualizaTabela();
         } catch (Exception e){
             Mensagem.showMensagem(e.getMessage());
@@ -100,7 +100,7 @@ public class TurmaPainel extends JPanel {
             if (linha >= 0) {
                 int id = Integer.parseInt(tabela.getValueAt(linha, 0).toString());
                 String nome = tabela.getValueAt(linha, 1).toString();
-                Applicantion.ControladorTurma.excluirTurma(id);
+                Applicantion.controladorTurma.excluirTurma(id);
                 atualizaTabela();
                 Mensagem.showMensagem("Turma: " + nome + " com Id: " + id + " foi excluida com sucesso!");
             } else {
@@ -132,7 +132,7 @@ public class TurmaPainel extends JPanel {
         editarTurmaFrame.getSalvar().addActionListener(e -> {
             try {
                 String novoNome = editarTurmaFrame.getNome();
-                Applicantion.ControladorTurma.editarTurma(id, novoNome);
+                Applicantion.controladorTurma.editarTurma(id, novoNome);
                 editarTurmaFrame.dispose();
                 atualizaTabela();
                 Mensagem.showMensagem("Turma: " + novoNome + " com Id: " + id + " foi alterada com sucesso!");
@@ -152,7 +152,7 @@ public class TurmaPainel extends JPanel {
     }
 
     private void preencheTabela(){
-        for (Object[] dadoTurma: Applicantion.ControladorTurma.getDadosTurmas()){
+        for (Object[] dadoTurma: Applicantion.controladorTurma.getDadosTurmas()){
             modelo.addRow(dadoTurma);
         }
     }

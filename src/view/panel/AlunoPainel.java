@@ -91,7 +91,7 @@ public class AlunoPainel extends JPanel {
 
     private void adicionarAluno() {
         try {
-            Applicantion.ControladorAluno.inserirAluno(getNome(), getEmail());
+            Applicantion.controladorAluno.inserirAluno(getNome(), getEmail());
             atualizaTabela();
         } catch (Exception e){
             Mensagem.showMensagem(e.getMessage());
@@ -105,7 +105,7 @@ public class AlunoPainel extends JPanel {
             if (linha >= 0) {
                 int id = Integer.parseInt(tabela.getValueAt(linha, 0).toString());
                 String nome = tabela.getValueAt(linha, 1).toString();
-                Applicantion.ControladorAluno.excluirAluno(id);
+                Applicantion.controladorAluno.excluirAluno(id);
                 atualizaTabela();
                 Mensagem.showMensagem("Aluno: " + nome + " com Id: " + id + " foi excluido com sucesso!");
             } else {
@@ -133,7 +133,7 @@ public class AlunoPainel extends JPanel {
 
     private void editarAlunoNovoFrame(int id) {
         try {
-            Object[] dadoAluno = Applicantion.ControladorAluno.getDadosAlunoPorId(id);
+            Object[] dadoAluno = Applicantion.controladorAluno.getDadosAlunoPorId(id);
             EditarAlunoFrame editarAlunoFrame = new EditarAlunoFrame(dadoAluno);
             editarAlunoFrame.getSalvar().addActionListener(e -> {
                 try {
@@ -141,7 +141,7 @@ public class AlunoPainel extends JPanel {
                     String novoEmail = editarAlunoFrame.getEmail();
                     Object item = editarAlunoFrame.getComboBox().getSelectedItem();
                     int idTurma = ((ComboItem)item).getId();
-                    Applicantion.ControladorAluno.editarAluno(id, novoNome, novoEmail, idTurma);
+                    Applicantion.controladorAluno.editarAluno(id, novoNome, novoEmail, idTurma);
                     editarAlunoFrame.dispose();
                     atualizaTabela();
                     Mensagem.showMensagem("Aluno: " + novoNome + " com Id: " + id + " foi alterado com sucesso!");
@@ -165,7 +165,7 @@ public class AlunoPainel extends JPanel {
     }
 
     private void preencheTabela(){
-        for (Object[] dadoAluno: Applicantion.ControladorAluno.getDadosAlunos()){
+        for (Object[] dadoAluno: Applicantion.controladorAluno.getDadosAlunos()){
             modelo.addRow(dadoAluno);
         }
     }
