@@ -1,6 +1,8 @@
 package model;
 
 import id.IdPeriodo;
+import model.valuable.IValuable;
+
 import java.util.ArrayList;
 
 public class Periodo {
@@ -56,5 +58,14 @@ public class Periodo {
 
     public void removerMetodologiaNota(MetodologiaNota metodologiaNota) {
         metodologiaNotas.remove(metodologiaNota);
+    }
+
+    public void removerMetodologiaPorHashCode(String hashCode) {
+        for (MetodologiaNota metodologiaNota: metodologiaNotas){
+            if(hashCode.equals(metodologiaNota.getHashCode())){
+                this.metodologiaNotas.remove(metodologiaNota);
+                break;
+            }
+        }
     }
 }

@@ -169,7 +169,7 @@ public class EditarMetodologiaNotaFrame extends DependentFrame {
     }
 
     private void criaTabela() {
-        String [] colunas = {"Id do Método Avaliativo", "Nome", "Hash Code"};
+        String [] colunas = {"Id do Método Avaliativo", "Nome", "Identificador"};
         modelo.setColumnIdentifiers(colunas);
         tabela = new CustomJTable(modelo);
 

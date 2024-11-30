@@ -92,7 +92,7 @@ public class ControlladorMetodologiaNota {
         }
     }
 
-    private MetodologiaNota getMetodologiaPorId(int id) throws Exception {
+    public MetodologiaNota getMetodologiaPorId(int id) throws Exception {
         if(id <= 0){
             throw new Exception("Id de metodologia inválido!");
         }
@@ -103,7 +103,7 @@ public class ControlladorMetodologiaNota {
                 break;
             }
         }
-        return metodologiaNota;
+        return (MetodologiaNota) metodologiaNota.clone();
     }
 
     public void addStartContent(){

@@ -4,7 +4,7 @@ import id.IdMetodologiaNota;
 import model.valuable.IValuable;
 import java.util.ArrayList;
 
-public class MetodologiaNota {
+public class MetodologiaNota implements Cloneable {
     private int id;
     private String nome;
     private ArrayList<IValuable> avaliaveis = new ArrayList<>();
@@ -65,5 +65,14 @@ public class MetodologiaNota {
             total += avaliavel.getValor();
         }
         return total;
+    }
+
+    public String getHashCode(){
+        return Integer.toHexString(this.hashCode());
+    }
+
+    public Object clone() throws CloneNotSupportedException
+    {
+        return super.clone();
     }
 }

@@ -193,7 +193,7 @@ public class MetodologiaNotaPainel extends JPanel {
     private void criaTabela() {
         String [] colunas = {ViewConstants.ID, ViewConstants.NOME};
         modelo.setColumnIdentifiers(colunas);
-        tabela = new JTable(modelo);
+        tabela = new CustomJTable(modelo);
 
         tabela.getColumnModel().getColumn(0).setPreferredWidth(10);
         tabela.getColumnModel().getColumn(1).setPreferredWidth(120);

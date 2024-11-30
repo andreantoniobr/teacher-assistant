@@ -1,7 +1,9 @@
 package controller;
 
+import model.MetodologiaNota;
 import model.Periodo;
 import model.Turma;
+import model.valuable.IValuable;
 
 import java.util.ArrayList;
 
@@ -19,6 +21,19 @@ public class ControladorPeriodo {
             dadosPeriodos.add(dadoPeriodo);
         }
         return dadosPeriodos;
+    }
+
+    public ArrayList<Object[]>  getMetodologiasPorId(int id) throws Exception {
+        Periodo periodo = getPeriodoPorId(id);
+        if(periodo == null){
+            throw new Exception("Período não encontrado!");
+        }
+        ArrayList<Object[]> dadosMetodologias = new ArrayList<>();
+        for (MetodologiaNota metodologia: periodo.getNotas()){
+            Object[] dadoMetodoAvaliativo = {metodologia.getId(), metodologia.getNome(), metodologia.getHashCode()};
+            dadosMetodologias.add(dadoMetodoAvaliativo);
+        }
+        return dadosMetodologias;
     }
 
     public void setPeriodos(ArrayList<Periodo> periodos) {
@@ -50,11 +65,26 @@ public class ControladorPeriodo {
         }
         Periodo periodo = getPeriodoPorId(id);
         if(periodo != null){
-            if(nome.equals(periodo.getNome())){
-                throw new Exception("Nome do período não foi alterado, pois é igual ao anterior!");
-            }
             periodo.setNome(nome);
             //Applicantion.fileIO.editarPeriodo(periodo);
+        } else {
+            throw new Exception("Período não encontrado!");
+        }
+    }
+
+    public void inserirMetodologiaPorID(int id, int idMetodologia) throws Exception {
+        Periodo periodo = getPeriodoPorId(id);
+        if(periodo != null){
+            periodo.adicionarMetodologiaNota(Applicantion.controlladorMetodologiaNota.getMetodologiaPorId(idMetodologia));
+        } else {
+            throw new Exception("Período não encontrado!");
+        }
+    }
+
+    public void removerMetodologiaPorHashCode(int id, String metodologiaHashCode) throws Exception {
+        Periodo periodo = getPeriodoPorId(id);
+        if(periodo != null){
+            periodo.removerMetodologiaPorHashCode(metodologiaHashCode);
         } else {
             throw new Exception("Período não encontrado!");
         }

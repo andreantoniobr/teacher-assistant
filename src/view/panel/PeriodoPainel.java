@@ -1,8 +1,10 @@
 package view.panel;
 
 import controller.Applicantion;
-import view.components.Mensagem;
+import view.components.*;
+import view.components.TextField;
 import view.constants.ViewConstants;
+import view.frame.EditarMetodologiaNotaFrame;
 import view.frame.EditorPeriodoFrame;
 
 import javax.swing.*;
@@ -11,6 +13,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class PeriodoPainel extends JPanel {
     private JTextField nome;
@@ -43,6 +46,7 @@ public class PeriodoPainel extends JPanel {
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.anchor = GridBagConstraints.WEST;
+        gbc.insets = new Insets(5, 5, 5, 5);
 
         JPanel painelPeriodo = new JPanel(new GridBagLayout());
         painelPeriodo.add(new JLabel("Nome do Período: "), gbc);
@@ -51,14 +55,14 @@ public class PeriodoPainel extends JPanel {
         gbc.gridy = 0;
         gbc.weightx = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        painelPeriodo.add((nome = new JTextField(10)), gbc);
+        painelPeriodo.add((nome = new TextField()), gbc);
 
         gbc.gridx = 0;
         gbc.gridy++;
         gbc.gridwidth = GridBagConstraints.REMAINDER;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(10, 0, 20, 0);
-        painelPeriodo.add(adicionar = new JButton(ViewConstants.ADICIONAR), gbc);
+        painelPeriodo.add(adicionar = new AddButton(ViewConstants.ADICIONAR), gbc);
         add(painelPeriodo, BorderLayout.PAGE_START);
 
         criaTabela();
@@ -71,8 +75,8 @@ public class PeriodoPainel extends JPanel {
         painelFundo.add(new JScrollPane(tabela), BorderLayout.CENTER);
 
         JPanel painelBotoes = new JPanel();
-        painelBotoes.add(editar = new JButton(ViewConstants.EDITAR));
-        painelBotoes.add(excluir = new JButton(ViewConstants.EXCLUIR));
+        painelBotoes.add(editar = new SaveButtom(ViewConstants.EDITAR));
+        painelBotoes.add(excluir = new DeleteButtom(ViewConstants.EXCLUIR));
         painelFundo.add(painelBotoes, BorderLayout.PAGE_END);
         add(painelFundo, BorderLayout.CENTER);
     }
@@ -127,8 +131,56 @@ public class PeriodoPainel extends JPanel {
     }
 
     private void editarPeriodoNovoFrame(int id, String nome) {
-        EditorPeriodoFrame editorPeriodoFrame = new EditorPeriodoFrame(nome);
-        editorPeriodoFrame.getSalvar().addActionListener(e -> {
+        try {
+            EditorPeriodoFrame editorPeriodoFrame = new EditorPeriodoFrame(nome);
+            atualizarMetodologias(id, editorPeriodoFrame);
+            adicionarListenerBotaoAdicionar(id, editorPeriodoFrame);
+            adicionarListenerBotaoExcluir(id, editorPeriodoFrame);
+            adicionarListenerBotaoSalvar(id, editorPeriodoFrame);
+        } catch (Exception ex) {
+            Mensagem.showMensagem(ex.getMessage());
+        }
+    }
+
+    private void adicionarListenerBotaoAdicionar(int id, EditorPeriodoFrame editorPeriodoFrame) {
+        editorPeriodoFrame.getBotaoAdicionar().addActionListener(e -> {
+            try {
+                Object item = editorPeriodoFrame.getMetodologiasComboBox().getSelectedItem();
+                int idMetodologia = ((ComboItem)item).getId();
+                Applicantion.controladorPeriodo.inserirMetodologiaPorID(id, idMetodologia);
+                atualizarMetodologias(id, editorPeriodoFrame);
+            } catch (Exception ex) {
+                Mensagem.showMensagem(ex.getMessage());
+            }
+        });
+    }
+
+    private void adicionarListenerBotaoExcluir(int id, EditorPeriodoFrame editorPeriodoFrame) {
+        editorPeriodoFrame.getBotaoExcluir().addActionListener(e -> {
+            try {
+                int linha = editorPeriodoFrame.getTabela().getSelectedRow();
+                if (linha >= 0) {
+                    String nome = editorPeriodoFrame.getTabela().getValueAt(linha, 1).toString();
+                    String hashCode = editorPeriodoFrame.getTabela().getValueAt(linha, 2).toString();
+                    Applicantion.controladorPeriodo.removerMetodologiaPorHashCode(id, hashCode);
+                    atualizarMetodologias(id, editorPeriodoFrame);
+                    Mensagem.showMensagem("Metodologia: " + nome + " com Hash Code: " + hashCode + " foi excluída com sucesso!");
+                } else {
+                    Mensagem.showMensagem(ViewConstants.NECESSARIOSELECIONARLINHA);
+                }
+            } catch (Exception ex) {
+                Mensagem.showMensagem(ex.getMessage());
+            }
+        });
+    }
+
+    private void atualizarMetodologias(int id, EditorPeriodoFrame editorPeriodoFrame) throws Exception {
+        ArrayList<Object[]> dadosMetodosAvaliativos = Applicantion.controladorPeriodo.getMetodologiasPorId(id);
+        editorPeriodoFrame.atualizaTabela(dadosMetodosAvaliativos);
+    }
+
+    private void adicionarListenerBotaoSalvar(int id, EditorPeriodoFrame editorPeriodoFrame) {
+        editorPeriodoFrame.getBotaoSalvar().addActionListener(e -> {
             try {
                 String novoNome = editorPeriodoFrame.getNome();
                 Applicantion.controladorPeriodo.editarPeriodo(id, novoNome);
@@ -144,7 +196,7 @@ public class PeriodoPainel extends JPanel {
     private void criaTabela() {
         String [] colunas = {ViewConstants.ID, ViewConstants.NOME};
         modelo.setColumnIdentifiers(colunas);
-        tabela = new JTable(modelo);
+        tabela = new CustomJTable(modelo);
 
         tabela.getColumnModel().getColumn(0).setPreferredWidth(10);
         tabela.getColumnModel().getColumn(1).setPreferredWidth(120);

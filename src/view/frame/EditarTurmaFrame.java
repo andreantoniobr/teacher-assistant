@@ -1,6 +1,7 @@
 package view.frame;
 
 import view.components.SaveButtom;
+import view.components.TextField;
 import view.constants.ViewConstants;
 import javax.swing.*;
 import javax.swing.border.CompoundBorder;
@@ -36,6 +37,7 @@ public class EditarTurmaFrame extends DependentFrame {
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.anchor = GridBagConstraints.WEST;
+        gbc.insets = new Insets(5, 5, 5, 5);
 
         JPanel painelTurma = new JPanel(new GridBagLayout());
         painelTurma.setBorder(new CompoundBorder(new TitledBorder(ViewConstants.TURMA), new EmptyBorder(10, 10, 10, 10)));
@@ -45,7 +47,7 @@ public class EditarTurmaFrame extends DependentFrame {
         gbc.gridy = 0;
         gbc.weightx = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        painelTurma.add((nome = new JTextField(10)), gbc);
+        painelTurma.add((nome = new TextField()), gbc);
 
         gbc.gridx = 0;
         gbc.gridy++;
