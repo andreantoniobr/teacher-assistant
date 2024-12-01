@@ -82,7 +82,7 @@ public class EditarAlunoFrame extends DependentFrame {
         gbc.gridwidth = GridBagConstraints.HORIZONTAL;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(10, 0, 10, 0);
-        painelAluno.add(turmaComboBox = new JComboBox<>(), gbc);
+        painelAluno.add(turmaComboBox = new CustomComboBox(), gbc);
 
         gbc.gridx = 0;
         gbc.gridy++;

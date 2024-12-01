@@ -1,6 +1,7 @@
 package view.frame;
 
 import view.components.SaveButtom;
+import view.components.TextField;
 import view.constants.ViewConstants;
 
 import javax.swing.*;
@@ -84,7 +85,7 @@ public class EditarAvaliaveisFrame extends DependentFrame {
                     if(metodosAvaliativo[2] != null) {
                         valor = metodosAvaliativo[2].toString();
                     }
-                    avaliaveisTextFilds.add(i, new JTextField());
+                    avaliaveisTextFilds.add(i, new TextField());
                     avaliaveisTextFilds.get(i).setText(valor);
                     inserirLinhaAvaliavel(nome, avaliaveisTextFilds.get(i));
                 }

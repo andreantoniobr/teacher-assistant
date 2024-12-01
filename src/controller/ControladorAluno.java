@@ -120,9 +120,8 @@ public class ControladorAluno {
     }
 
     public void inserirAluno(String nome, String email) throws Exception {
-        if(nome == null || nome.isEmpty()){
-            throw new Exception("Nome do aluno não pode ser vazio!");
-        }
+        validarNomeAluno(nome);
+        validarEmail(email);
         Aluno aluno = new Aluno(nome, email);
         inserirAluno(aluno);
         Applicantion.fileIO.salvarAluno(aluno);
@@ -146,9 +145,8 @@ public class ControladorAluno {
     }
 
     public void editarAluno(int id, String nome, String email, int idTurma) throws Exception {
-        if(nome == null || nome.isEmpty()){
-            throw new Exception("Nome de aluno não pode ser vazio!");
-        }
+        validarNomeAluno(nome);
+        validarEmail(email);
         Aluno aluno = getAlunoPorId(id);
         if(aluno != null){
             aluno.setNome(nome);
@@ -157,6 +155,18 @@ public class ControladorAluno {
             Applicantion.fileIO.editaAluno(aluno);
         } else {
             throw new Exception("Aluno não encontrado!");
+        }
+    }
+
+    private static void validarNomeAluno(String nome) throws Exception {
+        if(nome == null || nome.isEmpty()){
+            throw new Exception("Nome de aluno não pode ser vazio!");
+        }
+    }
+
+    private void validarEmail(String email) throws Exception {
+        if(email != null && !email.isEmpty() && !email.contains("@")){
+            throw new Exception("Email inválido!");
         }
     }
 
