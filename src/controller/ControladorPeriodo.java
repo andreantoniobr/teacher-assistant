@@ -1,5 +1,6 @@
 package controller;
 
+import model.Aluno;
 import model.MetodologiaNota;
 import model.Periodo;
 import model.Turma;
@@ -49,6 +50,13 @@ public class ControladorPeriodo {
         //Applicantion.fileIO.salvarPeriodo(periodo);
     }
 
+    public void inserirPeriodo(Periodo periodo) throws Exception {
+        if(periodo == null){
+            throw new Exception("Objeto periodo não existe!");
+        }
+        periodos.add(periodo);
+    }
+
     public void excluirPeriodo(int id) throws Exception {
         Periodo periodo = getPeriodoPorId(id);
         if(periodo != null){
@@ -92,7 +100,7 @@ public class ControladorPeriodo {
 
     private Periodo getPeriodoPorId(int id) throws Exception {
         if(id <= 0){
-            throw new Exception("Id de Turma inválido!");
+            throw new Exception("Id de Período inválido!");
         }
         Periodo periodo = null;
         for(Periodo a: periodos){

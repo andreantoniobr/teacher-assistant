@@ -14,6 +14,10 @@ public class ControladorAluno {
         addStartContent();
     }
 
+    public ArrayList<Aluno> getAlunos() {
+        return alunos;
+    }
+
     public ArrayList<Object[]> getDadosAlunos() {
         ArrayList<Object[]> dadosAlunos = new ArrayList<>();
         for (Aluno aluno: alunos){

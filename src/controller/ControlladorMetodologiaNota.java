@@ -1,6 +1,7 @@
 package controller;
 
 import model.MetodologiaNota;
+import model.Periodo;
 import model.Turma;
 import model.valuable.IValuable;
 import model.valuable.MetodoAvaliativo;
@@ -47,6 +48,13 @@ public class ControlladorMetodologiaNota {
         MetodologiaNota metodologiaNota = new MetodologiaNota(nome);
         metodologias.add(metodologiaNota);
         //Applicantion.fileIO.salvarMetodologia(metodologiaNota);
+    }
+
+    public void inserirMetodologiaNota(MetodologiaNota metodologiaNota) throws Exception {
+        if(metodologiaNota == null){
+            throw new Exception("Objeto metodologia não existe!");
+        }
+        metodologias.add(metodologiaNota);
     }
 
     public void excluirMedotologia(int id) throws Exception {

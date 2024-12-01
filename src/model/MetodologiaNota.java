@@ -14,6 +14,11 @@ public class MetodologiaNota implements Cloneable {
         this.nome = nome;
     }
 
+    public MetodologiaNota(int id, String nome) {
+        this.id = id;
+        this.nome = nome;
+    }
+
     public MetodologiaNota(String nome, ArrayList<IValuable> avaliaveis) {
         this.id = IdMetodologiaNota.getId();
         this.nome = nome;

@@ -10,6 +10,14 @@ public class ControladorTurma {
         addStartContent();
     }
 
+    public ArrayList<Turma> getTurmas(){
+        return turmas;
+    }
+
+    public void setTurmas(ArrayList<Turma> turmas) {
+        this.turmas = turmas;
+    }
+
     public ArrayList<Object[]>  getDadosTurmas() {
         ArrayList<Object[]> dadosTurmas = new ArrayList<>();
         for (Turma turma: turmas){
@@ -19,8 +27,14 @@ public class ControladorTurma {
         return dadosTurmas;
     }
 
-    public void setTurmas(ArrayList<Turma> turmas) {
-        this.turmas = turmas;
+    public Object[] getDadosTurmaPorId(int id) throws Exception {
+        Turma turma = getTurmaPorId(id);
+        if(turma != null){
+            Object[] dadoTurma = {turma.getId(), turma.getNome()};
+            return dadoTurma;
+        }else {
+            throw new Exception("Turma não encontrado!");
+        }
     }
 
     public void inserirTurma(String nome) throws Exception {
@@ -30,6 +44,13 @@ public class ControladorTurma {
         Turma turma = new Turma(nome);
         turmas.add(turma);
         //Applicantion.fileIO.salvarTurma(turma);
+    }
+
+    public void inserirTurma(Turma turma) throws Exception {
+        if(turma == null){
+            throw new Exception("Objeto turma não existe!");
+        }
+        turmas.add(turma);
     }
 
     public void excluirTurma(int id) throws Exception {

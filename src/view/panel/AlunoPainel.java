@@ -4,6 +4,7 @@ import view.components.*;
 import view.components.TextField;
 import view.constants.ViewConstants;
 import view.frame.EditarAlunoFrame;
+import view.frame.EditarNotasAlunoFrame;
 import view.frame.VisualizarNotasPeriodoFrame;
 
 import javax.swing.*;
@@ -90,6 +91,7 @@ public class AlunoPainel extends JPanel {
         excluir.addActionListener(e -> excluirAluno());
         editar.addActionListener(e -> editarAluno());
         verNotas.addActionListener(e -> verNotasAluno());
+        editarNotas.addActionListener(e -> editarNotasAluno());
     }
 
     private void adicionarAluno() {
@@ -163,19 +165,65 @@ public class AlunoPainel extends JPanel {
             int linha = tabela.getSelectedRow();
             if (linha >= 0) {
                 int id = Integer.parseInt(tabela.getValueAt(linha, 0).toString());
-                try {
-                    VisualizarNotasPeriodoFrame visualizarNotasPeriodoFrame = new VisualizarNotasPeriodoFrame();
-                    ArrayList<Object[]> dadosNotas = Applicantion.controladorAluno.getNotasAlunoPorId(id);
-                    visualizarNotasPeriodoFrame.atualizaTabela(dadosNotas);
-                } catch (Exception ex) {
-                    Mensagem.showMensagem(ex.getMessage());
-                }
+                VisualizarNotasPeriodoFrame visualizarNotasPeriodoFrame = new VisualizarNotasPeriodoFrame();
+                ArrayList<Object[]> dadosNotas = Applicantion.controladorAluno.getNotasAlunoPorId(id);
+                visualizarNotasPeriodoFrame.atualizaTabela(dadosNotas);
             } else {
                 Mensagem.showMensagem(ViewConstants.NECESSARIOSELECIONARLINHA);
             }
         } catch (Exception e) {
             Mensagem.showMensagem(e.getMessage());
         }
+    }
+
+    private void editarNotasAluno() {
+        try
+        {
+            int linha = tabela.getSelectedRow();
+            if (linha >= 0) {
+                int id = Integer.parseInt(tabela.getValueAt(linha, 0).toString());
+                Object[] dadoAluno = Applicantion.controladorAluno.getDadosAlunoPorId(id);
+                EditarNotasAlunoFrame editarNotasAlunoFrame = new EditarNotasAlunoFrame(dadoAluno);
+                adicionarActionListenerPeriodoComboBox(editarNotasAlunoFrame);
+                adicionarListenerBotaoAdicionarNota(id, editarNotasAlunoFrame);
+            } else {
+                Mensagem.showMensagem(ViewConstants.NECESSARIOSELECIONARLINHA);
+            }
+        } catch (Exception e) {
+            Mensagem.showMensagem(e.getMessage());
+        }
+    }
+
+    private void adicionarActionListenerPeriodoComboBox(EditarNotasAlunoFrame editarNotasAlunoFrame){
+        JComboBox periodoComboBox = editarNotasAlunoFrame.getPeriodoComboBoxComboBox();
+        periodoComboBox.addActionListener(e -> {
+            try
+            {
+                Object item = periodoComboBox.getSelectedItem();
+                int idPeriodo = ((ComboItem)item).getId();
+                if(idPeriodo > 0){
+                    editarNotasAlunoFrame.popularMetodologiasComboBox(Applicantion.controladorPeriodo.getMetodologiasPorId(idPeriodo));
+                } else {
+                    editarNotasAlunoFrame.removerTodasMetodologias();
+                }
+            } catch (Exception ex) {
+                Mensagem.showMensagem(ex.getMessage());
+            }
+        });
+    }
+
+    private void adicionarListenerBotaoAdicionarNota(int idAluno, EditarNotasAlunoFrame editarNotasAlunoFrame) {
+        editarNotasAlunoFrame.getEditarNotas().addActionListener(e -> {
+            try {
+                /*
+                Object item = editarMetodologiaNotaFrame.getMetodosAvaliativos().getSelectedItem();
+                int idMetodoAvaliativo = ((ComboItem)item).getId();
+                Applicantion.controlladorMetodologiaNota.inserirMetodoAvaliativoPorID(id, idMetodoAvaliativo);
+                atualizarMetodosAvaliativos(id, editarMetodologiaNotaFrame);*/
+            } catch (Exception ex) {
+                Mensagem.showMensagem(ex.getMessage());
+            }
+        });
     }
 
     private void criaTabela() {
