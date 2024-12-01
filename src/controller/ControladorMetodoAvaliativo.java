@@ -26,6 +26,14 @@ public class ControladorMetodoAvaliativo {
         return dadosMetodoAvaliativo;
     }
 
+    public void inseirMetodoAvaliativo(MetodoAvaliativo metodoAvaliativo) throws Exception {
+        if(metodoAvaliativo != null){
+            metodosAvaliativos.add(metodoAvaliativo);
+        } else {
+            throw new Exception("Objeto metodo Avaliativo não existe!");
+        }
+    }
+
     public MetodoAvaliativo getMetodoAvaliativoPorId(int id) throws Exception {
         if(id <= 0){
             throw new Exception("Id de metodo Avaliativo inválido!");
