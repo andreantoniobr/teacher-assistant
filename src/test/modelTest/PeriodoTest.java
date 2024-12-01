@@ -1,6 +1,6 @@
 package test.modelTest;
 
-import model.MetodologiaNota;
+import model.Periodo;
 import model.valuable.Prova;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -8,33 +8,27 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-class MetodologiaNotaTest {
+class PeriodoTest {
+
     @Test
-    void getNomeMetodologiaNotaTest(){
-        MetodologiaNota nome = new MetodologiaNota("Prova");
-        String metodologiaEsperada = "Prova";
-        String metodologiaObitido = nome.getNome();
-        Assertions.assertEquals(metodologiaEsperada, metodologiaObitido);
+    void getNomePeriodoTest(){
+        Periodo perido1 = new Periodo("2024-1");
+        String periodoEsperado = "2024-1";
+        String periodoObitido = perido1.getNome();
+        Assertions.assertEquals(periodoEsperado, periodoObitido);
     }
 
     @Test
-    void getIdMetodologiaNotaTest(){
-        MetodologiaNota metodologiaNota = new MetodologiaNota(100, "NomeMetodologia");
-        int idMetodologiaEsperado = 100;
-        int idMetodologiaObitida = metodologiaNota.getId();
-        Assertions.assertEquals(idMetodologiaEsperado, idMetodologiaObitida);
-    }
-
-    @Test
-    void getAvaliaveisMetodologiaNotaTest(){
+    void getMetodologiaNotaTest(){
         Prova prova = new Prova(5.0);
-        double valorEsperado = 5.0;
-        double valorObitido = prova.getValor();
-        Assertions.assertEquals(valorEsperado, valorObitido);
+        double notaEsperadaDaMetodologia = 5.0;
+        double notaObitidaDaMetodologia = prova.getValor();
+        Assertions.assertEquals(notaEsperadaDaMetodologia, notaObitidaDaMetodologia);
     }
+
     @Test
-    void adicionarAvaliaveisMetodologiaNotaTest(){
-        //criar os 2 tipos de metodos avaliativos ;D
+    void adicionarMetodologiaNotaTest(){
+        //criar os 2 tipos de metodos avaliativos, usei prova e frequencia
         Prova prova = new Prova(5.0);
         Prova frequencia = new Prova(1.0);
         // adicionar os tipos de metodos avaliativos em seus array lists.. como provas atuais e provas adicionados
@@ -48,6 +42,7 @@ class MetodologiaNotaTest {
         //coloquei o 2 para dizer que a lista tem 2 elementos, e ultilizando o size para o tamanho.
         Assertions.assertEquals(2,provaAdicionada.size());
     }
+
 
     @Test
     void removerAvaliaveisMeotodologiaNotaTest(){
@@ -64,4 +59,5 @@ class MetodologiaNotaTest {
         // utilizando o assertTrue, para caso so tiver apenas a prova na listaRemovida,sera verdadeiro e o teste fucionarar corretamente.
         Assertions.assertTrue(provaRemovida.contains(prova));
     }
+
 }

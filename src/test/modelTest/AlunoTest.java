@@ -1,6 +1,5 @@
 package test.modelTest;
 
-import id.IdAluno;
 import model.Aluno;
 import model.Periodo;
 import org.junit.Assert;
