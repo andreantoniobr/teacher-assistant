@@ -1,10 +1,7 @@
 package controller;
 
-import model.Aluno;
 import model.MetodologiaNota;
 import model.Periodo;
-import model.Turma;
-import model.valuable.IValuable;
 
 import java.util.ArrayList;
 
@@ -83,7 +80,7 @@ public class ControladorPeriodo {
     public void inserirMetodologiaPorID(int id, int idMetodologia) throws Exception {
         Periodo periodo = getPeriodoPorId(id);
         if(periodo != null){
-            periodo.adicionarMetodologiaNota(Applicantion.controlladorMetodologiaNota.getMetodologiaPorId(idMetodologia));
+            periodo.adicionarMetodologiaNota(Applicantion.controlladorMetodologiaNota.getCloneMetodologiaPorId(idMetodologia));
         } else {
             throw new Exception("Período não encontrado!");
         }
@@ -98,7 +95,7 @@ public class ControladorPeriodo {
         }
     }
 
-    private Periodo getPeriodoPorId(int id) throws Exception {
+    public Periodo getPeriodoPorId(int id) throws Exception {
         if(id <= 0){
             throw new Exception("Id de Período inválido!");
         }
@@ -110,6 +107,15 @@ public class ControladorPeriodo {
             }
         }
         return periodo;
+    }
+
+    public Periodo getPeriodoClonePorId(int id) throws Exception {
+        Periodo periodo = getPeriodoPorId(id);
+        if(periodo != null){
+            return (Periodo) periodo.clone();
+        } else {
+            throw new Exception("Período não encontrado!");
+        }
     }
 
     public void addStartContent(){

@@ -4,6 +4,7 @@ import model.Aluno;
 import model.MetodologiaNota;
 import model.Periodo;
 import model.Turma;
+import model.valuable.IValuable;
 
 import java.util.ArrayList;
 
@@ -57,6 +58,62 @@ public class ControladorAluno {
                 }
             }
             return notas;
+        } else {
+            throw new Exception("Aluno não encontrado!");
+        }
+    }
+
+    //Abre la pegando do controller...
+
+    public ArrayList<Object[]> getMetodosAvaliativosAlunoPorId(int idAluno, int idPeriodo, int idMetodologia) throws Exception {
+        Aluno aluno = getAlunoPorId(idAluno);
+        if(aluno != null){
+            Periodo periodo = Applicantion.controladorPeriodo.getPeriodoPorId(idPeriodo);
+            if(periodo != null){
+                MetodologiaNota metodologiaNota = Applicantion.controlladorMetodologiaNota.getCloneMetodologiaPorId(idMetodologia);
+                ArrayList<Object[]> metodosAvaliativos = new ArrayList<>();
+                for (IValuable avaliavel: metodologiaNota.getAvaliaveis()) {
+                    Object[] metodosAvaliativo = {avaliavel.getId(), avaliavel.getNome(), avaliavel.getValor(), avaliavel.getHashCode()};
+                    metodosAvaliativos.add(metodosAvaliativo);
+                }
+                return metodosAvaliativos;
+            } else {
+                throw new Exception("Periodo nao encontrado!");
+            }
+        } else {
+            throw new Exception("Aluno não encontrado!");
+        }
+    }
+
+    //TODO: pegar periodo do aluno ou do controllador
+    //Depois incrementa em aluno os dados do periodo modificado se ele nao tiver periodo ai incrementa se tiver altera.
+    public void setMetodosAvaliativosAluno(int idAluno, int idPeriodo, int idMetodologia, ArrayList<Object[]> metodosAvaliativos) throws Exception {
+        Aluno aluno = getAlunoPorId(idAluno);
+        if(aluno != null){
+            //TODO: mudar para setar o periodo todo
+            Periodo periodo = aluno.getPeriodoPorId(idPeriodo);
+            if(periodo == null){
+                periodo = Applicantion.controladorPeriodo.getPeriodoClonePorId(idPeriodo);
+                if(periodo != null){
+                    aluno.adicionarPeriodo(periodo);
+                    //TODO: checa pra ver se ja não tem essa metodologia pelo hash
+                    MetodologiaNota cloneMetodologiaNota = Applicantion.controlladorMetodologiaNota.getCloneMetodologiaPorId(idMetodologia);
+                    periodo.adicionarMetodologiaNota(cloneMetodologiaNota);
+                    for (Object[] metodosAvaliativo: metodosAvaliativos) {
+                        int id = Integer.parseInt(metodosAvaliativo[0].toString());
+                        String nome = metodosAvaliativo[1].toString();
+                        Double valor = Double.parseDouble(metodosAvaliativo[2].toString());
+                        String hashCode = metodosAvaliativo[3].toString();
+                        IValuable avaliavel = cloneMetodologiaNota.getMetodoAvaliativoPorHashCode(hashCode);
+                            if(avaliavel == null){
+                                avaliavel = Applicantion.controladorMetodoAvaliativo.getCloneMetodoAvaliativoPorId(id);
+                            }
+                        cloneMetodologiaNota.adicionarMedotoAvaliativo(avaliavel);
+                    }
+                } else {
+                    throw new Exception("Periodo nao encontrado!");
+                }
+            }
         } else {
             throw new Exception("Aluno não encontrado!");
         }

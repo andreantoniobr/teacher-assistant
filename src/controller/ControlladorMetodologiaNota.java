@@ -1,10 +1,7 @@
 package controller;
 
 import model.MetodologiaNota;
-import model.Periodo;
-import model.Turma;
 import model.valuable.IValuable;
-import model.valuable.MetodoAvaliativo;
 
 import java.util.ArrayList;
 
@@ -25,7 +22,7 @@ public class ControlladorMetodologiaNota {
     }
 
     public ArrayList<Object[]>  getMetodosAvaliativosPorId(int id) throws Exception {
-        MetodologiaNota metodologiaNota = getMetodologiaPorId(id);
+        MetodologiaNota metodologiaNota = getCloneMetodologiaPorId(id);
         if(metodologiaNota == null){
             throw new Exception("Objeto metodologia não existe!");
         }
@@ -58,7 +55,7 @@ public class ControlladorMetodologiaNota {
     }
 
     public void excluirMedotologia(int id) throws Exception {
-        MetodologiaNota metodologiaNota = getMetodologiaPorId(id);
+        MetodologiaNota metodologiaNota = getCloneMetodologiaPorId(id);
         if(metodologiaNota != null){
             metodologias.remove(metodologiaNota);
             //Applicantion.fileIO.excluiMetodologia(metodologiaNota);
@@ -81,9 +78,9 @@ public class ControlladorMetodologiaNota {
     }
 
     public void inserirMetodoAvaliativoPorID(int id, int idMetodoAvaliativo) throws Exception {
-        MetodologiaNota metodologiaNota = getMetodologiaPorId(id);
+        MetodologiaNota metodologiaNota = getCloneMetodologiaPorId(id);
         if(metodologiaNota != null){
-            metodologiaNota.adicionarMedotoAvaliativo(Applicantion.controladorMetodoAvaliativo.getMetodoAvaliativoPorId(idMetodoAvaliativo));
+            metodologiaNota.adicionarMedotoAvaliativo(Applicantion.controladorMetodoAvaliativo.getCloneMetodoAvaliativoPorId(idMetodoAvaliativo));
             //Applicantion.fileIO.excluiMetodologia(metodologiaNota);
         } else {
             throw new Exception("Metodologia não encontrada!");
@@ -91,7 +88,7 @@ public class ControlladorMetodologiaNota {
     }
 
     public void removerMetodoAvaliativoPorHashCode(int id, String metodoAvaliativoHashCode) throws Exception {
-        MetodologiaNota metodologiaNota = getMetodologiaPorId(id);
+        MetodologiaNota metodologiaNota = getCloneMetodologiaPorId(id);
         if(metodologiaNota != null){
             metodologiaNota.removerMetodoAvaliativoPorHashCode(metodoAvaliativoHashCode);
             //Applicantion.fileIO.excluiMetodoAvalitativo(metodologiaNota);
@@ -111,6 +108,11 @@ public class ControlladorMetodologiaNota {
                 break;
             }
         }
+        return metodologiaNota;
+    }
+
+    public MetodologiaNota getCloneMetodologiaPorId(int id) throws Exception {
+        MetodologiaNota metodologiaNota = getMetodologiaPorId(id);
         return (MetodologiaNota) metodologiaNota.clone();
     }
 

@@ -28,6 +28,25 @@ public class Aluno extends Pessoa {
         return periodos;
     }
 
+    public Periodo getPeriodoPorId(int id) throws Exception {
+        if(id <= 0){
+            throw new Exception("Id de Período inválido!");
+        }
+        Periodo periodo = null;
+        for(Periodo a: periodos){
+            if(a.getId() == id){
+                periodo = a;
+                break;
+            }
+        }
+        return periodo;
+    }
+
+    public void setPeriodoPorId(int id, Periodo novoPeriodo) throws Exception {
+        Periodo periodo = getPeriodoPorId(id);
+        periodo = novoPeriodo;
+    }
+
     public Turma getTurma(){
         return this.turma;
     }

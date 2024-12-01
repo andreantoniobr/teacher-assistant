@@ -64,6 +64,15 @@ public class MetodologiaNota implements Cloneable {
         }
     }
 
+    public IValuable getMetodoAvaliativoPorHashCode(String hashCode) {
+        for (IValuable avaliavel: avaliaveis){
+            if(hashCode.equals(avaliavel.getHashCode())){
+                return avaliavel;
+            }
+        }
+        return null;
+    }
+
     public double valorTotal() {
         double total = 0;
         for (IValuable avaliavel : avaliaveis){

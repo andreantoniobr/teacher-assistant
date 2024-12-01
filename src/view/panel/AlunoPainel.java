@@ -4,6 +4,7 @@ import view.components.*;
 import view.components.TextField;
 import view.constants.ViewConstants;
 import view.frame.EditarAlunoFrame;
+import view.frame.EditarAvaliaveisFrame;
 import view.frame.EditarNotasAlunoFrame;
 import view.frame.VisualizarNotasPeriodoFrame;
 
@@ -36,6 +37,8 @@ public class AlunoPainel extends JPanel {
     public String getEmail() {
         return email.getText();
     }
+
+    int idAluno, idPeriodo, idMetodologia;
 
     private void criarInterfaceAluno() {
         setLayout(new BorderLayout());
@@ -108,11 +111,11 @@ public class AlunoPainel extends JPanel {
         {
             int linha = tabela.getSelectedRow();
             if (linha >= 0) {
-                int id = Integer.parseInt(tabela.getValueAt(linha, 0).toString());
+                idAluno = Integer.parseInt(tabela.getValueAt(linha, 0).toString());
                 String nome = tabela.getValueAt(linha, 1).toString();
-                Applicantion.controladorAluno.excluirAluno(id);
+                Applicantion.controladorAluno.excluirAluno(idAluno);
                 atualizaTabela();
-                Mensagem.showMensagem("Aluno: " + nome + " com Id: " + id + " foi excluido com sucesso!");
+                Mensagem.showMensagem("Aluno: " + nome + " com Id: " + idAluno + " foi excluido com sucesso!");
             } else {
                 Mensagem.showMensagem(ViewConstants.NECESSARIOSELECIONARLINHA);
             }
@@ -126,8 +129,8 @@ public class AlunoPainel extends JPanel {
         {
             int linha = tabela.getSelectedRow();
             if (linha >= 0) {
-                int id = Integer.parseInt(tabela.getValueAt(linha, 0).toString());
-                editarAlunoNovoFrame(id);
+                idAluno = Integer.parseInt(tabela.getValueAt(linha, 0).toString());
+                editarAlunoNovoFrame();
             } else {
                 Mensagem.showMensagem(ViewConstants.NECESSARIOSELECIONARLINHA);
             }
@@ -136,9 +139,9 @@ public class AlunoPainel extends JPanel {
         }
     }
 
-    private void editarAlunoNovoFrame(int id) {
+    private void editarAlunoNovoFrame() {
         try {
-            Object[] dadoAluno = Applicantion.controladorAluno.getDadosAlunoPorId(id);
+            Object[] dadoAluno = Applicantion.controladorAluno.getDadosAlunoPorId(idAluno);
             EditarAlunoFrame editarAlunoFrame = new EditarAlunoFrame(dadoAluno);
             editarAlunoFrame.getSalvar().addActionListener(e -> {
                 try {
@@ -146,10 +149,10 @@ public class AlunoPainel extends JPanel {
                     String novoEmail = editarAlunoFrame.getEmail();
                     Object item = editarAlunoFrame.getComboBox().getSelectedItem();
                     int idTurma = ((ComboItem)item).getId();
-                    Applicantion.controladorAluno.editarAluno(id, novoNome, novoEmail, idTurma);
+                    Applicantion.controladorAluno.editarAluno(idAluno, novoNome, novoEmail, idTurma);
                     editarAlunoFrame.dispose();
                     atualizaTabela();
-                    Mensagem.showMensagem("Aluno: " + novoNome + " com Id: " + id + " foi alterado com sucesso!");
+                    Mensagem.showMensagem("Aluno: " + novoNome + " com Id: " + idAluno + " foi alterado com sucesso!");
                 } catch (Exception ex) {
                     Mensagem.showMensagem(ex.getMessage());
                 }
@@ -164,9 +167,9 @@ public class AlunoPainel extends JPanel {
         {
             int linha = tabela.getSelectedRow();
             if (linha >= 0) {
-                int id = Integer.parseInt(tabela.getValueAt(linha, 0).toString());
+                idAluno = Integer.parseInt(tabela.getValueAt(linha, 0).toString());
                 VisualizarNotasPeriodoFrame visualizarNotasPeriodoFrame = new VisualizarNotasPeriodoFrame();
-                ArrayList<Object[]> dadosNotas = Applicantion.controladorAluno.getNotasAlunoPorId(id);
+                ArrayList<Object[]> dadosNotas = Applicantion.controladorAluno.getNotasAlunoPorId(idAluno);
                 visualizarNotasPeriodoFrame.atualizaTabela(dadosNotas);
             } else {
                 Mensagem.showMensagem(ViewConstants.NECESSARIOSELECIONARLINHA);
@@ -181,11 +184,11 @@ public class AlunoPainel extends JPanel {
         {
             int linha = tabela.getSelectedRow();
             if (linha >= 0) {
-                int id = Integer.parseInt(tabela.getValueAt(linha, 0).toString());
-                Object[] dadoAluno = Applicantion.controladorAluno.getDadosAlunoPorId(id);
+                idAluno = Integer.parseInt(tabela.getValueAt(linha, 0).toString());
+                Object[] dadoAluno = Applicantion.controladorAluno.getDadosAlunoPorId(idAluno);
                 EditarNotasAlunoFrame editarNotasAlunoFrame = new EditarNotasAlunoFrame(dadoAluno);
                 adicionarActionListenerPeriodoComboBox(editarNotasAlunoFrame);
-                adicionarListenerBotaoAdicionarNota(id, editarNotasAlunoFrame);
+                adicionarListenerBotaoAdicionarNota(editarNotasAlunoFrame);
             } else {
                 Mensagem.showMensagem(ViewConstants.NECESSARIOSELECIONARLINHA);
             }
@@ -200,7 +203,7 @@ public class AlunoPainel extends JPanel {
             try
             {
                 Object item = periodoComboBox.getSelectedItem();
-                int idPeriodo = ((ComboItem)item).getId();
+                idPeriodo = ((ComboItem)item).getId();
                 if(idPeriodo > 0){
                     editarNotasAlunoFrame.popularMetodologiasComboBox(Applicantion.controladorPeriodo.getMetodologiasPorId(idPeriodo));
                 } else {
@@ -212,14 +215,58 @@ public class AlunoPainel extends JPanel {
         });
     }
 
-    private void adicionarListenerBotaoAdicionarNota(int idAluno, EditarNotasAlunoFrame editarNotasAlunoFrame) {
+    private void adicionarListenerBotaoAdicionarNota(EditarNotasAlunoFrame editarNotasAlunoFrame) {
         editarNotasAlunoFrame.getEditarNotas().addActionListener(e -> {
             try {
+                Object item = editarNotasAlunoFrame.getMetodologiasComboBox().getSelectedItem();
+                idMetodologia = ((ComboItem)item).getId();
+                System.out.println("IdAluno: " + idAluno + "IdPeriodo: " + idPeriodo+ "IdMetodologia: " + idMetodologia);
+
+                EditarAvaliaveisFrame editarAvaliaveisFrame = new EditarAvaliaveisFrame();
+                ArrayList<Object[]> metodosAvaliativos = Applicantion.controladorAluno.getMetodosAvaliativosAlunoPorId(idAluno, idPeriodo, idMetodologia);
+
                 /*
-                Object item = editarMetodologiaNotaFrame.getMetodosAvaliativos().getSelectedItem();
-                int idMetodoAvaliativo = ((ComboItem)item).getId();
-                Applicantion.controlladorMetodologiaNota.inserirMetodoAvaliativoPorID(id, idMetodoAvaliativo);
-                atualizarMetodosAvaliativos(id, editarMetodologiaNotaFrame);*/
+                ArrayList<Object[]> metodosAvaliativos = new ArrayList<>();
+                Object[] m1 = {1, "Prova", 10, "fdfdf55"};
+                Object[] m2 = {1, "Prova", 10, "fdfdf55"};
+                Object[] m3 = {1, "Trabalho", 10, "fdfdf55"};
+                Object[] m4 = {1, "Simulado", 10, "fdfdf55"};
+
+                metodosAvaliativos.add(m1);
+                metodosAvaliativos.add(m2);
+                metodosAvaliativos.add(m3);
+                metodosAvaliativos.add(m4);
+*/
+                if(metodosAvaliativos != null && !metodosAvaliativos.isEmpty()) {
+                    editarAvaliaveisFrame.alualizaMetodosAvaliativos(metodosAvaliativos);
+                    adicionarActionListenerSalvarNotas(editarAvaliaveisFrame);
+                }
+            } catch (Exception ex) {
+                Mensagem.showMensagem(ex.getMessage());
+            }
+        });
+    }
+
+    private void adicionarActionListenerSalvarNotas(EditarAvaliaveisFrame editarAvaliaveisFrame){
+        editarAvaliaveisFrame.getSalvar().addActionListener(e -> {
+            try
+            {
+                ArrayList<Object[]> metodosAvaliativos = editarAvaliaveisFrame.getValoresMetodosAvaliativos();
+                for (Object[] metodosAvaliativo : metodosAvaliativos) {
+                    if (metodosAvaliativo != null) {
+                        int id = Integer.parseInt(metodosAvaliativo[0].toString());
+                        if (metodosAvaliativo[1] != null) {
+                            String nome = metodosAvaliativo[1].toString();
+                            String valor = "0.0";
+                            if (metodosAvaliativo[2] != null) {
+                                valor = metodosAvaliativo[2].toString();
+                            }
+                            System.out.println("Id: " + id + " Nome: " + nome + " valor: " + valor);
+                        }
+                    }
+                }
+                Applicantion.controladorAluno.setMetodosAvaliativosAluno(idAluno, idPeriodo, idMetodologia, metodosAvaliativos);
+
             } catch (Exception ex) {
                 Mensagem.showMensagem(ex.getMessage());
             }

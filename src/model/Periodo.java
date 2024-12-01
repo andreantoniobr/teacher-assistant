@@ -5,7 +5,7 @@ import model.valuable.IValuable;
 
 import java.util.ArrayList;
 
-public class Periodo {
+public class Periodo implements Cloneable{
     private int id;
     private String nome;
     private ArrayList<MetodologiaNota> metodologiaNotas = new ArrayList<>();
@@ -67,5 +67,14 @@ public class Periodo {
                 break;
             }
         }
+    }
+
+    public String getHashCode(){
+        return Integer.toHexString(this.hashCode());
+    }
+
+    public Object clone() throws CloneNotSupportedException
+    {
+        return super.clone();
     }
 }

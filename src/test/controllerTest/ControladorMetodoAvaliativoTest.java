@@ -19,13 +19,13 @@ class ControladorMetodoAvaliativoTest {
         //Adicionando objeto ao controlador
         this.controladorMetodoAvaliativo.inseirMetodoAvaliativo(prova);
 
-        Object[] esperado = {idProva, prova.getTipoAvaliacao().toString()};
+        Object[] esperado = {idProva, prova.getTipoAvaliacao().toString(), prova.getValor()};
         Object[] resultado = this.controladorMetodoAvaliativo.getDadosMetodoAvaliativoPorId(idProva);
         assertArrayEquals(esperado, resultado);
     }
 
     @Test
-    void getMetodoAvaliativoPorIdTest() throws Exception {
+    void getCloneMetodoAvaliativoPorIdTest() throws Exception {
         int id = 300;
         Trabalho t1 = new Trabalho(id, "Trabalho POO", 8.5);
 
@@ -33,9 +33,9 @@ class ControladorMetodoAvaliativoTest {
         this.controladorMetodoAvaliativo.inseirMetodoAvaliativo(t1);
 
         //Pegando objeto do controlador
-        MetodoAvaliativo m1 = this.controladorMetodoAvaliativo.getMetodoAvaliativoPorId(id);
+        MetodoAvaliativo m1 = this.controladorMetodoAvaliativo.getCloneMetodoAvaliativoPorId(id);
 
-        Object[] esperado = {m1.getId(), m1.getTipoAvaliacao().toString()};
+        Object[] esperado = {m1.getId(), m1.getTipoAvaliacao().toString(), m1.getValor()};
         Object[] resultado = this.controladorMetodoAvaliativo.getDadosMetodoAvaliativoPorId(id);
         assertArrayEquals(esperado, resultado);
     }
