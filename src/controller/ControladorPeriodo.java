@@ -23,9 +23,6 @@ public class ControladorPeriodo {
 
     public ArrayList<Object[]>  getMetodologiasPorId(int id) throws Exception {
         Periodo periodo = getPeriodoPorId(id);
-        if(periodo == null){
-            throw new Exception("Período não encontrado!");
-        }
         ArrayList<Object[]> dadosMetodologias = new ArrayList<>();
         for (MetodologiaNota metodologia: periodo.getNotas()){
             Object[] dadoMetodoAvaliativo = {metodologia.getId(), metodologia.getNome(), metodologia.getHashCode()};
@@ -56,12 +53,8 @@ public class ControladorPeriodo {
 
     public void excluirPeriodo(int id) throws Exception {
         Periodo periodo = getPeriodoPorId(id);
-        if(periodo != null){
-            periodos.remove(periodo);
-            //Applicantion.fileIO.excluiPeriodo(periodo);
-        } else {
-            throw new Exception("Período não encontrado!");
-        }
+        periodos.remove(periodo);
+        //Applicantion.fileIO.excluiPeriodo(periodo);
     }
 
     public void editarPeriodo(int id, String nome) throws Exception {
@@ -69,30 +62,18 @@ public class ControladorPeriodo {
             throw new Exception("Nome do período não pode ser vazio!");
         }
         Periodo periodo = getPeriodoPorId(id);
-        if(periodo != null){
-            periodo.setNome(nome);
-            //Applicantion.fileIO.editarPeriodo(periodo);
-        } else {
-            throw new Exception("Período não encontrado!");
-        }
+        periodo.setNome(nome);
+        //Applicantion.fileIO.editarPeriodo(periodo);
     }
 
     public void inserirMetodologiaPorID(int id, int idMetodologia) throws Exception {
         Periodo periodo = getPeriodoPorId(id);
-        if(periodo != null){
-            periodo.adicionarMetodologiaNota(Applicantion.controlladorMetodologiaNota.getCloneMetodologiaPorId(idMetodologia));
-        } else {
-            throw new Exception("Período não encontrado!");
-        }
+        periodo.adicionarMetodologiaNota(Applicantion.controlladorMetodologiaNota.getCloneMetodologiaPorId(idMetodologia));
     }
 
     public void removerMetodologiaPorHashCode(int id, String metodologiaHashCode) throws Exception {
         Periodo periodo = getPeriodoPorId(id);
-        if(periodo != null){
-            periodo.removerMetodologiaPorHashCode(metodologiaHashCode);
-        } else {
-            throw new Exception("Período não encontrado!");
-        }
+        periodo.removerMetodologiaPorHashCode(metodologiaHashCode);
     }
 
     public Periodo getPeriodoPorId(int id) throws Exception {
@@ -106,16 +87,15 @@ public class ControladorPeriodo {
                 break;
             }
         }
+        if(periodo == null){
+            throw new Exception("Período não encontrado!");
+        }
         return periodo;
     }
 
-    public Periodo getPeriodoClonePorId(int id) throws Exception {
+    public Periodo getClonePeriodoPorId(int id) throws Exception {
         Periodo periodo = getPeriodoPorId(id);
-        if(periodo != null){
-            return (Periodo) periodo.clone();
-        } else {
-            throw new Exception("Período não encontrado!");
-        }
+        return (Periodo) periodo.clone();
     }
 
     public void addStartContent(){

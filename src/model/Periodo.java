@@ -1,7 +1,6 @@
 package model;
 
 import id.IdPeriodo;
-import model.valuable.IValuable;
 
 import java.util.ArrayList;
 
@@ -52,6 +51,10 @@ public class Periodo implements Cloneable{
         return metodologiaNotas;
     }
 
+    public void removerTodasMetodologias() {
+        metodologiaNotas.clear();
+    }
+
     public void adicionarMetodologiaNota(MetodologiaNota metodologiaNota) {
         metodologiaNotas.add(metodologiaNota);
     }
@@ -67,6 +70,15 @@ public class Periodo implements Cloneable{
                 break;
             }
         }
+    }
+
+    public MetodologiaNota getMetodologiaPorHashCode(String hashCode) {
+        for (MetodologiaNota metodologiaNota: metodologiaNotas){
+            if(hashCode.equals(metodologiaNota.getHashCode())){
+                return metodologiaNota;
+            }
+        }
+        return null;
     }
 
     public String getHashCode(){

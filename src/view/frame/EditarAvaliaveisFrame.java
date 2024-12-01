@@ -78,7 +78,6 @@ public class EditarAvaliaveisFrame extends DependentFrame {
         for (int i = 0; i < metodosAvaliativos.size(); i++) {
             Object[] metodosAvaliativo = metodosAvaliativos.get(i);
             if(metodosAvaliativo != null) {
-                //int id = Integer.parseInt(metodosAvaliativo[0].toString());
                 if(metodosAvaliativo[1] != null){
                     String nome = metodosAvaliativo[1].toString();
                     String valor = "0.0";

@@ -115,7 +115,10 @@ public class EditarNotasAlunoFrame extends DependentFrame {
             for(Object[] object : metodologias){
                 int id = (int) object[0];
                 String nomeMetodologia = object[1].toString();
-                metodologiasComboBox.addItem(new ComboItem(id, nomeMetodologia));
+                String hashCode = object[2].toString();
+                ComboItem comboItem = new ComboItem(id, nomeMetodologia);
+                comboItem.setHashCode(hashCode);
+                metodologiasComboBox.addItem(comboItem);
             }
         } catch (Exception e) {
             Mensagem.showMensagem(e.getMessage());

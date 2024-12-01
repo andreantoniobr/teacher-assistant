@@ -35,87 +35,71 @@ public class ControladorAluno {
 
     public Object[] getDadosAlunoPorId(int id) throws Exception {
         Aluno aluno = getAlunoPorId(id);
-        if(aluno != null){
-            int idTurma = -1;
-            if(aluno.getTurma() != null){
-                idTurma = aluno.getTurma().getId();
-            }
-            Object[] dadoAluno = {aluno.getNome(), aluno.getEmail(), idTurma};
-            return dadoAluno;
-        } else {
-            throw new Exception("Aluno não encontrado!");
+        int idTurma = -1;
+        if(aluno.getTurma() != null){
+            idTurma = aluno.getTurma().getId();
         }
+        Object[] dadoAluno = {aluno.getNome(), aluno.getEmail(), idTurma};
+        return dadoAluno;
     }
 
     public ArrayList<Object[]> getNotasAlunoPorId(int id) throws Exception {
         Aluno aluno = getAlunoPorId(id);
-        if(aluno != null){
-            ArrayList<Object[]> notas = new ArrayList<>();
-            for (Periodo periodo: aluno.getPeriodos()) {
-                for(MetodologiaNota metodologiaNota: periodo.getNotas()){
-                    Object[] nota = {periodo.getNome(), metodologiaNota.getNome(), metodologiaNota.valorTotal()};
-                    notas.add(nota);
-                }
+        ArrayList<Object[]> notas = new ArrayList<>();
+        for (Periodo periodo: aluno.getPeriodos()) {
+            for(MetodologiaNota metodologiaNota: periodo.getNotas()){
+                Object[] nota = {periodo.getNome(), metodologiaNota.getNome(), metodologiaNota.valorTotal()};
+                notas.add(nota);
             }
-            return notas;
-        } else {
-            throw new Exception("Aluno não encontrado!");
         }
+        return notas;
     }
-
-    //Abre la pegando do controller...
 
     public ArrayList<Object[]> getMetodosAvaliativosAlunoPorId(int idAluno, int idPeriodo, int idMetodologia) throws Exception {
         Aluno aluno = getAlunoPorId(idAluno);
-        if(aluno != null){
-            Periodo periodo = Applicantion.controladorPeriodo.getPeriodoPorId(idPeriodo);
-            if(periodo != null){
-                MetodologiaNota metodologiaNota = Applicantion.controlladorMetodologiaNota.getCloneMetodologiaPorId(idMetodologia);
-                ArrayList<Object[]> metodosAvaliativos = new ArrayList<>();
-                for (IValuable avaliavel: metodologiaNota.getAvaliaveis()) {
-                    Object[] metodosAvaliativo = {avaliavel.getId(), avaliavel.getNome(), avaliavel.getValor(), avaliavel.getHashCode()};
-                    metodosAvaliativos.add(metodosAvaliativo);
-                }
-                return metodosAvaliativos;
-            } else {
-                throw new Exception("Periodo nao encontrado!");
-            }
-        } else {
-            throw new Exception("Aluno não encontrado!");
+        Periodo periodo = Applicantion.controladorPeriodo.getPeriodoPorId(idPeriodo);
+        MetodologiaNota metodologiaNota = Applicantion.controlladorMetodologiaNota.getCloneMetodologiaPorId(idMetodologia);
+        ArrayList<Object[]> metodosAvaliativos = new ArrayList<>();
+        for (IValuable avaliavel: metodologiaNota.getAvaliaveis()) {
+            Object[] metodosAvaliativo = {avaliavel.getId(), avaliavel.getNome(), avaliavel.getValor(), avaliavel.getHashCode()};
+            metodosAvaliativos.add(metodosAvaliativo);
         }
+        return metodosAvaliativos;
     }
 
-    //TODO: pegar periodo do aluno ou do controllador
-    //Depois incrementa em aluno os dados do periodo modificado se ele nao tiver periodo ai incrementa se tiver altera.
-    public void setMetodosAvaliativosAluno(int idAluno, int idPeriodo, int idMetodologia, ArrayList<Object[]> metodosAvaliativos) throws Exception {
+    public Periodo getPeriododoDoAlunoPorId(int idAluno, int idPeriodo) throws Exception {
         Aluno aluno = getAlunoPorId(idAluno);
-        if(aluno != null){
-            //TODO: mudar para setar o periodo todo
-            Periodo periodo = aluno.getPeriodoPorId(idPeriodo);
-            if(periodo == null){
-                periodo = Applicantion.controladorPeriodo.getPeriodoClonePorId(idPeriodo);
-                if(periodo != null){
-                    aluno.adicionarPeriodo(periodo);
-                    //TODO: checa pra ver se ja não tem essa metodologia pelo hash
-                    MetodologiaNota cloneMetodologiaNota = Applicantion.controlladorMetodologiaNota.getCloneMetodologiaPorId(idMetodologia);
-                    periodo.adicionarMetodologiaNota(cloneMetodologiaNota);
-                    for (Object[] metodosAvaliativo: metodosAvaliativos) {
-                        int id = Integer.parseInt(metodosAvaliativo[0].toString());
-                        String nome = metodosAvaliativo[1].toString();
-                        Double valor = Double.parseDouble(metodosAvaliativo[2].toString());
-                        String hashCode = metodosAvaliativo[3].toString();
-                        IValuable avaliavel = cloneMetodologiaNota.getMetodoAvaliativoPorHashCode(hashCode);
-                            if(avaliavel == null){
-                                avaliavel = Applicantion.controladorMetodoAvaliativo.getCloneMetodoAvaliativoPorId(id);
-                            }
-                        cloneMetodologiaNota.adicionarMedotoAvaliativo(avaliavel);
-                    }
-                } else {
-                    throw new Exception("Periodo nao encontrado!");
+        Periodo periodo = aluno.getPeriodoPorId(idPeriodo);
+        if(periodo == null){
+            periodo = Applicantion.controladorPeriodo.getClonePeriodoPorId(idPeriodo);
+            aluno.adicionarPeriodo(periodo);
+        }
+        return periodo;
+    }
+
+    //TODO: Depois incrementa em aluno os dados do periodo modificado se ele nao tiver periodo ai incrementa se tiver altera.
+    public void setMetodosAvaliativosAluno(int idAluno, int idPeriodo, int idMetodologia, String metodologiaHashCode, ArrayList<Object[]> metodosAvaliativos) throws Exception {
+        Periodo periodo = getPeriododoDoAlunoPorId(idAluno, idPeriodo);
+        MetodologiaNota metodologiaNota = periodo.getMetodologiaPorHashCode(metodologiaHashCode);
+        if(metodologiaNota != null){
+
+
+            for(IValuable avaliavel : metodologiaNota.getAvaliaveis()){
+                System.out.println("Avaliavel Metodologia | Valor: " + avaliavel.getValor() + "metodosAvaliativosHashCode: " + avaliavel.getHashCode());
+            }
+            System.out.println("-------------------------------------------");
+
+
+            for (Object[] metodosAvaliativo: metodosAvaliativos) {
+                double valor = Double.parseDouble(metodosAvaliativo[2].toString());
+                String metodosAvaliativosHashCode = metodosAvaliativo[3].toString();
+                System.out.println("Antes | Valor: " + valor + "metodosAvaliativosHashCode: " + metodosAvaliativosHashCode);
+                IValuable avaliavel = metodologiaNota.getMetodoAvaliativoPorHashCode(metodosAvaliativosHashCode);
+                if(avaliavel != null){
+                    avaliavel.setValor(valor);
+                    System.out.println("Setando no avaliavel: | Valor: " + avaliavel.getValor() + "metodosAvaliativosHashCode: " + avaliavel.getHashCode());
                 }
             }
-        } else {
-            throw new Exception("Aluno não encontrado!");
         }
     }
 
@@ -136,26 +120,18 @@ public class ControladorAluno {
 
     public void excluirAluno(int id) throws Exception {
         Aluno aluno = getAlunoPorId(id);
-        if(aluno != null){
-            alunos.remove(aluno);
-            Applicantion.fileIO.excluiAluno(aluno);
-        } else {
-            throw new Exception("Aluno não encontrado!");
-        }
+        alunos.remove(aluno);
+        Applicantion.fileIO.excluiAluno(aluno);
     }
 
     public void editarAluno(int id, String nome, String email, int idTurma) throws Exception {
         validarNomeAluno(nome);
         validarEmail(email);
         Aluno aluno = getAlunoPorId(id);
-        if(aluno != null){
-            aluno.setNome(nome);
-            aluno.setEmail(email);
-            aluno.setTurma(Applicantion.controladorTurma.getTurmaPorId(idTurma));
-            Applicantion.fileIO.editaAluno(aluno);
-        } else {
-            throw new Exception("Aluno não encontrado!");
-        }
+        aluno.setNome(nome);
+        aluno.setEmail(email);
+        aluno.setTurma(Applicantion.controladorTurma.getTurmaPorId(idTurma));
+        Applicantion.fileIO.editaAluno(aluno);
     }
 
     private static void validarNomeAluno(String nome) throws Exception {
@@ -180,6 +156,9 @@ public class ControladorAluno {
                 aluno = a;
                 break;
             }
+        }
+        if(aluno == null){
+            throw new Exception("Aluno não encontrado!");
         }
         return aluno;
     }

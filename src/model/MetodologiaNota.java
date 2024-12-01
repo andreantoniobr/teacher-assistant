@@ -8,6 +8,7 @@ public class MetodologiaNota implements Cloneable {
     private int id;
     private String nome;
     private ArrayList<IValuable> avaliaveis = new ArrayList<>();
+    private String idHash;
 
     public MetodologiaNota(String nome){
         this.id = IdMetodologiaNota.getId();
@@ -81,8 +82,15 @@ public class MetodologiaNota implements Cloneable {
         return total;
     }
 
+    public void setHashCode(String hashcode){
+        this.idHash = hashcode;
+    }
+
     public String getHashCode(){
-        return Integer.toHexString(this.hashCode());
+        if(idHash == null || idHash.isEmpty()){
+            idHash = Integer.toHexString(this.hashCode());
+        }
+        return idHash;
     }
 
     public Object clone() throws CloneNotSupportedException

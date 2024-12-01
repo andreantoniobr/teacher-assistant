@@ -25,6 +25,9 @@ public class AlunoPainel extends JPanel {
     private JTable tabela;
     private DefaultTableModel modelo = new DefaultTableModel();
 
+    int idAluno, idPeriodo, idMetodologia;
+    String hashCodeMetodologia;
+
     public AlunoPainel() {
         criarInterfaceAluno();
         adicionarListenersBotoes();
@@ -37,8 +40,6 @@ public class AlunoPainel extends JPanel {
     public String getEmail() {
         return email.getText();
     }
-
-    int idAluno, idPeriodo, idMetodologia;
 
     private void criarInterfaceAluno() {
         setLayout(new BorderLayout());
@@ -220,23 +221,11 @@ public class AlunoPainel extends JPanel {
             try {
                 Object item = editarNotasAlunoFrame.getMetodologiasComboBox().getSelectedItem();
                 idMetodologia = ((ComboItem)item).getId();
+                hashCodeMetodologia = ((ComboItem)item).getHashCode();
                 System.out.println("IdAluno: " + idAluno + "IdPeriodo: " + idPeriodo+ "IdMetodologia: " + idMetodologia);
 
                 EditarAvaliaveisFrame editarAvaliaveisFrame = new EditarAvaliaveisFrame();
                 ArrayList<Object[]> metodosAvaliativos = Applicantion.controladorAluno.getMetodosAvaliativosAlunoPorId(idAluno, idPeriodo, idMetodologia);
-
-                /*
-                ArrayList<Object[]> metodosAvaliativos = new ArrayList<>();
-                Object[] m1 = {1, "Prova", 10, "fdfdf55"};
-                Object[] m2 = {1, "Prova", 10, "fdfdf55"};
-                Object[] m3 = {1, "Trabalho", 10, "fdfdf55"};
-                Object[] m4 = {1, "Simulado", 10, "fdfdf55"};
-
-                metodosAvaliativos.add(m1);
-                metodosAvaliativos.add(m2);
-                metodosAvaliativos.add(m3);
-                metodosAvaliativos.add(m4);
-*/
                 if(metodosAvaliativos != null && !metodosAvaliativos.isEmpty()) {
                     editarAvaliaveisFrame.alualizaMetodosAvaliativos(metodosAvaliativos);
                     adicionarActionListenerSalvarNotas(editarAvaliaveisFrame);
@@ -252,20 +241,7 @@ public class AlunoPainel extends JPanel {
             try
             {
                 ArrayList<Object[]> metodosAvaliativos = editarAvaliaveisFrame.getValoresMetodosAvaliativos();
-                for (Object[] metodosAvaliativo : metodosAvaliativos) {
-                    if (metodosAvaliativo != null) {
-                        int id = Integer.parseInt(metodosAvaliativo[0].toString());
-                        if (metodosAvaliativo[1] != null) {
-                            String nome = metodosAvaliativo[1].toString();
-                            String valor = "0.0";
-                            if (metodosAvaliativo[2] != null) {
-                                valor = metodosAvaliativo[2].toString();
-                            }
-                            System.out.println("Id: " + id + " Nome: " + nome + " valor: " + valor);
-                        }
-                    }
-                }
-                Applicantion.controladorAluno.setMetodosAvaliativosAluno(idAluno, idPeriodo, idMetodologia, metodosAvaliativos);
+                Applicantion.controladorAluno.setMetodosAvaliativosAluno(idAluno, idPeriodo, idMetodologia, hashCodeMetodologia, metodosAvaliativos);
 
             } catch (Exception ex) {
                 Mensagem.showMensagem(ex.getMessage());
