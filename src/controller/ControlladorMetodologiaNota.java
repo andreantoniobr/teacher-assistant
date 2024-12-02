@@ -22,7 +22,7 @@ public class ControlladorMetodologiaNota {
     }
 
     public ArrayList<Object[]>  getMetodosAvaliativosPorId(int id) throws Exception {
-        MetodologiaNota metodologiaNota = getCloneMetodologiaPorId(id);
+        MetodologiaNota metodologiaNota = getMetodologiaPorId(id);
         if(metodologiaNota == null){
             throw new Exception("Objeto metodologia não existe!");
         }
@@ -55,13 +55,9 @@ public class ControlladorMetodologiaNota {
     }
 
     public void excluirMedotologia(int id) throws Exception {
-        MetodologiaNota metodologiaNota = getCloneMetodologiaPorId(id);
-        if(metodologiaNota != null){
-            metodologias.remove(metodologiaNota);
-            //Applicantion.fileIO.excluiMetodologia(metodologiaNota);
-        } else {
-            throw new Exception("Metodologia não encontrada!");
-        }
+        MetodologiaNota metodologiaNota = getMetodologiaPorId(id);
+        metodologias.remove(metodologiaNota);
+        //Applicantion.fileIO.excluiMetodologia(metodologiaNota);
     }
 
     public void editarMetodologia(int id, String nome) throws Exception {
@@ -69,32 +65,20 @@ public class ControlladorMetodologiaNota {
             throw new Exception("Nome de metodologia não pode ser vazio!");
         }
         MetodologiaNota metodologiaNota = getMetodologiaPorId(id);
-        if(metodologiaNota != null){
-            metodologiaNota.setNome(nome);
-            //Applicantion.fileIO.editarMetodologia(metodologiaNota);
-        } else {
-            throw new Exception("Metodologia não encontrada!");
-        }
+        metodologiaNota.setNome(nome);
+        //Applicantion.fileIO.editarMetodologia(metodologiaNota);
     }
 
     public void inserirMetodoAvaliativoPorID(int id, int idMetodoAvaliativo) throws Exception {
-        MetodologiaNota metodologiaNota = getCloneMetodologiaPorId(id);
-        if(metodologiaNota != null){
-            metodologiaNota.adicionarMedotoAvaliativo(Applicantion.controladorMetodoAvaliativo.getCloneMetodoAvaliativoPorId(idMetodoAvaliativo));
-            //Applicantion.fileIO.excluiMetodologia(metodologiaNota);
-        } else {
-            throw new Exception("Metodologia não encontrada!");
-        }
+        MetodologiaNota metodologiaNota = getMetodologiaPorId(id);
+        metodologiaNota.adicionarMedotoAvaliativo(Applicantion.controladorMetodoAvaliativo.getCloneMetodoAvaliativoPorId(idMetodoAvaliativo));
+        //Applicantion.fileIO.excluiMetodologia(metodologiaNota);
     }
 
     public void removerMetodoAvaliativoPorHashCode(int id, String metodoAvaliativoHashCode) throws Exception {
-        MetodologiaNota metodologiaNota = getCloneMetodologiaPorId(id);
-        if(metodologiaNota != null){
-            metodologiaNota.removerMetodoAvaliativoPorHashCode(metodoAvaliativoHashCode);
-            //Applicantion.fileIO.excluiMetodoAvalitativo(metodologiaNota);
-        } else {
-            throw new Exception("Metodologia não encontrada!");
-        }
+        MetodologiaNota metodologiaNota = getMetodologiaPorId(id);
+        metodologiaNota.removerMetodoAvaliativoPorHashCode(metodoAvaliativoHashCode);
+        //Applicantion.fileIO.excluiMetodoAvalitativo(metodologiaNota);
     }
 
     public MetodologiaNota getMetodologiaPorId(int id) throws Exception {
@@ -107,6 +91,9 @@ public class ControlladorMetodologiaNota {
                 metodologiaNota = a;
                 break;
             }
+        }
+        if(metodologiaNota == null){
+            throw new Exception("Metodologia não encontrada!");
         }
         return metodologiaNota;
     }

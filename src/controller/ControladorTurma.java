@@ -29,12 +29,8 @@ public class ControladorTurma {
 
     public Object[] getDadosTurmaPorId(int id) throws Exception {
         Turma turma = getTurmaPorId(id);
-        if(turma != null){
-            Object[] dadoTurma = {turma.getId(), turma.getNome()};
-            return dadoTurma;
-        }else {
-            throw new Exception("Turma não encontrado!");
-        }
+        Object[] dadoTurma = {turma.getId(), turma.getNome()};
+        return dadoTurma;
     }
 
     public void inserirTurma(String nome) throws Exception {
@@ -55,12 +51,8 @@ public class ControladorTurma {
 
     public void excluirTurma(int id) throws Exception {
         Turma turma = getTurmaPorId(id);
-        if(turma != null){
-            turmas.remove(turma);
-            //Applicantion.fileIO.excluiTurma(turma);
-        } else {
-            throw new Exception("Turma não encontrada!");
-        }
+        turmas.remove(turma);
+        //Applicantion.fileIO.excluiTurma(turma);
     }
 
     public void editarTurma(int id, String nome) throws Exception {
@@ -68,15 +60,11 @@ public class ControladorTurma {
             throw new Exception("Nome de turma não pode ser vazio!");
         }
         Turma turma = getTurmaPorId(id);
-        if(turma != null){
-            if(nome.equals(turma.getNome())){
-                throw new Exception("Nome de turma não foi alterado, pois é igual ao anterior!");
-            }
-            turma.setNome(nome);
-            //Applicantion.fileIO.editarTurma(turma);
-        } else {
-            throw new Exception("Turma não encontrada!");
+        if(nome.equals(turma.getNome())){
+            throw new Exception("Nome de turma não foi alterado, pois é igual ao anterior!");
         }
+        turma.setNome(nome);
+        //Applicantion.fileIO.editarTurma(turma);
     }
 
     public Turma getTurmaPorId(int id) throws Exception {
@@ -89,6 +77,9 @@ public class ControladorTurma {
                 turma = a;
                 break;
             }
+        }
+        if(turma == null){
+            throw new Exception("Turma não encontrada!");
         }
         return turma;
     }
