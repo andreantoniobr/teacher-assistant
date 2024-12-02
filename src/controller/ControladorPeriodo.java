@@ -95,6 +95,7 @@ public class ControladorPeriodo {
 
     public Periodo getClonePeriodoPorId(int id) throws Exception {
         Periodo periodo = getPeriodoPorId(id);
+        System.out.println("PeriodoOriginal: " + periodo.toString());
         return (Periodo) periodo.clone();
     }
 

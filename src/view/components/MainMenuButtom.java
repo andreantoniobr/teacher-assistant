@@ -1,23 +1,18 @@
 package view.components;
 
-
 import javax.swing.*;
-import javax.swing.border.LineBorder;
 import java.awt.*;
 
-public class CustomButtom extends JButton {
-    public CustomButtom(String buttonText, Color color, Color hoverColor, Color borderColor, Color textColor){
+public class MainMenuButtom extends JButton {
+    public MainMenuButtom(String buttonText){
+        Color color = new Color(43, 96, 236);
         setText(buttonText);
         setBackground(color);
-        //setBorderPainted(false);
-        setForeground(textColor);
-        setBorder(new TextBubbleBorder(borderColor,1,10,0));
-
-        //setBorder(BorderFactory.createCompoundBorder(getBorder(), BorderFactory.createEmptyBorder(0, 10, 0, 5)));
-        //setFont(new Font("Tahoma", 1, 13));
+        setForeground(new Color(255, 255, 255));
+        setBorder(new TextBubbleBorder(color,1,10,0));
         setMargin(new Insets(5,10,5,10));
         setOpaque(true);
-        addEffects(color, hoverColor);
+        addEffects(color, new Color(55, 129, 254));
     }
 
     private void addEffects(Color color, Color hoverColor) {

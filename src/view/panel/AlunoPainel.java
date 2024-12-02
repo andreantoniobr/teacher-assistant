@@ -225,7 +225,7 @@ public class AlunoPainel extends JPanel {
                 System.out.println("IdAluno: " + idAluno + "IdPeriodo: " + idPeriodo+ "IdMetodologia: " + idMetodologia);
 
                 EditarAvaliaveisFrame editarAvaliaveisFrame = new EditarAvaliaveisFrame();
-                ArrayList<Object[]> metodosAvaliativos = Applicantion.controladorAluno.getMetodosAvaliativosAlunoPorId(idAluno, idPeriodo, idMetodologia);
+                ArrayList<Object[]> metodosAvaliativos = Applicantion.controladorAluno.getMetodosAvaliativosAlunoPorId(idAluno, idPeriodo, idMetodologia, hashCodeMetodologia);
                 if(metodosAvaliativos != null && !metodosAvaliativos.isEmpty()) {
                     editarAvaliaveisFrame.alualizaMetodosAvaliativos(metodosAvaliativos);
                     adicionarActionListenerSalvarNotas(editarAvaliaveisFrame);
@@ -242,7 +242,8 @@ public class AlunoPainel extends JPanel {
             {
                 ArrayList<Object[]> metodosAvaliativos = editarAvaliaveisFrame.getValoresMetodosAvaliativos();
                 Applicantion.controladorAluno.setMetodosAvaliativosAluno(idAluno, idPeriodo, idMetodologia, hashCodeMetodologia, metodosAvaliativos);
-
+                editarAvaliaveisFrame.dispose();
+                System.out.println("Valores de metodologia salvos com sucesso!");
             } catch (Exception ex) {
                 Mensagem.showMensagem(ex.getMessage());
             }

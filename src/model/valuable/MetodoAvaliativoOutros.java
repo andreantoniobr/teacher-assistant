@@ -1,7 +1,7 @@
 package model.valuable;
 import id.IdMetodoAvaliativo;
 
-public class MetodoAvaliativoOutros implements IValuable {
+public class MetodoAvaliativoOutros implements IValuable, Cloneable {
     private int id;
     private String nome;
     private final TipoAvaliacao tipoAvaliacao = TipoAvaliacao.OUTROS;

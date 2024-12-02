@@ -48,14 +48,26 @@ public class ControladorAluno {
         ArrayList<Object[]> notas = new ArrayList<>();
         for (Periodo periodo: aluno.getPeriodos()) {
             for(MetodologiaNota metodologiaNota: periodo.getNotas()){
-                Object[] nota = {periodo.getNome(), metodologiaNota.getNome(), metodologiaNota.valorTotal()};
+                Object[] nota = {periodo.getNome() + " " + periodo.getHashCode(), metodologiaNota.getNome() + " " + metodologiaNota.getHashCode(), metodologiaNota.valorTotal()};
                 notas.add(nota);
             }
         }
         return notas;
     }
 
-    public ArrayList<Object[]> getMetodosAvaliativosAlunoPorId(int idAluno, int idPeriodo, int idMetodologia) throws Exception {
+    public ArrayList<Object[]> getMetodosAvaliativosAlunoPorId(int idAluno, int idPeriodo, int idMetodologia, String metodologiaHashCode) throws Exception {
+        Periodo periodo = getPeriododoDoAlunoPorId(idAluno, idPeriodo);
+        System.out.println("Periodo Clone Pegar dados Pra Edicao: " + periodo.toString());
+        MetodologiaNota metodologiaNota = periodo.getMetodologiaPorHashCode(metodologiaHashCode);
+        ArrayList<Object[]> metodosAvaliativos = new ArrayList<>();
+        if(metodologiaNota != null){
+            for (IValuable avaliavel: metodologiaNota.getAvaliaveis()) {
+                Object[] metodosAvaliativo = {avaliavel.getId(), avaliavel.getNome(), avaliavel.getValor(), avaliavel.getHashCode()};
+                metodosAvaliativos.add(metodosAvaliativo);
+            }
+        }
+
+        /*
         Aluno aluno = getAlunoPorId(idAluno);
         Periodo periodo = Applicantion.controladorPeriodo.getPeriodoPorId(idPeriodo);
         MetodologiaNota metodologiaNota = Applicantion.controlladorMetodologiaNota.getCloneMetodologiaPorId(idMetodologia);
@@ -64,6 +76,7 @@ public class ControladorAluno {
             Object[] metodosAvaliativo = {avaliavel.getId(), avaliavel.getNome(), avaliavel.getValor(), avaliavel.getHashCode()};
             metodosAvaliativos.add(metodosAvaliativo);
         }
+        */
         return metodosAvaliativos;
     }
 
@@ -77,27 +90,17 @@ public class ControladorAluno {
         return periodo;
     }
 
-    //TODO: Depois incrementa em aluno os dados do periodo modificado se ele nao tiver periodo ai incrementa se tiver altera.
     public void setMetodosAvaliativosAluno(int idAluno, int idPeriodo, int idMetodologia, String metodologiaHashCode, ArrayList<Object[]> metodosAvaliativos) throws Exception {
         Periodo periodo = getPeriododoDoAlunoPorId(idAluno, idPeriodo);
+        System.out.println("Periodo Clone setar Dados: " + periodo.toString());
         MetodologiaNota metodologiaNota = periodo.getMetodologiaPorHashCode(metodologiaHashCode);
         if(metodologiaNota != null){
-
-
-            for(IValuable avaliavel : metodologiaNota.getAvaliaveis()){
-                System.out.println("Avaliavel Metodologia | Valor: " + avaliavel.getValor() + "metodosAvaliativosHashCode: " + avaliavel.getHashCode());
-            }
-            System.out.println("-------------------------------------------");
-
-
             for (Object[] metodosAvaliativo: metodosAvaliativos) {
                 double valor = Double.parseDouble(metodosAvaliativo[2].toString());
                 String metodosAvaliativosHashCode = metodosAvaliativo[3].toString();
-                System.out.println("Antes | Valor: " + valor + "metodosAvaliativosHashCode: " + metodosAvaliativosHashCode);
                 IValuable avaliavel = metodologiaNota.getMetodoAvaliativoPorHashCode(metodosAvaliativosHashCode);
                 if(avaliavel != null){
                     avaliavel.setValor(valor);
-                    System.out.println("Setando no avaliavel: | Valor: " + avaliavel.getValor() + "metodosAvaliativosHashCode: " + avaliavel.getHashCode());
                 }
             }
         }

@@ -93,8 +93,9 @@ public class MetodologiaNota implements Cloneable {
         return idHash;
     }
 
-    public Object clone() throws CloneNotSupportedException
+    public MetodologiaNota clone() throws CloneNotSupportedException
     {
-        return super.clone();
+        MetodologiaNota m = (MetodologiaNota) super.clone();
+        return m;
     }
 }

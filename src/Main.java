@@ -7,11 +7,6 @@ public class Main {
     }
 
     public static void runApp(){
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new MainFrame();
-            }
-        });
+        SwingUtilities.invokeLater(() -> new MainFrame());
     }
 }

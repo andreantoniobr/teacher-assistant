@@ -1,6 +1,7 @@
 package model;
 
 import id.IdPeriodo;
+import model.valuable.IValuable;
 
 import java.util.ArrayList;
 
@@ -87,6 +88,12 @@ public class Periodo implements Cloneable{
 
     public Object clone() throws CloneNotSupportedException
     {
-        return super.clone();
+        Periodo p = (Periodo) super.clone();
+        ArrayList<MetodologiaNota> newMetodologiaNotas = new ArrayList<>();
+        for (int i = 0; i < metodologiaNotas.size() ; i++) {
+            newMetodologiaNotas.add(metodologiaNotas.get(i).clone());
+        }
+        metodologiaNotas = newMetodologiaNotas;
+        return p;
     }
 }
