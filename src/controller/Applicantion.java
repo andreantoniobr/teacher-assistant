@@ -1,6 +1,6 @@
 package controller;
 
-import data.FileIO;
+import io.FileIO;
 
 public class Applicantion {
     public final static FileIO fileIO = new FileIO();
