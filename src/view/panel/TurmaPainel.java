@@ -37,7 +37,7 @@ public class TurmaPainel extends JPanel {
 
     private void criarInterfaceTurma() {
         setLayout(new BorderLayout());
-        setBorder(new CompoundBorder(new TitledBorder(ViewConstants.TURMA), new EmptyBorder(10, 10, 10, 10)));
+        setBorder(new TextBubbleBorder(new Color(200, 200, 200),1,10,0));
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;

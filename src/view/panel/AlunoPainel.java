@@ -43,7 +43,7 @@ public class AlunoPainel extends JPanel {
 
     private void criarInterfaceAluno() {
         setLayout(new BorderLayout());
-        setBorder(new CompoundBorder(new TitledBorder(ViewConstants.ALUNO), new EmptyBorder(10, 10, 10, 10)));
+        setBorder(new TextBubbleBorder(new Color(200, 200, 200),1,10,0));
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;

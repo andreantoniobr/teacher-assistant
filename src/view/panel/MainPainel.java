@@ -12,19 +12,12 @@ public class MainPainel extends JPanel {
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
 
-
-        //gbc.gridy++;
-        //add((databasePane = new DatabasePane()), gbc);
-        //gbc.gridy++;
-        //add((systemDatabasePane = new SystemDatabasePane()), gbc);
-
         gbc.gridx = 0;
         gbc.gridy = 0;
-        //gbc.gridheight = GridBagConstraints.REMAINDER;
         gbc.fill = GridBagConstraints.VERTICAL;
-        //gbc.anchor = GridBagConstraints.WEST;
         gbc.weighty = 1;
         gbc.weightx = 0;
+        //gbc.insets = new Insets(10, 10, 10, 10);
         add((acoesPanel = new AcoesPainel(cardLayoutOptions)), gbc);
 
 
@@ -33,8 +26,7 @@ public class MainPainel extends JPanel {
         gbc.weightx = 1;
         gbc.weighty = 0.33;
         gbc.fill = GridBagConstraints.BOTH;
-        gbc.insets = new Insets(4, 4, 4, 4);
-        //add((sourcePane = new SourcePane()), gbc);
+        gbc.insets = new Insets(10, 10, 10, 10);
         add((panel), gbc);
     }
 

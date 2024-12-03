@@ -40,7 +40,7 @@ public class PeriodoPainel extends JPanel {
 
     private void criarInterface() {
         setLayout(new BorderLayout());
-        setBorder(new CompoundBorder(new TitledBorder("Período"), new EmptyBorder(10, 10, 10, 10)));
+        setBorder(new TextBubbleBorder(new Color(200, 200, 200),1,10,0));
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;

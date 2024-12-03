@@ -39,7 +39,7 @@ public class MetodologiaNotaPainel extends JPanel {
 
     private void criarInterfaceMetodologia() {
         setLayout(new BorderLayout());
-        setBorder(new CompoundBorder(new TitledBorder("Metodologia de Nota"), new EmptyBorder(10, 10, 10, 10)));
+        setBorder(new TextBubbleBorder(new Color(200, 200, 200),1,10,0));
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
