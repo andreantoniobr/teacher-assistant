@@ -19,6 +19,16 @@ public class JSONWriter {
         this.filePath  = filePath;
     }
 
+    public void writeArrayInFileJson(JSONArray jsonArray){
+        createFileIfNotExist();
+        try{
+            writeFile(jsonArray.toJSONString());
+        }
+        catch (Exception e) {
+            System.err.println("Ocorreu um erro: " + e.getMessage());
+        }
+    }
+
     public void writeObjectInFileJson(JSONObject jsonObject){
         createFileIfNotExist();
         try{
@@ -58,7 +68,7 @@ public class JSONWriter {
     }
 
     private void clearFile(){
-        writeFile("");
+        writeFile("[]");
     }
 
     public void createFileIfNotExist(){

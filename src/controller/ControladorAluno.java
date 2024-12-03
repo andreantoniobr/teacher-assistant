@@ -111,7 +111,7 @@ public class ControladorAluno {
         validarEmail(email);
         Aluno aluno = new Aluno(nome, email);
         inserirAluno(aluno);
-        Applicantion.fileIO.salvarAluno(aluno);
+        Applicantion.fileIO.alunoIO.salvarAluno(aluno);
     }
 
     public void inserirAluno(Aluno aluno) throws Exception {
@@ -124,7 +124,7 @@ public class ControladorAluno {
     public void excluirAluno(int id) throws Exception {
         Aluno aluno = getAlunoPorId(id);
         alunos.remove(aluno);
-        Applicantion.fileIO.excluiAluno(aluno);
+        Applicantion.fileIO.alunoIO.salvarTodosAlunos(alunos);
     }
 
     public void editarAluno(int id, String nome, String email, int idTurma) throws Exception {
@@ -134,7 +134,7 @@ public class ControladorAluno {
         aluno.setNome(nome);
         aluno.setEmail(email);
         aluno.setTurma(Applicantion.controladorTurma.getTurmaPorId(idTurma));
-        Applicantion.fileIO.editaAluno(aluno);
+        Applicantion.fileIO.alunoIO.salvarTodosAlunos(alunos);
     }
 
     private static void validarNomeAluno(String nome) throws Exception {
@@ -168,15 +168,19 @@ public class ControladorAluno {
 
     public void addStartContent(){
         try {
-            Aluno a1 = new Aluno("Andre Antonio Bezerra");
-            Aluno a2 = new Aluno("Paulo Kaike");
-            Aluno a3 = new Aluno("Junior Silva");
-            inserirAluno(a1);
-            inserirAluno(a2);
-            inserirAluno(a3);
-            this.alunos.addAll(Applicantion.fileIO.getAlunosSalvos());
+            //addStartAlunos();
+            this.alunos.addAll(Applicantion.fileIO.alunoIO.getAlunosSalvos());
         } catch (Exception e){
             System.out.println(e.getMessage());
         }
+    }
+
+    private void addStartAlunos() throws Exception {
+        Aluno a1 = new Aluno("Andre Antonio Bezerra");
+        Aluno a2 = new Aluno("Paulo Kaike");
+        Aluno a3 = new Aluno("Junior Silva");
+        inserirAluno(a1);
+        inserirAluno(a2);
+        inserirAluno(a3);
     }
 }

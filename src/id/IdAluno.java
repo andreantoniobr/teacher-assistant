@@ -7,4 +7,10 @@ public class IdAluno {
         IdAluno.id++;
         return  IdAluno.id;
     }
+
+    public static void setId(int id){
+        if(id > IdAluno.id){
+            IdAluno.id = id;
+        }
+    }
 }

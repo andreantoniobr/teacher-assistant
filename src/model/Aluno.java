@@ -22,6 +22,7 @@ public class Aluno extends Pessoa {
 
     public Aluno(int id, String nome, String email) {
         super(id, nome, email, Perfil.ALUNO);
+        IdAluno.setId(id);
     }
 
     public ArrayList<Periodo> getPeriodos() {
