@@ -1,13 +1,12 @@
 package io;
 
-import model.Aluno;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-
-import java.util.ArrayList;
+import io.json.AlunoJsonIO;
+import io.json.TurmaJsonIO;
 
 public class FileIO {
-    private final static String filePathAluno = "files/json/aluno.json";
+    private final static String FILE_PATH_ALUNO = "files/json/aluno.json";
+    private final static String FILE_PATH_TURMA = "files/json/turma.json";
 
-    public final static AlunoIO alunoIO = new AlunoIO(filePathAluno);
+    public final static AlunoJsonIO ALUNO_JSON_IO = new AlunoJsonIO(FILE_PATH_ALUNO);
+    public final static TurmaJsonIO TURMA_JSON_IO = new TurmaJsonIO(FILE_PATH_TURMA);
 }

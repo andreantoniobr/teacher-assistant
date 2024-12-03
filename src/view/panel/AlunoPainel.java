@@ -9,9 +9,6 @@ import view.frame.EditarNotasAlunoFrame;
 import view.frame.VisualizarNotasPeriodoFrame;
 
 import javax.swing.*;
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.ArrayList;
@@ -100,7 +97,7 @@ public class AlunoPainel extends JPanel {
 
     private void adicionarAluno() {
         try {
-            Applicantion.controladorAluno.inserirAluno(getNome(), getEmail());
+            Applicantion.CONTROLADOR_ALUNO.inserirAluno(getNome(), getEmail());
             atualizaTabela();
         } catch (Exception e){
             Mensagem.showMensagem(e.getMessage());
@@ -114,7 +111,7 @@ public class AlunoPainel extends JPanel {
             if (linha >= 0) {
                 idAluno = Integer.parseInt(tabela.getValueAt(linha, 0).toString());
                 String nome = tabela.getValueAt(linha, 1).toString();
-                Applicantion.controladorAluno.excluirAluno(idAluno);
+                Applicantion.CONTROLADOR_ALUNO.excluirAluno(idAluno);
                 atualizaTabela();
                 Mensagem.showMensagem("Aluno: " + nome + " com Id: " + idAluno + " foi excluido com sucesso!");
             } else {
@@ -142,7 +139,7 @@ public class AlunoPainel extends JPanel {
 
     private void editarAlunoNovoFrame() {
         try {
-            Object[] dadoAluno = Applicantion.controladorAluno.getDadosAlunoPorId(idAluno);
+            Object[] dadoAluno = Applicantion.CONTROLADOR_ALUNO.getDadosAlunoPorId(idAluno);
             EditarAlunoFrame editarAlunoFrame = new EditarAlunoFrame(dadoAluno);
             editarAlunoFrame.getSalvar().addActionListener(e -> {
                 try {
@@ -150,7 +147,7 @@ public class AlunoPainel extends JPanel {
                     String novoEmail = editarAlunoFrame.getEmail();
                     Object item = editarAlunoFrame.getComboBox().getSelectedItem();
                     int idTurma = ((ComboItem)item).getId();
-                    Applicantion.controladorAluno.editarAluno(idAluno, novoNome, novoEmail, idTurma);
+                    Applicantion.CONTROLADOR_ALUNO.editarAluno(idAluno, novoNome, novoEmail, idTurma);
                     editarAlunoFrame.dispose();
                     atualizaTabela();
                     Mensagem.showMensagem("Aluno: " + novoNome + " com Id: " + idAluno + " foi alterado com sucesso!");
@@ -170,7 +167,7 @@ public class AlunoPainel extends JPanel {
             if (linha >= 0) {
                 idAluno = Integer.parseInt(tabela.getValueAt(linha, 0).toString());
                 VisualizarNotasPeriodoFrame visualizarNotasPeriodoFrame = new VisualizarNotasPeriodoFrame();
-                ArrayList<Object[]> dadosNotas = Applicantion.controladorAluno.getNotasAlunoPorId(idAluno);
+                ArrayList<Object[]> dadosNotas = Applicantion.CONTROLADOR_ALUNO.getNotasAlunoPorId(idAluno);
                 visualizarNotasPeriodoFrame.atualizaTabela(dadosNotas);
             } else {
                 Mensagem.showMensagem(ViewConstants.NECESSARIOSELECIONARLINHA);
@@ -186,7 +183,7 @@ public class AlunoPainel extends JPanel {
             int linha = tabela.getSelectedRow();
             if (linha >= 0) {
                 idAluno = Integer.parseInt(tabela.getValueAt(linha, 0).toString());
-                Object[] dadoAluno = Applicantion.controladorAluno.getDadosAlunoPorId(idAluno);
+                Object[] dadoAluno = Applicantion.CONTROLADOR_ALUNO.getDadosAlunoPorId(idAluno);
                 EditarNotasAlunoFrame editarNotasAlunoFrame = new EditarNotasAlunoFrame(dadoAluno);
                 adicionarActionListenerPeriodoComboBox(editarNotasAlunoFrame);
                 adicionarListenerBotaoAdicionarNota(editarNotasAlunoFrame);
@@ -206,7 +203,7 @@ public class AlunoPainel extends JPanel {
                 Object item = periodoComboBox.getSelectedItem();
                 idPeriodo = ((ComboItem)item).getId();
                 if(idPeriodo > 0){
-                    editarNotasAlunoFrame.popularMetodologiasComboBox(Applicantion.controladorPeriodo.getMetodologiasPorId(idPeriodo));
+                    editarNotasAlunoFrame.popularMetodologiasComboBox(Applicantion.CONTROLADOR_PERIODO.getMetodologiasPorId(idPeriodo));
                 } else {
                     editarNotasAlunoFrame.removerTodasMetodologias();
                 }
@@ -225,7 +222,7 @@ public class AlunoPainel extends JPanel {
                 System.out.println("IdAluno: " + idAluno + "IdPeriodo: " + idPeriodo+ "IdMetodologia: " + idMetodologia);
 
                 EditarAvaliaveisFrame editarAvaliaveisFrame = new EditarAvaliaveisFrame();
-                ArrayList<Object[]> metodosAvaliativos = Applicantion.controladorAluno.getMetodosAvaliativosAlunoPorId(idAluno, idPeriodo, idMetodologia, hashCodeMetodologia);
+                ArrayList<Object[]> metodosAvaliativos = Applicantion.CONTROLADOR_ALUNO.getMetodosAvaliativosAlunoPorId(idAluno, idPeriodo, idMetodologia, hashCodeMetodologia);
                 if(metodosAvaliativos != null && !metodosAvaliativos.isEmpty()) {
                     editarAvaliaveisFrame.alualizaMetodosAvaliativos(metodosAvaliativos);
                     adicionarActionListenerSalvarNotas(editarAvaliaveisFrame);
@@ -241,7 +238,7 @@ public class AlunoPainel extends JPanel {
             try
             {
                 ArrayList<Object[]> metodosAvaliativos = editarAvaliaveisFrame.getValoresMetodosAvaliativos();
-                Applicantion.controladorAluno.setMetodosAvaliativosAluno(idAluno, idPeriodo, idMetodologia, hashCodeMetodologia, metodosAvaliativos);
+                Applicantion.CONTROLADOR_ALUNO.setMetodosAvaliativosAluno(idAluno, idPeriodo, idMetodologia, hashCodeMetodologia, metodosAvaliativos);
                 editarAvaliaveisFrame.dispose();
                 System.out.println("Valores de metodologia salvos com sucesso!");
             } catch (Exception ex) {
@@ -262,7 +259,7 @@ public class AlunoPainel extends JPanel {
     }
 
     private void preencheTabela(){
-        for (Object[] dadoAluno: Applicantion.controladorAluno.getDadosAlunos()){
+        for (Object[] dadoAluno: Applicantion.CONTROLADOR_ALUNO.getDadosAlunos()){
             modelo.addRow(dadoAluno);
         }
     }

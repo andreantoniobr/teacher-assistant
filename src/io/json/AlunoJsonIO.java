@@ -1,4 +1,4 @@
-package io;
+package io.json;
 
 import model.Aluno;
 import org.json.simple.JSONArray;
@@ -6,10 +6,10 @@ import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
 
-public class AlunoIO {
+public class AlunoJsonIO {
     private final String filePath;
 
-    public AlunoIO(String filePath) {
+    public AlunoJsonIO(String filePath) {
         this.filePath = filePath;
     }
 
@@ -24,7 +24,7 @@ public class AlunoIO {
         }
     }
 
-    public void salvarTodosAlunos(ArrayList<Aluno> alunos){
+    public void salvarAlunos(ArrayList<Aluno> alunos){
         try{
             JSONArray alunosJsonArray = new JSONArray();
             JSONWriter jsonWriter = new JSONWriter(filePath);
@@ -71,10 +71,10 @@ public class AlunoIO {
     public Aluno getAlunoFromJsonObject(JSONObject jsonObject){
         Aluno aluno = null;
         if(jsonObject != null){
-            int alunoId = Integer.parseInt(jsonObject.get("id").toString());
-            String alunoNome = (String) jsonObject.get("nome");
-            String alunoEmail = (String) jsonObject.get("email");
-            aluno = new Aluno(alunoId, alunoNome, alunoEmail);
+            int id = Integer.parseInt(jsonObject.get("id").toString());
+            String nome = (String) jsonObject.get("nome");
+            String email = (String) jsonObject.get("email");
+            aluno = new Aluno(id, nome, email);
         }
         return aluno;
     }

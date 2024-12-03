@@ -157,7 +157,7 @@ public class EditorPeriodoFrame extends DependentFrame {
     private void popularComboBox() {
         try
         {
-            for(Object[] object : Applicantion.controlladorMetodologiaNota.getDadosMetodologias()){
+            for(Object[] object : Applicantion.CONTROLLADOR_METODOLOGIA_NOTA.getDadosMetodologias()){
                 int id = (int) object[0];
                 String nomeMetodologia = object[1].toString();
                 metodologiasComboBox.addItem(new ComboItem(id, nomeMetodologia));

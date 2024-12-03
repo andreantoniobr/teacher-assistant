@@ -4,13 +4,9 @@ import controller.Applicantion;
 import view.components.*;
 import view.components.TextField;
 import view.constants.ViewConstants;
-import view.frame.EditarMetodologiaNotaFrame;
 import view.frame.EditorPeriodoFrame;
 
 import javax.swing.*;
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.ArrayList;
@@ -89,7 +85,7 @@ public class PeriodoPainel extends JPanel {
 
     private void adicionarPeriodo() {
         try {
-            Applicantion.controladorPeriodo.inserirPeriodo(getNome());
+            Applicantion.CONTROLADOR_PERIODO.inserirPeriodo(getNome());
             atualizaTabela();
         } catch (Exception e){
             Mensagem.showMensagem(e.getMessage());
@@ -103,7 +99,7 @@ public class PeriodoPainel extends JPanel {
             if (linha >= 0) {
                 int id = Integer.parseInt(tabela.getValueAt(linha, 0).toString());
                 String nome = tabela.getValueAt(linha, 1).toString();
-                Applicantion.controladorPeriodo.excluirPeriodo(id);
+                Applicantion.CONTROLADOR_PERIODO.excluirPeriodo(id);
                 atualizaTabela();
                 Mensagem.showMensagem("Período: " + nome + " com Id: " + id + " foi excluido com sucesso!");
             } else {
@@ -147,7 +143,7 @@ public class PeriodoPainel extends JPanel {
             try {
                 Object item = editorPeriodoFrame.getMetodologiasComboBox().getSelectedItem();
                 int idMetodologia = ((ComboItem)item).getId();
-                Applicantion.controladorPeriodo.inserirMetodologiaPorID(id, idMetodologia);
+                Applicantion.CONTROLADOR_PERIODO.inserirMetodologiaPorID(id, idMetodologia);
                 atualizarMetodologias(id, editorPeriodoFrame);
             } catch (Exception ex) {
                 Mensagem.showMensagem(ex.getMessage());
@@ -162,7 +158,7 @@ public class PeriodoPainel extends JPanel {
                 if (linha >= 0) {
                     String nome = editorPeriodoFrame.getTabela().getValueAt(linha, 1).toString();
                     String hashCode = editorPeriodoFrame.getTabela().getValueAt(linha, 2).toString();
-                    Applicantion.controladorPeriodo.removerMetodologiaPorHashCode(id, hashCode);
+                    Applicantion.CONTROLADOR_PERIODO.removerMetodologiaPorHashCode(id, hashCode);
                     atualizarMetodologias(id, editorPeriodoFrame);
                     Mensagem.showMensagem("Metodologia: " + nome + " com Hash Code: " + hashCode + " foi excluída com sucesso!");
                 } else {
@@ -175,7 +171,7 @@ public class PeriodoPainel extends JPanel {
     }
 
     private void atualizarMetodologias(int id, EditorPeriodoFrame editorPeriodoFrame) throws Exception {
-        ArrayList<Object[]> dadosMetodosAvaliativos = Applicantion.controladorPeriodo.getMetodologiasPorId(id);
+        ArrayList<Object[]> dadosMetodosAvaliativos = Applicantion.CONTROLADOR_PERIODO.getMetodologiasPorId(id);
         editorPeriodoFrame.atualizaTabela(dadosMetodosAvaliativos);
     }
 
@@ -183,7 +179,7 @@ public class PeriodoPainel extends JPanel {
         editorPeriodoFrame.getBotaoSalvar().addActionListener(e -> {
             try {
                 String novoNome = editorPeriodoFrame.getNome();
-                Applicantion.controladorPeriodo.editarPeriodo(id, novoNome);
+                Applicantion.CONTROLADOR_PERIODO.editarPeriodo(id, novoNome);
                 editorPeriodoFrame.dispose();
                 atualizaTabela();
                 Mensagem.showMensagem("Período: " + novoNome + " com Id: " + id + " foi alterado com sucesso!");
@@ -203,7 +199,7 @@ public class PeriodoPainel extends JPanel {
     }
 
     private void preencheTabela(){
-        for (Object[] dadoPeriodo: Applicantion.controladorPeriodo.getDadosPeriodos()){
+        for (Object[] dadoPeriodo: Applicantion.CONTROLADOR_PERIODO.getDadosPeriodos()){
             modelo.addRow(dadoPeriodo);
         }
     }

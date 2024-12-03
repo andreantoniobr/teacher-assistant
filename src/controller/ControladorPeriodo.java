@@ -68,7 +68,7 @@ public class ControladorPeriodo {
 
     public void inserirMetodologiaPorID(int id, int idMetodologia) throws Exception {
         Periodo periodo = getPeriodoPorId(id);
-        periodo.adicionarMetodologiaNota(Applicantion.controlladorMetodologiaNota.getCloneMetodologiaPorId(idMetodologia));
+        periodo.adicionarMetodologiaNota(Applicantion.CONTROLLADOR_METODOLOGIA_NOTA.getCloneMetodologiaPorId(idMetodologia));
     }
 
     public void removerMetodologiaPorHashCode(int id, String metodologiaHashCode) throws Exception {

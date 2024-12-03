@@ -97,7 +97,7 @@ public class EditarNotasAlunoFrame extends DependentFrame {
         try
         {
             periodoComboBox.addItem(new ComboItem(-1, "Nenhum Periodo Selecionado"));
-            for(Object[] object : Applicantion.controladorPeriodo.getDadosPeriodos()){
+            for(Object[] object : Applicantion.CONTROLADOR_PERIODO.getDadosPeriodos()){
                 int id = (int) object[0];
                 String nome = object[1].toString();
                 ComboItem item = new ComboItem(id, nome);

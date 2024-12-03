@@ -1,5 +1,6 @@
 package controller;
 
+import io.FileIO;
 import model.Turma;
 import java.util.ArrayList;
 
@@ -39,7 +40,7 @@ public class ControladorTurma {
         }
         Turma turma = new Turma(nome);
         turmas.add(turma);
-        //Applicantion.fileIO.salvarTurma(turma);
+        FileIO.TURMA_JSON_IO.salvarTurma(turma);
     }
 
     public void inserirTurma(Turma turma) throws Exception {
@@ -52,7 +53,7 @@ public class ControladorTurma {
     public void excluirTurma(int id) throws Exception {
         Turma turma = getTurmaPorId(id);
         turmas.remove(turma);
-        //Applicantion.fileIO.excluiTurma(turma);
+        FileIO.TURMA_JSON_IO.salvarTurmas(turmas);
     }
 
     public void editarTurma(int id, String nome) throws Exception {
@@ -64,7 +65,7 @@ public class ControladorTurma {
             throw new Exception("Nome de turma não foi alterado, pois é igual ao anterior!");
         }
         turma.setNome(nome);
-        //Applicantion.fileIO.editarTurma(turma);
+        FileIO.TURMA_JSON_IO.salvarTurmas(turmas);
     }
 
     public Turma getTurmaPorId(int id) throws Exception {
@@ -86,9 +87,7 @@ public class ControladorTurma {
 
     public void addStartContent(){
         try {
-            inserirTurma("Turma A");
-            inserirTurma("Turma B");
-            //this.turmas.addAll(Applicantion.fileIO.getTurmasSalvas());
+            this.turmas.addAll(FileIO.TURMA_JSON_IO.getTurmasSalvas());
         } catch (Exception e){
             System.out.println(e.getMessage());
         }

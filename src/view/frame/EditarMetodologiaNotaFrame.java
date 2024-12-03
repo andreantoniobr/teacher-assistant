@@ -3,7 +3,7 @@ package view.frame;
 import controller.Applicantion;
 import view.components.*;
 import view.components.TextField;
-import view.constants.ViewConstants;
+
 import javax.swing.*;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
@@ -158,7 +158,7 @@ public class EditarMetodologiaNotaFrame extends DependentFrame {
     private void popularComboBox() {
         try
         {
-            for(Object[] object : Applicantion.controladorMetodoAvaliativo.getDadosMetodosAvaliativos()){
+            for(Object[] object : Applicantion.CONTROLADOR_METODO_AVALIATIVO.getDadosMetodosAvaliativos()){
                 int id = (int) object[0];
                 String tipoAvaliacao = object[1].toString();
                 metodosAvaliativos.addItem(new ComboItem(id, tipoAvaliacao));

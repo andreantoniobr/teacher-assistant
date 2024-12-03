@@ -71,7 +71,7 @@ public class ControlladorMetodologiaNota {
 
     public void inserirMetodoAvaliativoPorID(int id, int idMetodoAvaliativo) throws Exception {
         MetodologiaNota metodologiaNota = getMetodologiaPorId(id);
-        metodologiaNota.adicionarMedotoAvaliativo(Applicantion.controladorMetodoAvaliativo.getCloneMetodoAvaliativoPorId(idMetodoAvaliativo));
+        metodologiaNota.adicionarMedotoAvaliativo(Applicantion.CONTROLADOR_METODO_AVALIATIVO.getCloneMetodoAvaliativoPorId(idMetodoAvaliativo));
         //Applicantion.fileIO.excluiMetodologia(metodologiaNota);
     }
 

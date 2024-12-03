@@ -1,5 +1,6 @@
 package controller;
 
+import io.FileIO;
 import model.Aluno;
 import model.MetodologiaNota;
 import model.Periodo;
@@ -66,17 +67,6 @@ public class ControladorAluno {
                 metodosAvaliativos.add(metodosAvaliativo);
             }
         }
-
-        /*
-        Aluno aluno = getAlunoPorId(idAluno);
-        Periodo periodo = Applicantion.controladorPeriodo.getPeriodoPorId(idPeriodo);
-        MetodologiaNota metodologiaNota = Applicantion.controlladorMetodologiaNota.getCloneMetodologiaPorId(idMetodologia);
-        ArrayList<Object[]> metodosAvaliativos = new ArrayList<>();
-        for (IValuable avaliavel: metodologiaNota.getAvaliaveis()) {
-            Object[] metodosAvaliativo = {avaliavel.getId(), avaliavel.getNome(), avaliavel.getValor(), avaliavel.getHashCode()};
-            metodosAvaliativos.add(metodosAvaliativo);
-        }
-        */
         return metodosAvaliativos;
     }
 
@@ -84,7 +74,7 @@ public class ControladorAluno {
         Aluno aluno = getAlunoPorId(idAluno);
         Periodo periodo = aluno.getPeriodoPorId(idPeriodo);
         if(periodo == null){
-            periodo = Applicantion.controladorPeriodo.getClonePeriodoPorId(idPeriodo);
+            periodo = Applicantion.CONTROLADOR_PERIODO.getClonePeriodoPorId(idPeriodo);
             aluno.adicionarPeriodo(periodo);
         }
         return periodo;
@@ -111,7 +101,7 @@ public class ControladorAluno {
         validarEmail(email);
         Aluno aluno = new Aluno(nome, email);
         inserirAluno(aluno);
-        Applicantion.fileIO.alunoIO.salvarAluno(aluno);
+        FileIO.ALUNO_JSON_IO.salvarAluno(aluno);
     }
 
     public void inserirAluno(Aluno aluno) throws Exception {
@@ -124,7 +114,7 @@ public class ControladorAluno {
     public void excluirAluno(int id) throws Exception {
         Aluno aluno = getAlunoPorId(id);
         alunos.remove(aluno);
-        Applicantion.fileIO.alunoIO.salvarTodosAlunos(alunos);
+        FileIO.ALUNO_JSON_IO.salvarAlunos(alunos);
     }
 
     public void editarAluno(int id, String nome, String email, int idTurma) throws Exception {
@@ -133,8 +123,8 @@ public class ControladorAluno {
         Aluno aluno = getAlunoPorId(id);
         aluno.setNome(nome);
         aluno.setEmail(email);
-        aluno.setTurma(Applicantion.controladorTurma.getTurmaPorId(idTurma));
-        Applicantion.fileIO.alunoIO.salvarTodosAlunos(alunos);
+        aluno.setTurma(Applicantion.CONTROLADOR_TURMA.getTurmaPorId(idTurma));
+        FileIO.ALUNO_JSON_IO.salvarAlunos(alunos);
     }
 
     private static void validarNomeAluno(String nome) throws Exception {
@@ -168,19 +158,9 @@ public class ControladorAluno {
 
     public void addStartContent(){
         try {
-            //addStartAlunos();
-            this.alunos.addAll(Applicantion.fileIO.alunoIO.getAlunosSalvos());
+            this.alunos.addAll(FileIO.ALUNO_JSON_IO.getAlunosSalvos());
         } catch (Exception e){
             System.out.println(e.getMessage());
         }
-    }
-
-    private void addStartAlunos() throws Exception {
-        Aluno a1 = new Aluno("Andre Antonio Bezerra");
-        Aluno a2 = new Aluno("Paulo Kaike");
-        Aluno a3 = new Aluno("Junior Silva");
-        inserirAluno(a1);
-        inserirAluno(a2);
-        inserirAluno(a3);
     }
 }

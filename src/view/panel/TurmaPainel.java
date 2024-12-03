@@ -6,9 +6,6 @@ import view.constants.ViewConstants;
 import view.frame.EditarTurmaFrame;
 
 import javax.swing.*;
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
@@ -86,7 +83,7 @@ public class TurmaPainel extends JPanel {
 
     private void adicionarTurma() {
         try {
-            Applicantion.controladorTurma.inserirTurma(getNome());
+            Applicantion.CONTROLADOR_TURMA.inserirTurma(getNome());
             atualizaTabela();
         } catch (Exception e){
             Mensagem.showMensagem(e.getMessage());
@@ -100,7 +97,7 @@ public class TurmaPainel extends JPanel {
             if (linha >= 0) {
                 int id = Integer.parseInt(tabela.getValueAt(linha, 0).toString());
                 String nome = tabela.getValueAt(linha, 1).toString();
-                Applicantion.controladorTurma.excluirTurma(id);
+                Applicantion.CONTROLADOR_TURMA.excluirTurma(id);
                 atualizaTabela();
                 Mensagem.showMensagem("Turma: " + nome + " com Id: " + id + " foi excluida com sucesso!");
             } else {
@@ -132,7 +129,7 @@ public class TurmaPainel extends JPanel {
         editarTurmaFrame.getSalvar().addActionListener(e -> {
             try {
                 String novoNome = editarTurmaFrame.getNome();
-                Applicantion.controladorTurma.editarTurma(id, novoNome);
+                Applicantion.CONTROLADOR_TURMA.editarTurma(id, novoNome);
                 editarTurmaFrame.dispose();
                 atualizaTabela();
                 Mensagem.showMensagem("Turma: " + novoNome + " com Id: " + id + " foi alterada com sucesso!");
@@ -152,7 +149,7 @@ public class TurmaPainel extends JPanel {
     }
 
     private void preencheTabela(){
-        for (Object[] dadoTurma: Applicantion.controladorTurma.getDadosTurmas()){
+        for (Object[] dadoTurma: Applicantion.CONTROLADOR_TURMA.getDadosTurmas()){
             modelo.addRow(dadoTurma);
         }
     }

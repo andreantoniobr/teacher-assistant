@@ -98,7 +98,7 @@ public class EditarAlunoFrame extends DependentFrame {
     private void popularComboBox() {
         try
         {
-            for(Object[] object : Applicantion.controladorTurma.getDadosTurmas()){
+            for(Object[] object : Applicantion.CONTROLADOR_TURMA.getDadosTurmas()){
                 int id = (int) object[0];
                 String nomeTurma = object[1].toString();
                 ComboItem item = new ComboItem(id, nomeTurma);

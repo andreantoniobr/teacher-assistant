@@ -7,9 +7,6 @@ import view.constants.ViewConstants;
 import view.frame.EditarMetodologiaNotaFrame;
 
 import javax.swing.*;
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.ArrayList;
@@ -86,7 +83,7 @@ public class MetodologiaNotaPainel extends JPanel {
 
     private void adicionarMetodologia() {
         try {
-            Applicantion.controlladorMetodologiaNota.inserirMetodologia(getNome());
+            Applicantion.CONTROLLADOR_METODOLOGIA_NOTA.inserirMetodologia(getNome());
             atualizaTabela();
         } catch (Exception e){
             Mensagem.showMensagem(e.getMessage());
@@ -100,7 +97,7 @@ public class MetodologiaNotaPainel extends JPanel {
             if (linha >= 0) {
                 int id = Integer.parseInt(tabela.getValueAt(linha, 0).toString());
                 String nome = tabela.getValueAt(linha, 1).toString();
-                Applicantion.controlladorMetodologiaNota.excluirMedotologia(id);
+                Applicantion.CONTROLLADOR_METODOLOGIA_NOTA.excluirMedotologia(id);
                 atualizaTabela();
                 Mensagem.showMensagem("Metodologia: " + nome + " com Id: " + id + " foi excluida com sucesso!");
             } else {
@@ -144,7 +141,7 @@ public class MetodologiaNotaPainel extends JPanel {
             try {
                 Object item = editarMetodologiaNotaFrame.getMetodosAvaliativos().getSelectedItem();
                 int idMetodoAvaliativo = ((ComboItem)item).getId();
-                Applicantion.controlladorMetodologiaNota.inserirMetodoAvaliativoPorID(id, idMetodoAvaliativo);
+                Applicantion.CONTROLLADOR_METODOLOGIA_NOTA.inserirMetodoAvaliativoPorID(id, idMetodoAvaliativo);
                 atualizarMetodosAvaliativos(id, editarMetodologiaNotaFrame);
             } catch (Exception ex) {
                 Mensagem.showMensagem(ex.getMessage());
@@ -159,7 +156,7 @@ public class MetodologiaNotaPainel extends JPanel {
                 if (linha >= 0) {
                     String nome = editarMetodologiaNotaFrame.getTabela().getValueAt(linha, 1).toString();
                     String hashCode = editarMetodologiaNotaFrame.getTabela().getValueAt(linha, 2).toString();
-                    Applicantion.controlladorMetodologiaNota.removerMetodoAvaliativoPorHashCode(id, hashCode);
+                    Applicantion.CONTROLLADOR_METODOLOGIA_NOTA.removerMetodoAvaliativoPorHashCode(id, hashCode);
                     atualizarMetodosAvaliativos(id, editarMetodologiaNotaFrame);
                     Mensagem.showMensagem("Método avaliativo: " + nome + " com Hash Code: " + hashCode + " foi excluído com sucesso!");
                 } else {
@@ -172,7 +169,7 @@ public class MetodologiaNotaPainel extends JPanel {
     }
 
     private void atualizarMetodosAvaliativos(int id, EditarMetodologiaNotaFrame editarMetodologiaNotaFrame) throws Exception {
-        ArrayList<Object[]> dadosMetodosAvaliativos = Applicantion.controlladorMetodologiaNota.getMetodosAvaliativosPorId(id);
+        ArrayList<Object[]> dadosMetodosAvaliativos = Applicantion.CONTROLLADOR_METODOLOGIA_NOTA.getMetodosAvaliativosPorId(id);
         editarMetodologiaNotaFrame.atualizaTabela(dadosMetodosAvaliativos);
     }
 
@@ -180,7 +177,7 @@ public class MetodologiaNotaPainel extends JPanel {
         editarMetodologiaNotaFrame.getBotaoSalvar().addActionListener(e -> {
             try {
                 String novoNome = editarMetodologiaNotaFrame.getNome();
-                Applicantion.controlladorMetodologiaNota.editarMetodologia(id, novoNome);
+                Applicantion.CONTROLLADOR_METODOLOGIA_NOTA.editarMetodologia(id, novoNome);
                 editarMetodologiaNotaFrame.dispose();
                 atualizaTabela();
                 Mensagem.showMensagem("Metodologia: " + novoNome + " com Id: " + id + " foi alterada com sucesso!");
@@ -200,7 +197,7 @@ public class MetodologiaNotaPainel extends JPanel {
     }
 
     private void preencheTabela(){
-        for (Object[] dadoMetodologia: Applicantion.controlladorMetodologiaNota.getDadosMetodologias()){
+        for (Object[] dadoMetodologia: Applicantion.CONTROLLADOR_METODOLOGIA_NOTA.getDadosMetodologias()){
             modelo.addRow(dadoMetodologia);
         }
     }
