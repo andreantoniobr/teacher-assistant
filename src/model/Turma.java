@@ -1,5 +1,6 @@
 package model;
 
+import id.IdAluno;
 import id.IdTurma;
 
 public class Turma {
@@ -14,6 +15,7 @@ public class Turma {
     public Turma(int id, String nome) {
         this.id = id;
         this.nome = nome;
+        IdTurma.setId(id);
     }
 
     public String getNome() {

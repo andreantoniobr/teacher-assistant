@@ -26,7 +26,7 @@ public class MainPainel extends JPanel {
         gbc.weightx = 1;
         gbc.weighty = 0.33;
         gbc.fill = GridBagConstraints.BOTH;
-        gbc.insets = new Insets(10, 10, 10, 10);
+        //gbc.insets = new Insets(10, 10, 10, 10);
         add((panel), gbc);
     }
 

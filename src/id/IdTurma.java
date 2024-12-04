@@ -7,4 +7,10 @@ public class IdTurma {
         IdTurma.id++;
         return  IdTurma.id;
     }
+
+    public static void setId(int id){
+        if(id > IdTurma.id){
+            IdTurma.id = id;
+        }
+    }
 }
