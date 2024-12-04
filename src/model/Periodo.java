@@ -1,5 +1,6 @@
 package model;
 
+import id.IdAluno;
 import id.IdPeriodo;
 import model.valuable.IValuable;
 
@@ -18,6 +19,7 @@ public class Periodo implements Cloneable{
     public Periodo(int id, String nome) {
         this.id = id;
         this.nome = nome;
+        IdPeriodo.setId(id);
     }
 
     public Periodo(String nome, ArrayList<MetodologiaNota> metodologiaNotas) {
@@ -30,6 +32,7 @@ public class Periodo implements Cloneable{
         this.id = id;
         this.nome = nome;
         this.metodologiaNotas = metodologiaNotas;
+        IdPeriodo.setId(id);
     }
 
     public int getId() {

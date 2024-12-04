@@ -10,6 +10,7 @@ public class Aluno extends Pessoa {
 
     public Aluno(int id, String nome) {
         super(id, nome, Perfil.ALUNO);
+        IdAluno.setId(id);
     }
 
     public Aluno(String nome) {
