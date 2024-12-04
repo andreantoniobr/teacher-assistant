@@ -49,7 +49,8 @@ public class ControladorAluno {
         ArrayList<Object[]> notas = new ArrayList<>();
         for (Periodo periodo: aluno.getPeriodos()) {
             for(MetodologiaNota metodologiaNota: periodo.getNotas()){
-                Object[] nota = {periodo.getNome() + " " + periodo.getHashCode(), metodologiaNota.getNome() + " " + metodologiaNota.getHashCode(), metodologiaNota.valorTotal()};
+                //Object[] nota = {periodo.getNome() + " " + periodo.getHashCode(), metodologiaNota.getNome() + " " + metodologiaNota.getHashCode(), metodologiaNota.valorTotal()};
+                Object[] nota = {periodo.getNome(), metodologiaNota.getNome(), metodologiaNota.valorTotal()};
                 notas.add(nota);
             }
         }
